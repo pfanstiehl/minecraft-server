@@ -1,0 +1,174 @@
+// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
+// Jad home page: http://www.kpdus.com/jad.html
+// Decompiler options: packimports(3) braces deadcode fieldsfirst 
+
+package net.minecraft.src;
+
+import java.io.PrintStream;
+import java.util.HashMap;
+import java.util.Map;
+
+// Referenced classes of package net.minecraft.src:
+//            NBTTagCompound, World, TileEntityFurnace, TileEntityChest, 
+//            TileEntityRecordPlayer, TileEntityDispenser, TileEntitySign, TileEntityMobSpawner, 
+//            TileEntityNote, TileEntityPiston, TileEntityBrewingStand, TileEntityEnchantmentTable, 
+//            TileEntityEndPortal, Block, Packet
+
+public class TileEntity
+{
+
+    private static Map nameToClassMap = new HashMap();
+    private static Map classToNameMap = new HashMap();
+    public World worldObj;
+    public int xCoord;
+    public int yCoord;
+    public int zCoord;
+    protected boolean tileEntityInvalid;
+    public int blockMetadata;
+    public Block field_35166_o;
+
+    public TileEntity()
+    {
+        blockMetadata = -1;
+    }
+
+    private static void addMapping(Class class1, String s)
+    {
+        if(classToNameMap.containsKey(s))
+        {
+            throw new IllegalArgumentException((new StringBuilder()).append("Duplicate id: ").append(s).toString());
+        } else
+        {
+            nameToClassMap.put(s, class1);
+            classToNameMap.put(class1, s);
+            return;
+        }
+    }
+
+    public void readFromNBT(NBTTagCompound nbttagcompound)
+    {
+        xCoord = nbttagcompound.getInteger("x");
+        yCoord = nbttagcompound.getInteger("y");
+        zCoord = nbttagcompound.getInteger("z");
+    }
+
+    public void writeToNBT(NBTTagCompound nbttagcompound)
+    {
+        String s = (String)classToNameMap.get(getClass());
+        if(s == null)
+        {
+            throw new RuntimeException((new StringBuilder()).append(getClass()).append(" is missing a mapping! This is a bug!").toString());
+        } else
+        {
+            nbttagcompound.setString("id", s);
+            nbttagcompound.setInteger("x", xCoord);
+            nbttagcompound.setInteger("y", yCoord);
+            nbttagcompound.setInteger("z", zCoord);
+            return;
+        }
+    }
+
+    public void updateEntity()
+    {
+    }
+
+    public static TileEntity createAndLoadEntity(NBTTagCompound nbttagcompound)
+    {
+        TileEntity tileentity = null;
+        try
+        {
+            Class class1 = (Class)nameToClassMap.get(nbttagcompound.getString("id"));
+            if(class1 != null)
+            {
+                tileentity = (TileEntity)class1.newInstance();
+            }
+        }
+        catch(Exception exception)
+        {
+            exception.printStackTrace();
+        }
+        if(tileentity != null)
+        {
+            tileentity.readFromNBT(nbttagcompound);
+        } else
+        {
+            System.out.println((new StringBuilder()).append("Skipping TileEntity with id ").append(nbttagcompound.getString("id")).toString());
+        }
+        return tileentity;
+    }
+
+    public int getBlockMetadata()
+    {
+        if(blockMetadata == -1)
+        {
+            blockMetadata = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
+        }
+        return blockMetadata;
+    }
+
+    public void onInventoryChanged()
+    {
+        if(worldObj != null)
+        {
+            blockMetadata = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
+            worldObj.updateTileEntityChunkAndDoNothing(xCoord, yCoord, zCoord, this);
+        }
+    }
+
+    public Packet getDescriptionPacket()
+    {
+        return null;
+    }
+
+    public boolean isInvalid()
+    {
+        return tileEntityInvalid;
+    }
+
+    public void invalidate()
+    {
+        tileEntityInvalid = true;
+    }
+
+    public void validate()
+    {
+        tileEntityInvalid = false;
+    }
+
+    public void func_35163_b(int i, int j)
+    {
+    }
+
+    public void func_35164_g()
+    {
+        field_35166_o = null;
+        blockMetadata = -1;
+    }
+
+    static Class _mthclass$(String s)
+    {
+        try
+        {
+            return Class.forName(s);
+        }
+        catch(ClassNotFoundException classnotfoundexception)
+        {
+            throw new NoClassDefFoundError(classnotfoundexception.getMessage());
+        }
+    }
+
+    static 
+    {
+        addMapping(net.minecraft.src.TileEntityFurnace.class, "Furnace");
+        addMapping(net.minecraft.src.TileEntityChest.class, "Chest");
+        addMapping(net.minecraft.src.TileEntityRecordPlayer.class, "RecordPlayer");
+        addMapping(net.minecraft.src.TileEntityDispenser.class, "Trap");
+        addMapping(net.minecraft.src.TileEntitySign.class, "Sign");
+        addMapping(net.minecraft.src.TileEntityMobSpawner.class, "MobSpawner");
+        addMapping(net.minecraft.src.TileEntityNote.class, "Music");
+        addMapping(net.minecraft.src.TileEntityPiston.class, "Piston");
+        addMapping(net.minecraft.src.TileEntityBrewingStand.class, "Cauldron");
+        addMapping(net.minecraft.src.TileEntityEnchantmentTable.class, "EnchantTable");
+        addMapping(net.minecraft.src.TileEntityEndPortal.class, "Airportal");
+    }
+}
