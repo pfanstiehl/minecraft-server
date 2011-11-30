@@ -184,6 +184,7 @@ public abstract class EntityCreature extends EntityLiving
     {
     }
 
+    // Block path weight defaults to 0.
     protected float getBlockPathWeight(int i, int j, int k)
     {
         return 0.0F;
@@ -194,12 +195,14 @@ public abstract class EntityCreature extends EntityLiving
         return null;
     }
 
+    // Can only spawn if block path weight of entity is greater than a certain threshold and it meets
+    // relevant constraints of parent class.
     public boolean getCanSpawnHere()
     {
-        int i = MathHelper.floor_double(posX);
-        int j = MathHelper.floor_double(boundingBox.minY);
-        int k = MathHelper.floor_double(posZ);
-        return super.getCanSpawnHere() && getBlockPathWeight(i, j, k) >= 0.0F;
+        int x = MathHelper.floor_double(posX);
+        int y = MathHelper.floor_double(boundingBox.minY);
+        int z = MathHelper.floor_double(posZ);
+        return super.getCanSpawnHere() && getBlockPathWeight(x, y, z) >= 0.0F;
     }
 
     public boolean hasPath()

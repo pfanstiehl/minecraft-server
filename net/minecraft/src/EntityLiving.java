@@ -1080,6 +1080,8 @@ public abstract class EntityLiving extends Entity
     {
     }
 
+    // Can only spawn if this entity's axis aligned bounding box is clear, no other bounding boxes
+    // collide, and there is no water within it.
     public boolean getCanSpawnHere()
     {
         return worldObj.checkIfAABBIsClear(boundingBox) && worldObj.getCollidingBoundingBoxes(this, boundingBox).size() == 0 && !worldObj.getIsAnyLiquid(boundingBox);

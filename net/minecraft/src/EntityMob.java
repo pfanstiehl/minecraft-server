@@ -98,9 +98,9 @@ public abstract class EntityMob extends EntityCreature
         }
     }
 
-    protected float getBlockPathWeight(int i, int j, int k)
+    protected float getBlockPathWeight(int x, int y, int z)
     {
-        return 0.5F - worldObj.getLightBrightness(i, j, k);
+        return 0.5F - worldObj.getLightBrightness(x, y, z);
     }
 
     public void writeEntityToNBT(NBTTagCompound nbttagcompound)
@@ -113,28 +113,34 @@ public abstract class EntityMob extends EntityCreature
         super.readEntityFromNBT(nbttagcompound);
     }
 
-    protected boolean func_40123_y()
+    // Is current position darker than various random thresholds?
+    protected boolean isDarkEnough()
     {
-        int i = MathHelper.floor_double(posX);
-        int j = MathHelper.floor_double(boundingBox.minY);
-        int k = MathHelper.floor_double(posZ);
-        if(worldObj.getSavedLightValue(EnumSkyBlock.Sky, i, j, k) > rand.nextInt(32))
+        int x = MathHelper.floor_double(posX);
+        int y = MathHelper.floor_double(boundingBox.minY);
+        int z = MathHelper.floor_double(posZ);
+        
+        if(worldObj.getSavedLightValue(EnumSkyBlock.Sky, x, y, z) > rand.nextInt(32))
         {
             return false;
         }
-        int l = worldObj.getBlockLightValue(i, j, k);
+                
+        int lightValue = worldObj.getBlockLightValue(x, y, z);
+        
+        // When thundering, recalculate lightValue accordingly.
         if(worldObj.getIsThundering())
         {
-            int i1 = worldObj.skylightSubtracted;
+            int skylightSubtractedBackup = worldObj.skylightSubtracted;
             worldObj.skylightSubtracted = 10;
-            l = worldObj.getBlockLightValue(i, j, k);
-            worldObj.skylightSubtracted = i1;
+            lightValue = worldObj.getBlockLightValue(x, y, z);
+            worldObj.skylightSubtracted = skylightSubtractedBackup;
         }
-        return l <= rand.nextInt(8);
+        
+        return lightValue <= rand.nextInt(8);
     }
 
     public boolean getCanSpawnHere()
     {
-        return func_40123_y() && super.getCanSpawnHere();
+        return isDarkEnough() && super.getCanSpawnHere();
     }
 }
