@@ -28,27 +28,35 @@ public class BlockMycelium extends Block
         return i != 0 ? 77 : 2;
     }
 
-    public void updateTick(World world, int i, int j, int k, Random random)
+    // An update can cause the mycelium block to become dirt or to attempt to spread depending on certain
+    // conditions.
+    public void updateTick(World world, int x, int y, int z, Random random)
     {
         if(world.singleplayerWorld)
         {
             return;
         }
-        if(world.getBlockLightValue(i, j + 1, k) < 4 && Block.lightOpacity[world.getBlockId(i, j + 1, k)] > 2)
+        
+        // Transform this mycelium block into dirt if light level too low.
+        if(world.getBlockLightValue(x, y + 1, z) < 4 && Block.lightOpacity[world.getBlockId(x, y + 1, z)] > 2)
         {
-            world.setBlockWithNotify(i, j, k, Block.dirt.blockID);
+            world.setBlockWithNotify(x, y, z, Block.dirt.blockID);
         } else
-        if(world.getBlockLightValue(i, j + 1, k) >= 9)
+        
+        // If light level high enough, attempt to spread 4 times. Can spread to blocks in an axis aligned
+        // box with dimensions 3x4x3 centred horizontally at this block and vertically the upper edge is
+        // one block higher than this block.
+        if(world.getBlockLightValue(x, y + 1, z) >= 9)
         {
-            for(int l = 0; l < 4; l++)
+            for(int i = 0; i < 4; i++)
             {
-                int i1 = (i + random.nextInt(3)) - 1;
-                int j1 = (j + random.nextInt(5)) - 3;
-                int k1 = (k + random.nextInt(3)) - 1;
-                int l1 = world.getBlockId(i1, j1 + 1, k1);
-                if(world.getBlockId(i1, j1, k1) == Block.dirt.blockID && world.getBlockLightValue(i1, j1 + 1, k1) >= 4 && Block.lightOpacity[l1] <= 2)
+                int xCandidate = (x + random.nextInt(3)) - 1;
+                int yCandidate = (y + random.nextInt(5)) - 3;
+                int zCandidate = (z + random.nextInt(3)) - 1;
+                int blockCandidateID = world.getBlockId(xCandidate, yCandidate + 1, zCandidate);
+                if(world.getBlockId(xCandidate, yCandidate, zCandidate) == Block.dirt.blockID && world.getBlockLightValue(xCandidate, yCandidate + 1, zCandidate) >= 4 && Block.lightOpacity[blockCandidateID] <= 2)
                 {
-                    world.setBlockWithNotify(i1, j1, k1, blockID);
+                    world.setBlockWithNotify(xCandidate, yCandidate, zCandidate, blockID);
                 }
             }
 
