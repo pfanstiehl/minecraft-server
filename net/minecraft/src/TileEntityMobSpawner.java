@@ -50,7 +50,7 @@ public class TileEntityMobSpawner extends TileEntity
 		{
 			return;
 		}
-		
+
 		// Show some smoke and flames around this mob spawner and spin the mob inside.
 		double effectsX = (float)xCoord + worldObj.rand.nextFloat();
 		double effectsY = (float)yCoord + worldObj.rand.nextFloat();
@@ -65,7 +65,7 @@ public class TileEntityMobSpawner extends TileEntity
 
 		if(!worldObj.singleplayerWorld)
 		{
-			
+
 			// Only try spawning mobs if delay is 0. Decrement delay if above 0, reset if below.
 			if(delay == -1)
 			{
@@ -76,18 +76,18 @@ public class TileEntityMobSpawner extends TileEntity
 				delay--;
 				return;
 			}
-			
+
 			// Attempt to spawn a mob 4 times.
 			byte attempts = 4;
 			for(int i = 0; i < attempts; i++)
 			{
 				EntityLiving mob = (EntityLiving)EntityList.createEntityInWorld(mobID, worldObj);
-				
+
 				if(mob == null)
 				{
 					return;
 				}
-				
+
 				// Abort spawning and reset delay if there are more than 6 mobs of this mob spawner's mob type
 				// in an axis aligned box with dimensions 17x9x17 centred around this mob spawner.
 				int mobTypeCount = worldObj.getEntitiesWithinAABB(mob.getClass(), AxisAlignedBB.getBoundingBoxFromPool(xCoord, yCoord, zCoord, xCoord + 1, yCoord + 1, zCoord + 1).expand(8D, 4D, 8D)).size();
@@ -96,12 +96,12 @@ public class TileEntityMobSpawner extends TileEntity
 					updateDelay();
 					return;
 				}
-				
+
 				if(mob == null)
 				{
 					continue;
 				}
-				
+
 				// Pick a spot within an axis aligned box of dimensions 8x3x8 centred horizontally at the more
 				// negative x and z corner of this mob spawner and centred vertically at this mob spawner block.
 				// Note that the probability distribution of horizontal position does not approximate a uniform
@@ -114,7 +114,7 @@ public class TileEntityMobSpawner extends TileEntity
 				double mobY = (yCoord + worldObj.rand.nextInt(3)) - 1;
 				double mobZ = (double)zCoord + (worldObj.rand.nextDouble() - worldObj.rand.nextDouble()) * 4D;
 				mob.setLocationAndAngles(mobX, mobY, mobZ, worldObj.rand.nextFloat() * 360F, 0.0F);
-				
+
 				// If mob can spawn at chosen position, spawn it, play sound, and display explosion.
 				if(mob.getCanSpawnHere())
 				{
