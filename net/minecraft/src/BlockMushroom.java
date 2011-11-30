@@ -21,7 +21,7 @@ public class BlockMushroom extends BlockFlower
         setTickOnLoad(true);
     }
 
-    // An update will randomly cause a mushroom to propagate if the amount of mushrooms nearby does not
+    // An update will randomly cause a mushroom to propagate if the number of mushrooms nearby does not
     // exceed a certain limit and if the randomly picked location to propagate to can support
     // a mushroom.
     public void updateTick(World world, int x, int y, int z, Random random)
@@ -71,7 +71,7 @@ public class BlockMushroom extends BlockFlower
                 zCandidate = (z + random.nextInt(3)) - 1;
             }
 
-            // Place mushroom if final position is able to support it.
+            // Place mushroom if final position can support it.
             if(world.isAirBlock(xCandidate, yCandidate, zCandidate) && canBlockStay(world, xCandidate, yCandidate, zCandidate))
             {
                 world.setBlockWithNotify(xCandidate, yCandidate, zCandidate, blockID);
