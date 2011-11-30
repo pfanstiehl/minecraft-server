@@ -38,6 +38,9 @@ public class TileEntityMobSpawner extends TileEntity
 		return worldObj.getClosestPlayer((double)xCoord + 0.5D, (double)yCoord + 0.5D, (double)zCoord + 0.5D, 16D) != null;
 	}
 
+	// A mob spawner will periodically (but with intervals of random length) enter a state where it will
+	// attempt to spawn mobs upon every update. The mob spawner will leave this state if there are too many
+	// mobs of its type in a certain area or if it successfully spawns at least one mob.
 	public void updateEntity()
 	{
 		yaw2 = yaw;
@@ -49,11 +52,11 @@ public class TileEntityMobSpawner extends TileEntity
 		}
 		
 		// Show some smoke and flames around this mob spawner and spin the mob inside.
-		double d = (float)xCoord + worldObj.rand.nextFloat();
-		double d1 = (float)yCoord + worldObj.rand.nextFloat();
-		double d2 = (float)zCoord + worldObj.rand.nextFloat();
-		worldObj.spawnParticle("smoke", d, d1, d2, 0.0D, 0.0D, 0.0D);
-		worldObj.spawnParticle("flame", d, d1, d2, 0.0D, 0.0D, 0.0D);
+		double effectsX = (float)xCoord + worldObj.rand.nextFloat();
+		double effectsY = (float)yCoord + worldObj.rand.nextFloat();
+		double effectsZ = (float)zCoord + worldObj.rand.nextFloat();
+		worldObj.spawnParticle("smoke", effectsX, effectsY, effectsZ, 0.0D, 0.0D, 0.0D);
+		worldObj.spawnParticle("flame", effectsX, effectsY, effectsZ, 0.0D, 0.0D, 0.0D);
 		for(yaw += 1000F / ((float)delay + 200F); yaw > 360D;)
 		{
 			yaw -= 360D;
@@ -99,11 +102,18 @@ public class TileEntityMobSpawner extends TileEntity
 					continue;
 				}
 				
-				// Pick a spot.
-				double d3 = (double)xCoord + (worldObj.rand.nextDouble() - worldObj.rand.nextDouble()) * 4D;
-				double d4 = (yCoord + worldObj.rand.nextInt(3)) - 1;
-				double d5 = (double)zCoord + (worldObj.rand.nextDouble() - worldObj.rand.nextDouble()) * 4D;
-				mob.setLocationAndAngles(d3, d4, d5, worldObj.rand.nextFloat() * 360F, 0.0F);
+				// Pick a spot within an axis aligned box of dimensions 8x3x8 centred horizontally at the more
+				// negative x and z corner of this mob spawner and centred vertically at this mob spawner block.
+				// Note that the probability distribution of horizontal position does not approximate a uniform
+				// distribution. Both the x and z positions approximate a continuous triagular distribution
+				// (a distribution of the absolute difference of two standard uniform variables). Intuitively,
+				// Uber5001 pointed out that the same effect happens when you take the distribution of the
+				// difference of two dice rolls. From a simplistic perspective, the mob's position is more likely
+				// to be close horizontally to the spawner.
+				double mobX = (double)xCoord + (worldObj.rand.nextDouble() - worldObj.rand.nextDouble()) * 4D;
+				double mobY = (yCoord + worldObj.rand.nextInt(3)) - 1;
+				double mobZ = (double)zCoord + (worldObj.rand.nextDouble() - worldObj.rand.nextDouble()) * 4D;
+				mob.setLocationAndAngles(mobX, mobY, mobZ, worldObj.rand.nextFloat() * 360F, 0.0F);
 				
 				// If mob can spawn, spawn it, play sound, and display explosion.
 				if(mob.getCanSpawnHere())
@@ -119,6 +129,7 @@ public class TileEntityMobSpawner extends TileEntity
 		super.updateEntity();
 	}
 
+	// Reset the delay to a random value uniformly distributed between 200 and 800.
 	private void updateDelay()
 	{
 		delay = 200 + worldObj.rand.nextInt(600);
