@@ -21,19 +21,27 @@ public class BlockMushroom extends BlockFlower
         setTickOnLoad(true);
     }
 
-    public void updateTick(World world, int i, int j, int k, Random random)
+    // An update will randomly cause a mushroom to propagate if the amount of mushrooms nearby does not
+    // exceed a certain limit and if the randomly picked location to propagate to can support
+    // a mushroom.
+    public void updateTick(World world, int x, int y, int z, Random random)
     {
+    	
+    	// Occasionally attempt to propagate.
         if(random.nextInt(25) == 0)
         {
-            byte byte0 = 4;
-            int l = 5;
-            for(int i1 = i - byte0; i1 <= i + byte0; i1++)
+        	
+        	// Fail to propagate if there are 5 mushrooms in an axis alligned box with dimensions
+        	// 9x3x9 centred at this mushroom.
+            byte radius = 4;
+            int maxMushrooms = 5;
+            for(int i = x - radius; i <= x + radius; i++)
             {
-                for(int k1 = k - byte0; k1 <= k + byte0; k1++)
+                for(int j = z - radius; j <= z + radius; j++)
                 {
-                    for(int i2 = j - 1; i2 <= j + 1; i2++)
+                    for(int k = y - 1; k <= y + 1; k++)
                     {
-                        if(world.getBlockId(i1, i2, k1) == blockID && --l <= 0)
+                        if(world.getBlockId(i, k, j) == blockID && --maxMushrooms <= 0)
                         {
                             return;
                         }
@@ -43,25 +51,30 @@ public class BlockMushroom extends BlockFlower
 
             }
 
-            int j1 = (i + random.nextInt(3)) - 1;
-            int l1 = (j + random.nextInt(2)) - random.nextInt(2);
-            int j2 = (k + random.nextInt(3)) - 1;
-            for(int k2 = 0; k2 < 4; k2++)
+            // Check if a random position in an axis aligned box with dimensions 3x3x3 centred
+            // on this mushroom can support a mushroom. Note that the vertical position will be on same
+            // level as this mushroom half the time on average. If the position can support a mushroom,
+            // use it as the new base for subsequent tries. Repeat this 5 times.
+            int xCandidate = (x + random.nextInt(3)) - 1;
+            int yCandidate = (y + random.nextInt(2)) - random.nextInt(2);
+            int zCandidate = (z + random.nextInt(3)) - 1;
+            for(int i = 0; i < 4; i++)
             {
-                if(world.isAirBlock(j1, l1, j2) && canBlockStay(world, j1, l1, j2))
+                if(world.isAirBlock(xCandidate, yCandidate, zCandidate) && canBlockStay(world, xCandidate, yCandidate, zCandidate))
                 {
-                    i = j1;
-                    j = l1;
-                    k = j2;
+                    x = xCandidate;
+                    y = yCandidate;
+                    z = zCandidate;
                 }
-                j1 = (i + random.nextInt(3)) - 1;
-                l1 = (j + random.nextInt(2)) - random.nextInt(2);
-                j2 = (k + random.nextInt(3)) - 1;
+                xCandidate = (x + random.nextInt(3)) - 1;
+                yCandidate = (y + random.nextInt(2)) - random.nextInt(2);
+                zCandidate = (z + random.nextInt(3)) - 1;
             }
 
-            if(world.isAirBlock(j1, l1, j2) && canBlockStay(world, j1, l1, j2))
+            // Place mushroom if final position is able to support it.
+            if(world.isAirBlock(xCandidate, yCandidate, zCandidate) && canBlockStay(world, xCandidate, yCandidate, zCandidate))
             {
-                world.setBlockWithNotify(j1, l1, j2, blockID);
+                world.setBlockWithNotify(xCandidate, yCandidate, zCandidate, blockID);
             }
         }
     }
@@ -71,15 +84,20 @@ public class BlockMushroom extends BlockFlower
         return Block.opaqueCubeLookup[i];
     }
 
-    public boolean canBlockStay(World world, int i, int j, int k)
+    // Can this position support mushroom?
+    public boolean canBlockStay(World world, int x, int y, int z)
     {
-        if(j < 0 || j >= world.worldYMax)
+    	// Can't exist below or above limits of world that allow block placement.
+        if(y < 0 || y >= world.worldYMax)
         {
             return false;
-        } else
+        } 
+        // Can exist on mycelium block under any conditions. Otherwise, light level must be below a
+        // threshold and supporting block must be appropriate type.
+        else
         {
-            int l = world.getBlockId(i, j - 1, k);
-            return l == Block.mycelium.blockID || world.getFullBlockLightValue(i, j, k) < 13 && canThisPlantGrowOnThisBlockID(l);
+            int supportingBlock = world.getBlockId(x, y - 1, z);
+            return supportingBlock == Block.mycelium.blockID || world.getFullBlockLightValue(x, y, z) < 13 && canThisPlantGrowOnThisBlockID(supportingBlock);
         }
     }
 
