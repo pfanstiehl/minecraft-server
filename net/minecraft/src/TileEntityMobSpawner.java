@@ -108,14 +108,14 @@ public class TileEntityMobSpawner extends TileEntity
 				// distribution. Both the x and z positions approximate a continuous triagular distribution
 				// (a distribution of the absolute difference of two standard uniform variables). Intuitively,
 				// Uber5001 pointed out that the same effect happens when you take the distribution of the
-				// difference of two dice rolls. From a simplistic perspective, the mob's position is more likely
-				// to be close horizontally to the spawner.
+				// difference of two dice rolls. From a simplistic perspective, the mob's position is therefore
+				// more likely to be horizontally close to the mob spawner block.
 				double mobX = (double)xCoord + (worldObj.rand.nextDouble() - worldObj.rand.nextDouble()) * 4D;
 				double mobY = (yCoord + worldObj.rand.nextInt(3)) - 1;
 				double mobZ = (double)zCoord + (worldObj.rand.nextDouble() - worldObj.rand.nextDouble()) * 4D;
 				mob.setLocationAndAngles(mobX, mobY, mobZ, worldObj.rand.nextFloat() * 360F, 0.0F);
 				
-				// If mob can spawn, spawn it, play sound, and display explosion.
+				// If mob can spawn at chosen position, spawn it, play sound, and display explosion.
 				if(mob.getCanSpawnHere())
 				{
 					worldObj.entityJoinedWorld(mob);
