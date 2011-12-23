@@ -206,7 +206,7 @@ public class EntityBlaze extends EntityMob
         dataWatcher.updateObject(16, Byte.valueOf(byte0));
     }
 
-    protected boolean func_40123_y()
+    protected boolean isDarkEnough()
     {
         return true;
     }

@@ -178,7 +178,7 @@ public class EntitySilverfish extends EntityMob
         }
     }
 
-    protected boolean func_40123_y()
+    protected boolean isDarkEnough()
     {
         return true;
     }

@@ -607,29 +607,29 @@ public class World
         }
     }
 
-    public int getSavedLightValue(EnumSkyBlock enumskyblock, int i, int j, int k)
+    public int getSavedLightValue(EnumSkyBlock enumskyblock, int x, int y, int z)
     {
-        if(j < 0)
+        if(y < 0)
         {
-            j = 0;
+            y = 0;
         }
-        if(j >= worldYMax)
+        if(y >= worldYMax)
         {
-            j = worldYMax - 1;
+            y = worldYMax - 1;
         }
-        if(j < 0 || j >= worldYMax || i < 0xfe363c80 || k < 0xfe363c80 || i >= 0x1c9c380 || k >= 0x1c9c380)
+        if(y < 0 || y >= worldYMax || x < 0xfe363c80 || z < 0xfe363c80 || x >= 0x1c9c380 || z >= 0x1c9c380)
         {
             return enumskyblock.defaultLightValue;
         }
-        int l = i >> 4;
-        int i1 = k >> 4;
-        if(!chunkExists(l, i1))
+        int chunkX = x >> 4;
+        int chunkZ = z >> 4;
+        if(!chunkExists(chunkX, chunkZ))
         {
             return 0;
         } else
         {
-            Chunk chunk = getChunkFromChunkCoords(l, i1);
-            return chunk.getSavedLightValue(enumskyblock, i & 0xf, j, k & 0xf);
+            Chunk chunk = getChunkFromChunkCoords(chunkX, chunkZ);
+            return chunk.getSavedLightValue(enumskyblock, x & 0xf, y, z & 0xf);
         }
     }
 
@@ -660,9 +660,9 @@ public class World
 
     }
 
-    public float getLightBrightness(int i, int j, int k)
+    public float getLightBrightness(int x, int y, int z)
     {
-        return worldProvider.lightBrightnessTable[getBlockLightValue(i, j, k)];
+        return worldProvider.lightBrightnessTable[getBlockLightValue(x, y, z)];
     }
 
     public boolean isDaytime()
