@@ -28,7 +28,7 @@ public class ComponentNetherBridgeStairs extends ComponentNetherBridgePiece
 
     public static ComponentNetherBridgeStairs func_40299_a(List list, Random random, int i, int j, int k, int l, int i1)
     {
-        StructureBoundingBox structureboundingbox = StructureBoundingBox.func_35663_a(i, j, k, -2, 0, 0, 7, 11, 7, l);
+        StructureBoundingBox structureboundingbox = StructureBoundingBox.getComponentToAddBoundingBox(i, j, k, -2, 0, 0, 7, 11, 7, l);
         if(!func_40286_a(structureboundingbox) || StructureComponent.canFitInside(list, structureboundingbox) != null)
         {
             return null;
@@ -50,7 +50,7 @@ public class ComponentNetherBridgeStairs extends ComponentNetherBridgePiece
         fillWithBlocks(world, structureboundingbox, 0, 3, 2, 0, 5, 4, Block.netherFence.blockID, Block.netherFence.blockID, false);
         fillWithBlocks(world, structureboundingbox, 6, 3, 2, 6, 5, 2, Block.netherFence.blockID, Block.netherFence.blockID, false);
         fillWithBlocks(world, structureboundingbox, 6, 3, 4, 6, 5, 4, Block.netherFence.blockID, Block.netherFence.blockID, false);
-        func_35309_a(world, Block.netherBrick.blockID, 0, 5, 2, 5, structureboundingbox);
+        placeBlockAtCurrentPosition(world, Block.netherBrick.blockID, 0, 5, 2, 5, structureboundingbox);
         fillWithBlocks(world, structureboundingbox, 4, 2, 5, 4, 3, 5, Block.netherBrick.blockID, Block.netherBrick.blockID, false);
         fillWithBlocks(world, structureboundingbox, 3, 2, 5, 3, 4, 5, Block.netherBrick.blockID, Block.netherBrick.blockID, false);
         fillWithBlocks(world, structureboundingbox, 2, 2, 5, 2, 5, 5, Block.netherBrick.blockID, Block.netherBrick.blockID, false);
@@ -63,7 +63,7 @@ public class ComponentNetherBridgeStairs extends ComponentNetherBridgePiece
         {
             for(int j = 0; j <= 6; j++)
             {
-                func_35303_b(world, Block.netherBrick.blockID, 0, i, -1, j, structureboundingbox);
+                fillCurrentPositionBlocksDownwards(world, Block.netherBrick.blockID, 0, i, -1, j, structureboundingbox);
             }
 
         }

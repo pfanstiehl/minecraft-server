@@ -88,7 +88,7 @@ public class NBTTagList extends NBTBase
         return tagList.size();
     }
 
-    public NBTBase func_40468_b()
+    public NBTBase cloneTag()
     {
         NBTTagList nbttaglist = new NBTTagList(getKey());
         nbttaglist.tagType = tagType;
@@ -96,7 +96,7 @@ public class NBTTagList extends NBTBase
         for(Iterator iterator = tagList.iterator(); iterator.hasNext(); nbttaglist.tagList.add(nbtbase1))
         {
             NBTBase nbtbase = (NBTBase)iterator.next();
-            nbtbase1 = nbtbase.func_40468_b();
+            nbtbase1 = nbtbase.cloneTag();
         }
 
         return nbttaglist;

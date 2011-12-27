@@ -8,10 +8,10 @@ package net.minecraft.src;
 public class WeightedRandomChoice
 {
 
-    protected int field_35483_d;
+    protected int itemWeight;
 
     public WeightedRandomChoice(int i)
     {
-        field_35483_d = i;
+        itemWeight = i;
     }
 }

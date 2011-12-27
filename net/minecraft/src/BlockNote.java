@@ -72,7 +72,7 @@ public class BlockNote extends BlockContainer
         return new TileEntityNote();
     }
 
-    public void playBlock(World world, int i, int j, int k, int l, int i1)
+    public void powerBlock(World world, int i, int j, int k, int l, int i1)
     {
         float f = (float)Math.pow(2D, (double)(i1 - 12) / 12D);
         String s = "harp";

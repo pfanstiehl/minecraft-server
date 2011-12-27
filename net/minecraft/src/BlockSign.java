@@ -68,7 +68,7 @@ public class BlockSign extends BlockContainer
         return -1;
     }
 
-    public boolean isACube()
+    public boolean renderAsNormalBlock()
     {
         return false;
     }

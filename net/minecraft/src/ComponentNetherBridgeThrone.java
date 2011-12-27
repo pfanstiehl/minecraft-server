@@ -29,7 +29,7 @@ public class ComponentNetherBridgeThrone extends ComponentNetherBridgePiece
 
     public static ComponentNetherBridgeThrone func_40304_a(List list, Random random, int i, int j, int k, int l, int i1)
     {
-        StructureBoundingBox structureboundingbox = StructureBoundingBox.func_35663_a(i, j, k, -2, 0, 0, 7, 8, 9, l);
+        StructureBoundingBox structureboundingbox = StructureBoundingBox.getComponentToAddBoundingBox(i, j, k, -2, 0, 0, 7, 8, 9, l);
         if(!func_40286_a(structureboundingbox) || StructureComponent.canFitInside(list, structureboundingbox) != null)
         {
             return null;
@@ -53,17 +53,17 @@ public class ComponentNetherBridgeThrone extends ComponentNetherBridgePiece
         fillWithBlocks(world, structureboundingbox, 0, 5, 3, 0, 5, 8, Block.netherBrick.blockID, Block.netherBrick.blockID, false);
         fillWithBlocks(world, structureboundingbox, 6, 5, 3, 6, 5, 8, Block.netherBrick.blockID, Block.netherBrick.blockID, false);
         fillWithBlocks(world, structureboundingbox, 1, 5, 8, 5, 5, 8, Block.netherBrick.blockID, Block.netherBrick.blockID, false);
-        func_35309_a(world, Block.netherFence.blockID, 0, 1, 6, 3, structureboundingbox);
-        func_35309_a(world, Block.netherFence.blockID, 0, 5, 6, 3, structureboundingbox);
+        placeBlockAtCurrentPosition(world, Block.netherFence.blockID, 0, 1, 6, 3, structureboundingbox);
+        placeBlockAtCurrentPosition(world, Block.netherFence.blockID, 0, 5, 6, 3, structureboundingbox);
         fillWithBlocks(world, structureboundingbox, 0, 6, 3, 0, 6, 8, Block.netherFence.blockID, Block.netherFence.blockID, false);
         fillWithBlocks(world, structureboundingbox, 6, 6, 3, 6, 6, 8, Block.netherFence.blockID, Block.netherFence.blockID, false);
         fillWithBlocks(world, structureboundingbox, 1, 6, 8, 5, 7, 8, Block.netherFence.blockID, Block.netherFence.blockID, false);
         fillWithBlocks(world, structureboundingbox, 2, 8, 8, 4, 8, 8, Block.netherFence.blockID, Block.netherFence.blockID, false);
         if(!field_40305_a)
         {
-            int i = func_35300_a(5);
-            int k = func_35306_a(3, 5);
-            int i1 = func_35296_b(3, 5);
+            int i = getYWithOffset(5);
+            int k = getXWithOffset(3, 5);
+            int i1 = getZWithOffset(3, 5);
             if(structureboundingbox.isInBbVolume(k, i, i1))
             {
                 field_40305_a = true;
@@ -79,7 +79,7 @@ public class ComponentNetherBridgeThrone extends ComponentNetherBridgePiece
         {
             for(int l = 0; l <= 6; l++)
             {
-                func_35303_b(world, Block.netherBrick.blockID, 0, j, -1, l, structureboundingbox);
+                fillCurrentPositionBlocksDownwards(world, Block.netherBrick.blockID, 0, j, -1, l, structureboundingbox);
             }
 
         }

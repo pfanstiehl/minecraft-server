@@ -107,7 +107,7 @@ public class ChunkCache
             return false;
         } else
         {
-            return block.blockMaterial.getIsSolid() && block.isACube();
+            return block.blockMaterial.getIsSolid() && block.renderAsNormalBlock();
         }
     }
 }

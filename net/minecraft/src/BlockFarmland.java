@@ -32,7 +32,7 @@ public class BlockFarmland extends Block
         return false;
     }
 
-    public boolean isACube()
+    public boolean renderAsNormalBlock()
     {
         return false;
     }

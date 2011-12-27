@@ -157,9 +157,9 @@ public class EntityXPOrb extends Entity
         {
             return;
         }
-        if(unusedPickupCooldown == 0 && entityplayer.field_35218_w == 0)
+        if(unusedPickupCooldown == 0 && entityplayer.xpCooldown == 0)
         {
-            entityplayer.field_35218_w = 2;
+            entityplayer.xpCooldown = 2;
             worldObj.playSoundAtEntity(this, "random.orb", 0.1F, 0.5F * ((rand.nextFloat() - rand.nextFloat()) * 0.7F + 1.8F));
             entityplayer.onItemPickup(this, 1);
             entityplayer.addExperience(xpValue);

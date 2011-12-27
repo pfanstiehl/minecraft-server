@@ -43,7 +43,7 @@ public class BlockEndPortal extends BlockContainer
         return false;
     }
 
-    public boolean isACube()
+    public boolean renderAsNormalBlock()
     {
         return false;
     }

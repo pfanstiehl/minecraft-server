@@ -34,14 +34,14 @@ public class ItemLilyPad extends ItemColored
             {
                 return itemstack;
             }
-            if(!entityplayer.func_35200_c(i, j, k))
+            if(!entityplayer.canPlayerEdit(i, j, k))
             {
                 return itemstack;
             }
             if(world.getBlockMaterial(i, j, k) == Material.water && world.getBlockMetadata(i, j, k) == 0 && world.isAirBlock(i, j + 1, k))
             {
                 world.setBlockWithNotify(i, j + 1, k, Block.waterlily.blockID);
-                if(!entityplayer.field_35214_K.depleteBuckets)
+                if(!entityplayer.capabilities.depleteBuckets)
                 {
                     itemstack.stackSize--;
                 }

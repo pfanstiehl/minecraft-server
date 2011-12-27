@@ -30,7 +30,7 @@ public class ComponentStrongholdCorridor extends ComponentStronghold
 
     public static StructureBoundingBox func_35342_a(List list, Random random, int i, int j, int k, int l)
     {
-        StructureBoundingBox structureboundingbox = StructureBoundingBox.func_35663_a(i, j, k, -1, -1, 0, 5, 5, 4, l);
+        StructureBoundingBox structureboundingbox = StructureBoundingBox.getComponentToAddBoundingBox(i, j, k, -1, -1, 0, 5, 5, 4, l);
         StructureComponent structurecomponent = StructureComponent.canFitInside(list, structureboundingbox);
         if(structurecomponent == null)
         {
@@ -40,10 +40,10 @@ public class ComponentStrongholdCorridor extends ComponentStronghold
         {
             for(int i1 = 3; i1 >= 1; i1--)
             {
-                StructureBoundingBox structureboundingbox1 = StructureBoundingBox.func_35663_a(i, j, k, -1, -1, 0, 5, 5, i1 - 1, l);
+                StructureBoundingBox structureboundingbox1 = StructureBoundingBox.getComponentToAddBoundingBox(i, j, k, -1, -1, 0, 5, 5, i1 - 1, l);
                 if(!structurecomponent.getStructureBoundingBox().canFitInside(structureboundingbox1))
                 {
-                    return StructureBoundingBox.func_35663_a(i, j, k, -1, -1, 0, 5, 5, i1, l);
+                    return StructureBoundingBox.getComponentToAddBoundingBox(i, j, k, -1, -1, 0, 5, 5, i1, l);
                 }
             }
 
@@ -59,25 +59,25 @@ public class ComponentStrongholdCorridor extends ComponentStronghold
         }
         for(int i = 0; i < field_35343_a; i++)
         {
-            func_35309_a(world, Block.stoneBrick.blockID, 0, 0, 0, i, structureboundingbox);
-            func_35309_a(world, Block.stoneBrick.blockID, 0, 1, 0, i, structureboundingbox);
-            func_35309_a(world, Block.stoneBrick.blockID, 0, 2, 0, i, structureboundingbox);
-            func_35309_a(world, Block.stoneBrick.blockID, 0, 3, 0, i, structureboundingbox);
-            func_35309_a(world, Block.stoneBrick.blockID, 0, 4, 0, i, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stoneBrick.blockID, 0, 0, 0, i, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stoneBrick.blockID, 0, 1, 0, i, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stoneBrick.blockID, 0, 2, 0, i, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stoneBrick.blockID, 0, 3, 0, i, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stoneBrick.blockID, 0, 4, 0, i, structureboundingbox);
             for(int j = 1; j <= 3; j++)
             {
-                func_35309_a(world, Block.stoneBrick.blockID, 0, 0, j, i, structureboundingbox);
-                func_35309_a(world, 0, 0, 1, j, i, structureboundingbox);
-                func_35309_a(world, 0, 0, 2, j, i, structureboundingbox);
-                func_35309_a(world, 0, 0, 3, j, i, structureboundingbox);
-                func_35309_a(world, Block.stoneBrick.blockID, 0, 4, j, i, structureboundingbox);
+                placeBlockAtCurrentPosition(world, Block.stoneBrick.blockID, 0, 0, j, i, structureboundingbox);
+                placeBlockAtCurrentPosition(world, 0, 0, 1, j, i, structureboundingbox);
+                placeBlockAtCurrentPosition(world, 0, 0, 2, j, i, structureboundingbox);
+                placeBlockAtCurrentPosition(world, 0, 0, 3, j, i, structureboundingbox);
+                placeBlockAtCurrentPosition(world, Block.stoneBrick.blockID, 0, 4, j, i, structureboundingbox);
             }
 
-            func_35309_a(world, Block.stoneBrick.blockID, 0, 0, 4, i, structureboundingbox);
-            func_35309_a(world, Block.stoneBrick.blockID, 0, 1, 4, i, structureboundingbox);
-            func_35309_a(world, Block.stoneBrick.blockID, 0, 2, 4, i, structureboundingbox);
-            func_35309_a(world, Block.stoneBrick.blockID, 0, 3, 4, i, structureboundingbox);
-            func_35309_a(world, Block.stoneBrick.blockID, 0, 4, 4, i, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stoneBrick.blockID, 0, 0, 4, i, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stoneBrick.blockID, 0, 1, 4, i, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stoneBrick.blockID, 0, 2, 4, i, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stoneBrick.blockID, 0, 3, 4, i, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stoneBrick.blockID, 0, 4, 4, i, structureboundingbox);
         }
 
         return true;

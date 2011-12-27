@@ -32,8 +32,8 @@ public enum EnumArmorMaterial
     public static final EnumArmorMaterial GOLD;
     public static final EnumArmorMaterial DIAMOND;
 */
-    private int field_40498_f;
-    private int field_40499_g[];
+    private int maxDamageFactor;
+    private int damageReductionAmountArray[];
     private int enchantability;
     private static final EnumArmorMaterial allArmorMaterials[]; /* synthetic field */
 /*
@@ -50,19 +50,19 @@ public enum EnumArmorMaterial
     private EnumArmorMaterial(String s, int i, int j, int ai[], int k)
     {
 //        super(s, i);
-        field_40498_f = j;
-        field_40499_g = ai;
+        maxDamageFactor = j;
+        damageReductionAmountArray = ai;
         enchantability = k;
     }
 
     public int func_40497_a(int i)
     {
-        return ItemArmor.func_40250_n()[i] * field_40498_f;
+        return ItemArmor.getMaxDamageArray()[i] * maxDamageFactor;
     }
 
-    public int func_40495_b(int i)
+    public int getDamageReductionAmount(int i)
     {
-        return field_40499_g[i];
+        return damageReductionAmountArray[i];
     }
 
     public int getEnchantability()

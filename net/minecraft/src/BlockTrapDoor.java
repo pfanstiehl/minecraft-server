@@ -30,7 +30,7 @@ public class BlockTrapDoor extends Block
         return false;
     }
 
-    public boolean isACube()
+    public boolean renderAsNormalBlock()
     {
         return false;
     }
@@ -51,7 +51,7 @@ public class BlockTrapDoor extends Block
         setBlockBoundsForBlockRender(iblockaccess.getBlockMetadata(i, j, k));
     }
 
-    public void func_40163_f()
+    public void setBlockBoundsForItemRender()
     {
         float f = 0.1875F;
         setBlockBounds(0.0F, 0.5F - f / 2.0F, 0.0F, 1.0F, 0.5F + f / 2.0F, 1.0F);
@@ -226,7 +226,7 @@ public class BlockTrapDoor extends Block
         } else
         {
             Block block = Block.blocksList[i];
-            return block != null && block.blockMaterial.getIsOpaque() && block.isACube() || block == Block.glowStone;
+            return block != null && block.blockMaterial.getIsOpaque() && block.renderAsNormalBlock() || block == Block.glowStone;
         }
     }
 }

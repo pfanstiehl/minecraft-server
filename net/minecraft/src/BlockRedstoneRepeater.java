@@ -28,7 +28,7 @@ public class BlockRedstoneRepeater extends Block
         setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.125F, 1.0F);
     }
 
-    public boolean isACube()
+    public boolean renderAsNormalBlock()
     {
         return false;
     }

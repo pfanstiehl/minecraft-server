@@ -34,7 +34,7 @@ public class ItemGlassBottle extends Item
             {
                 return itemstack;
             }
-            if(!entityplayer.func_35200_c(i, j, k))
+            if(!entityplayer.canPlayerEdit(i, j, k))
             {
                 return itemstack;
             }

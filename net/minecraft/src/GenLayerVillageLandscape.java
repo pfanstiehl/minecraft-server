@@ -11,12 +11,12 @@ package net.minecraft.src;
 public class GenLayerVillageLandscape extends GenLayer
 {
 
-    private BiomeGenBase field_35029_b[];
+    private BiomeGenBase allowedBiomes[];
 
     public GenLayerVillageLandscape(long l, GenLayer genlayer)
     {
         super(l);
-        field_35029_b = (new BiomeGenBase[] {
+        allowedBiomes = (new BiomeGenBase[] {
             BiomeGenBase.desert, BiomeGenBase.forest, BiomeGenBase.extremeHills, BiomeGenBase.swampland, BiomeGenBase.plains, BiomeGenBase.taiga
         });
         parent = genlayer;
@@ -44,7 +44,7 @@ public class GenLayerVillageLandscape extends GenLayer
                 }
                 if(k1 == 1)
                 {
-                    ai1[j1 + i1 * k] = field_35029_b[nextInt(field_35029_b.length)].biomeID;
+                    ai1[j1 + i1 * k] = allowedBiomes[nextInt(allowedBiomes.length)].biomeID;
                 } else
                 {
                     ai1[j1 + i1 * k] = BiomeGenBase.icePlains.biomeID;

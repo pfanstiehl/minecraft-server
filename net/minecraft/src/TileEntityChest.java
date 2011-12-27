@@ -240,7 +240,7 @@ public class TileEntityChest extends TileEntity
         }
     }
 
-    public void func_35163_b(int i, int j)
+    public void onTileEntityPowered(int i, int j)
     {
         if(i == 1)
         {

@@ -14,29 +14,29 @@ import java.util.*;
 public class ItemPotion extends Item
 {
 
-    private HashMap field_40257_a;
+    private HashMap effectCache;
 
     public ItemPotion(int i)
     {
         super(i);
-        field_40257_a = new HashMap();
+        effectCache = new HashMap();
         setMaxStackSize(1);
         setHasSubtypes(true);
         setMaxDamage(0);
     }
 
-    public List func_40256_b(ItemStack itemstack)
+    public List getPotionEffectsForItemStack(ItemStack itemstack)
     {
-        return func_40255_b(itemstack.getItemDamage());
+        return getPotionEffectsForDamage(itemstack.getItemDamage());
     }
 
-    public List func_40255_b(int i)
+    public List getPotionEffectsForDamage(int i)
     {
-        List list = (List)field_40257_a.get(Integer.valueOf(i));
+        List list = (List)effectCache.get(Integer.valueOf(i));
         if(list == null)
         {
-            list = PotionHelper.func_40550_a(i, false);
-            field_40257_a.put(Integer.valueOf(i), list);
+            list = PotionHelper.getPotionEffects(i, false);
+            effectCache.put(Integer.valueOf(i), list);
         }
         return list;
     }
@@ -46,11 +46,11 @@ public class ItemPotion extends Item
         itemstack.stackSize--;
         if(!world.singleplayerWorld)
         {
-            List list = func_40256_b(itemstack);
+            List list = getPotionEffectsForItemStack(itemstack);
             if(list != null)
             {
                 PotionEffect potioneffect;
-                for(Iterator iterator = list.iterator(); iterator.hasNext(); entityplayer.func_35182_d(new PotionEffect(potioneffect)))
+                for(Iterator iterator = list.iterator(); iterator.hasNext(); entityplayer.addPotionEffect(new PotionEffect(potioneffect)))
                 {
                     potioneffect = (PotionEffect)iterator.next();
                 }
@@ -72,25 +72,25 @@ public class ItemPotion extends Item
         return 32;
     }
 
-    public EnumAction func_35406_b(ItemStack itemstack)
+    public EnumAction getAction(ItemStack itemstack)
     {
         return EnumAction.drink;
     }
 
     public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer)
     {
-        if(func_40254_c(itemstack.getItemDamage()))
+        if(isSplash(itemstack.getItemDamage()))
         {
             itemstack.stackSize--;
             world.playSoundAtEntity(entityplayer, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
             if(!world.singleplayerWorld)
             {
-                world.entityJoinedWorld(new EntityPotion(world, entityplayer, itemstack.getItemDamage()));
+                world.spawnEntityInWorld(new EntityPotion(world, entityplayer, itemstack.getItemDamage()));
             }
             return itemstack;
         } else
         {
-            entityplayer.func_35201_a(itemstack, getMaxItemUseDuration(itemstack));
+            entityplayer.setItemInUse(itemstack, getMaxItemUseDuration(itemstack));
             return itemstack;
         }
     }
@@ -100,7 +100,7 @@ public class ItemPotion extends Item
         return false;
     }
 
-    public static boolean func_40254_c(int i)
+    public static boolean isSplash(int i)
     {
         return (i & 0x4000) != 0;
     }

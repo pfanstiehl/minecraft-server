@@ -95,7 +95,7 @@ public class BlockStep extends Block
         return i;
     }
 
-    public boolean isACube()
+    public boolean renderAsNormalBlock()
     {
         return blockType;
     }

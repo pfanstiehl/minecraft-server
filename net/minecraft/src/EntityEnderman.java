@@ -17,16 +17,16 @@ import java.util.Random;
 public class EntityEnderman extends EntityMob
 {
 
-    private static boolean field_35234_b[];
-    public boolean field_35235_a;
-    private int field_35233_g;
+    private static boolean canCarryBlocks[];
+    public boolean isAttacking;
+    private int teleportDelay;
     private int field_35236_h;
 
     public EntityEnderman(World world)
     {
         super(world);
-        field_35235_a = false;
-        field_35233_g = 0;
+        isAttacking = false;
+        teleportDelay = 0;
         field_35236_h = 0;
         texture = "/mob/enderman.png";
         moveSpeed = 0.2F;
@@ -50,23 +50,23 @@ public class EntityEnderman extends EntityMob
     public void writeEntityToNBT(NBTTagCompound nbttagcompound)
     {
         super.writeEntityToNBT(nbttagcompound);
-        nbttagcompound.setShort("carried", (short)func_35225_x());
-        nbttagcompound.setShort("carriedData", (short)func_35231_y());
+        nbttagcompound.setShort("carried", (short)getCarried());
+        nbttagcompound.setShort("carriedData", (short)getCarryingData());
     }
 
     public void readEntityFromNBT(NBTTagCompound nbttagcompound)
     {
         super.readEntityFromNBT(nbttagcompound);
-        func_35226_b(nbttagcompound.getShort("carried"));
-        func_35229_d(nbttagcompound.getShort("carriedData"));
+        setCarried(nbttagcompound.getShort("carried"));
+        setCarryingData(nbttagcompound.getShort("carriedData"));
     }
 
     protected Entity findPlayerToAttack()
     {
-        EntityPlayer entityplayer = worldObj.func_40211_b(this, 64D);
+        EntityPlayer entityplayer = worldObj.getClosestVulnerablePlayerToEntity(this, 64D);
         if(entityplayer != null)
         {
-            if(func_35232_c(entityplayer))
+            if(shouldAttackPlayer(entityplayer))
             {
                 if(field_35236_h++ == 5)
                 {
@@ -86,7 +86,7 @@ public class EntityEnderman extends EntityMob
         return super.getEntityBrightness(f);
     }
 
-    private boolean func_35232_c(EntityPlayer entityplayer)
+    private boolean shouldAttackPlayer(EntityPlayer entityplayer)
     {
         ItemStack itemstack = entityplayer.inventory.armorInventory[3];
         if(itemstack != null && itemstack.itemID == Block.pumpkin.blockID)
@@ -113,11 +113,11 @@ public class EntityEnderman extends EntityMob
         {
             attackEntityFrom(DamageSource.drown, 1);
         }
-        field_35235_a = entityToAttack != null;
+        isAttacking = entityToAttack != null;
         moveSpeed = entityToAttack == null ? 0.3F : 6.5F;
         if(!worldObj.singleplayerWorld)
         {
-            if(func_35225_x() == 0)
+            if(getCarried() == 0)
             {
                 if(rand.nextInt(20) == 0)
                 {
@@ -125,10 +125,10 @@ public class EntityEnderman extends EntityMob
                     int l = MathHelper.floor_double(posY + rand.nextDouble() * 3D);
                     int j1 = MathHelper.floor_double((posZ - 2D) + rand.nextDouble() * 4D);
                     int l1 = worldObj.getBlockId(i, l, j1);
-                    if(field_35234_b[l1])
+                    if(canCarryBlocks[l1])
                     {
-                        func_35226_b(worldObj.getBlockId(i, l, j1));
-                        func_35229_d(worldObj.getBlockMetadata(i, l, j1));
+                        setCarried(worldObj.getBlockId(i, l, j1));
+                        setCarryingData(worldObj.getBlockMetadata(i, l, j1));
                         worldObj.setBlockWithNotify(i, l, j1, 0);
                     }
                 }
@@ -140,10 +140,10 @@ public class EntityEnderman extends EntityMob
                 int k1 = MathHelper.floor_double((posZ - 1.0D) + rand.nextDouble() * 2D);
                 int i2 = worldObj.getBlockId(j, i1, k1);
                 int j2 = worldObj.getBlockId(j, i1 - 1, k1);
-                if(i2 == 0 && j2 > 0 && Block.blocksList[j2].isACube())
+                if(i2 == 0 && j2 > 0 && Block.blocksList[j2].renderAsNormalBlock())
                 {
-                    worldObj.setBlockAndMetadataWithNotify(j, i1, k1, func_35225_x(), func_35231_y());
-                    func_35226_b(0);
+                    worldObj.setBlockAndMetadataWithNotify(j, i1, k1, getCarried(), getCarryingData());
+                    setCarried(0);
                 }
             }
         }
@@ -158,13 +158,13 @@ public class EntityEnderman extends EntityMob
             if(f > 0.5F && worldObj.canBlockSeeTheSky(MathHelper.floor_double(posX), MathHelper.floor_double(posY), MathHelper.floor_double(posZ)) && rand.nextFloat() * 30F < (f - 0.4F) * 2.0F)
             {
                 entityToAttack = null;
-                func_35227_w();
+                teleportRandomly();
             }
         }
         if(isWet())
         {
             entityToAttack = null;
-            func_35227_w();
+            teleportRandomly();
         }
         isJumping = false;
         if(entityToAttack != null)
@@ -175,37 +175,37 @@ public class EntityEnderman extends EntityMob
         {
             if(entityToAttack != null)
             {
-                if((entityToAttack instanceof EntityPlayer) && func_35232_c((EntityPlayer)entityToAttack))
+                if((entityToAttack instanceof EntityPlayer) && shouldAttackPlayer((EntityPlayer)entityToAttack))
                 {
                     moveStrafing = moveForward = 0.0F;
                     moveSpeed = 0.0F;
                     if(entityToAttack.getDistanceSqToEntity(this) < 16D)
                     {
-                        func_35227_w();
+                        teleportRandomly();
                     }
-                    field_35233_g = 0;
+                    teleportDelay = 0;
                 } else
-                if(entityToAttack.getDistanceSqToEntity(this) > 256D && field_35233_g++ >= 30 && func_35230_e(entityToAttack))
+                if(entityToAttack.getDistanceSqToEntity(this) > 256D && teleportDelay++ >= 30 && teleportToEntity(entityToAttack))
                 {
-                    field_35233_g = 0;
+                    teleportDelay = 0;
                 }
             } else
             {
-                field_35233_g = 0;
+                teleportDelay = 0;
             }
         }
         super.onLivingUpdate();
     }
 
-    protected boolean func_35227_w()
+    protected boolean teleportRandomly()
     {
         double d = posX + (rand.nextDouble() - 0.5D) * 64D;
         double d1 = posY + (double)(rand.nextInt(64) - 32);
         double d2 = posZ + (rand.nextDouble() - 0.5D) * 64D;
-        return func_35228_a(d, d1, d2);
+        return teleportTo(d, d1, d2);
     }
 
-    protected boolean func_35230_e(Entity entity)
+    protected boolean teleportToEntity(Entity entity)
     {
         Vec3D vec3d = Vec3D.createVector(posX - entity.posX, ((boundingBox.minY + (double)(height / 2.0F)) - entity.posY) + (double)entity.getEyeHeight(), posZ - entity.posZ);
         vec3d = vec3d.normalize();
@@ -213,10 +213,10 @@ public class EntityEnderman extends EntityMob
         double d1 = (posX + (rand.nextDouble() - 0.5D) * 8D) - vec3d.xCoord * d;
         double d2 = (posY + (double)(rand.nextInt(16) - 8)) - vec3d.yCoord * d;
         double d3 = (posZ + (rand.nextDouble() - 0.5D) * 8D) - vec3d.zCoord * d;
-        return func_35228_a(d1, d2, d3);
+        return teleportTo(d1, d2, d3);
     }
 
-    protected boolean func_35228_a(double d, double d1, double d2)
+    protected boolean teleportTo(double d, double d1, double d2)
     {
         double d3 = posX;
         double d4 = posY;
@@ -310,22 +310,22 @@ public class EntityEnderman extends EntityMob
         }
     }
 
-    public void func_35226_b(int i)
+    public void setCarried(int i)
     {
         dataWatcher.updateObject(16, Byte.valueOf((byte)(i & 0xff)));
     }
 
-    public int func_35225_x()
+    public int getCarried()
     {
         return dataWatcher.getWatchableObjectByte(16);
     }
 
-    public void func_35229_d(int i)
+    public void setCarryingData(int i)
     {
         dataWatcher.updateObject(17, Byte.valueOf((byte)(i & 0xff)));
     }
 
-    public int func_35231_y()
+    public int getCarryingData()
     {
         return dataWatcher.getWatchableObjectByte(17);
     }
@@ -336,7 +336,7 @@ public class EntityEnderman extends EntityMob
         {
             for(int j = 0; j < 64; j++)
             {
-                if(func_35227_w())
+                if(teleportRandomly())
                 {
                     return true;
                 }
@@ -351,20 +351,20 @@ public class EntityEnderman extends EntityMob
 
     static 
     {
-        field_35234_b = new boolean[256];
-        field_35234_b[Block.grass.blockID] = true;
-        field_35234_b[Block.dirt.blockID] = true;
-        field_35234_b[Block.sand.blockID] = true;
-        field_35234_b[Block.gravel.blockID] = true;
-        field_35234_b[Block.plantYellow.blockID] = true;
-        field_35234_b[Block.plantRed.blockID] = true;
-        field_35234_b[Block.mushroomBrown.blockID] = true;
-        field_35234_b[Block.mushroomRed.blockID] = true;
-        field_35234_b[Block.tnt.blockID] = true;
-        field_35234_b[Block.cactus.blockID] = true;
-        field_35234_b[Block.blockClay.blockID] = true;
-        field_35234_b[Block.pumpkin.blockID] = true;
-        field_35234_b[Block.melon.blockID] = true;
-        field_35234_b[Block.mycelium.blockID] = true;
+        canCarryBlocks = new boolean[256];
+        canCarryBlocks[Block.grass.blockID] = true;
+        canCarryBlocks[Block.dirt.blockID] = true;
+        canCarryBlocks[Block.sand.blockID] = true;
+        canCarryBlocks[Block.gravel.blockID] = true;
+        canCarryBlocks[Block.plantYellow.blockID] = true;
+        canCarryBlocks[Block.plantRed.blockID] = true;
+        canCarryBlocks[Block.mushroomBrown.blockID] = true;
+        canCarryBlocks[Block.mushroomRed.blockID] = true;
+        canCarryBlocks[Block.tnt.blockID] = true;
+        canCarryBlocks[Block.cactus.blockID] = true;
+        canCarryBlocks[Block.blockClay.blockID] = true;
+        canCarryBlocks[Block.pumpkin.blockID] = true;
+        canCarryBlocks[Block.melon.blockID] = true;
+        canCarryBlocks[Block.mycelium.blockID] = true;
     }
 }

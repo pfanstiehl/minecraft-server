@@ -73,7 +73,7 @@ public class TileEntityPiston extends TileEntity
         {
             f = 1.0F - f;
         }
-        AxisAlignedBB axisalignedbb = Block.pistonMoving.func_31032_a(worldObj, xCoord, yCoord, zCoord, storedBlockID, f, storedOrientation);
+        AxisAlignedBB axisalignedbb = Block.pistonMoving.getAxisAlignedBB(worldObj, xCoord, yCoord, zCoord, storedBlockID, f, storedOrientation);
         if(axisalignedbb != null)
         {
             List list = worldObj.getEntitiesWithinAABBExcludingEntity(null, axisalignedbb);

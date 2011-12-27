@@ -16,11 +16,11 @@ public class BiomeGenMushroomIsland extends BiomeGenBase
     public BiomeGenMushroomIsland(int i)
     {
         super(i);
-        decorator.treesPerChunk = -100;
-        decorator.flowersPerChunk = -100;
-        decorator.grassPerChunk = -100;
-        decorator.mushroomsPerChunk = 1;
-        decorator.field_40318_J = 1;
+        biomeDecorator.treesPerChunk = -100;
+        biomeDecorator.flowersPerChunk = -100;
+        biomeDecorator.grassPerChunk = -100;
+        biomeDecorator.mushroomsPerChunk = 1;
+        biomeDecorator.bigMushroomsPerChunk = 1;
         topBlock = (byte)Block.mycelium.blockID;
         spawnableMonsterList.clear();
         spawnableCreatureList.clear();

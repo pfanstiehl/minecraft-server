@@ -15,25 +15,25 @@ import java.util.*;
 public class ContainerEnchantment extends Container
 {
 
-    public IInventory field_40334_a;
-    private World field_40338_h;
+    public IInventory tableInventory;
+    private World worldPointer;
     private int field_40339_i;
     private int field_40336_j;
     private int field_40337_k;
     private Random field_40335_l;
-    public long field_40332_b;
-    public int field_40333_c[];
+    public long nameSeed;
+    public int enchantLevels[];
 
     public ContainerEnchantment(InventoryPlayer inventoryplayer, World world, int i, int j, int k)
     {
-        field_40334_a = new SlotEnchantmentTable(this, "Enchant", 1);
+        tableInventory = new SlotEnchantmentTable(this, "Enchant", 1);
         field_40335_l = new Random();
-        field_40333_c = new int[3];
-        field_40338_h = world;
+        enchantLevels = new int[3];
+        worldPointer = world;
         field_40339_i = i;
         field_40336_j = j;
         field_40337_k = k;
-        addSlot(new SlotEnchantment(this, field_40334_a, 0, 25, 47));
+        addSlot(new SlotEnchantment(this, tableInventory, 0, 25, 47));
         for(int l = 0; l < 3; l++)
         {
             for(int j1 = 0; j1 < 9; j1++)
@@ -53,9 +53,9 @@ public class ContainerEnchantment extends Container
     public void onCraftGuiOpened(ICrafting icrafting)
     {
         super.onCraftGuiOpened(icrafting);
-        icrafting.updateCraftingInventoryInfo(this, 0, field_40333_c[0]);
-        icrafting.updateCraftingInventoryInfo(this, 1, field_40333_c[1]);
-        icrafting.updateCraftingInventoryInfo(this, 2, field_40333_c[2]);
+        icrafting.updateCraftingInventoryInfo(this, 0, enchantLevels[0]);
+        icrafting.updateCraftingInventoryInfo(this, 1, enchantLevels[1]);
+        icrafting.updateCraftingInventoryInfo(this, 2, enchantLevels[2]);
     }
 
     public void updateCraftingResults()
@@ -64,44 +64,44 @@ public class ContainerEnchantment extends Container
         for(int i = 0; i < crafters.size(); i++)
         {
             ICrafting icrafting = (ICrafting)crafters.get(i);
-            icrafting.updateCraftingInventoryInfo(this, 0, field_40333_c[0]);
-            icrafting.updateCraftingInventoryInfo(this, 1, field_40333_c[1]);
-            icrafting.updateCraftingInventoryInfo(this, 2, field_40333_c[2]);
+            icrafting.updateCraftingInventoryInfo(this, 0, enchantLevels[0]);
+            icrafting.updateCraftingInventoryInfo(this, 1, enchantLevels[1]);
+            icrafting.updateCraftingInventoryInfo(this, 2, enchantLevels[2]);
         }
 
     }
 
     public void onCraftMatrixChanged(IInventory iinventory)
     {
-        if(iinventory == field_40334_a)
+        if(iinventory == tableInventory)
         {
             ItemStack itemstack = iinventory.getStackInSlot(0);
             if(itemstack == null || !itemstack.func_40606_q())
             {
                 for(int i = 0; i < 3; i++)
                 {
-                    field_40333_c[i] = 0;
+                    enchantLevels[i] = 0;
                 }
 
             } else
             {
-                field_40332_b = field_40335_l.nextLong();
-                if(!field_40338_h.singleplayerWorld)
+                nameSeed = field_40335_l.nextLong();
+                if(!worldPointer.singleplayerWorld)
                 {
                     int j = 0;
                     for(int k = -1; k <= 1; k++)
                     {
                         for(int i1 = -1; i1 <= 1; i1++)
                         {
-                            if(k == 0 && i1 == 0 || !field_40338_h.isAirBlock(field_40339_i + i1, field_40336_j, field_40337_k + k) || !field_40338_h.isAirBlock(field_40339_i + i1, field_40336_j + 1, field_40337_k + k))
+                            if(k == 0 && i1 == 0 || !worldPointer.isAirBlock(field_40339_i + i1, field_40336_j, field_40337_k + k) || !worldPointer.isAirBlock(field_40339_i + i1, field_40336_j + 1, field_40337_k + k))
                             {
                                 continue;
                             }
-                            if(field_40338_h.getBlockId(field_40339_i + i1 * 2, field_40336_j, field_40337_k + k * 2) == Block.bookShelf.blockID)
+                            if(worldPointer.getBlockId(field_40339_i + i1 * 2, field_40336_j, field_40337_k + k * 2) == Block.bookShelf.blockID)
                             {
                                 j++;
                             }
-                            if(field_40338_h.getBlockId(field_40339_i + i1 * 2, field_40336_j + 1, field_40337_k + k * 2) == Block.bookShelf.blockID)
+                            if(worldPointer.getBlockId(field_40339_i + i1 * 2, field_40336_j + 1, field_40337_k + k * 2) == Block.bookShelf.blockID)
                             {
                                 j++;
                             }
@@ -109,19 +109,19 @@ public class ContainerEnchantment extends Container
                             {
                                 continue;
                             }
-                            if(field_40338_h.getBlockId(field_40339_i + i1 * 2, field_40336_j, field_40337_k + k) == Block.bookShelf.blockID)
+                            if(worldPointer.getBlockId(field_40339_i + i1 * 2, field_40336_j, field_40337_k + k) == Block.bookShelf.blockID)
                             {
                                 j++;
                             }
-                            if(field_40338_h.getBlockId(field_40339_i + i1 * 2, field_40336_j + 1, field_40337_k + k) == Block.bookShelf.blockID)
+                            if(worldPointer.getBlockId(field_40339_i + i1 * 2, field_40336_j + 1, field_40337_k + k) == Block.bookShelf.blockID)
                             {
                                 j++;
                             }
-                            if(field_40338_h.getBlockId(field_40339_i + i1, field_40336_j, field_40337_k + k * 2) == Block.bookShelf.blockID)
+                            if(worldPointer.getBlockId(field_40339_i + i1, field_40336_j, field_40337_k + k * 2) == Block.bookShelf.blockID)
                             {
                                 j++;
                             }
-                            if(field_40338_h.getBlockId(field_40339_i + i1, field_40336_j + 1, field_40337_k + k * 2) == Block.bookShelf.blockID)
+                            if(worldPointer.getBlockId(field_40339_i + i1, field_40336_j + 1, field_40337_k + k * 2) == Block.bookShelf.blockID)
                             {
                                 j++;
                             }
@@ -131,7 +131,7 @@ public class ContainerEnchantment extends Container
 
                     for(int l = 0; l < 3; l++)
                     {
-                        field_40333_c[l] = EnchantmentHelper.func_40642_a(field_40335_l, l, j, itemstack);
+                        enchantLevels[l] = EnchantmentHelper.calcItemStackEnchantability(field_40335_l, l, j, itemstack);
                     }
 
                     updateCraftingResults();
@@ -140,24 +140,24 @@ public class ContainerEnchantment extends Container
         }
     }
 
-    public boolean func_40331_a(EntityPlayer entityplayer, int i)
+    public boolean enchantItem(EntityPlayer entityplayer, int i)
     {
-        ItemStack itemstack = field_40334_a.getStackInSlot(0);
-        if(field_40333_c[i] > 0 && itemstack != null && entityplayer.experienceLevel >= field_40333_c[i])
+        ItemStack itemstack = tableInventory.getStackInSlot(0);
+        if(enchantLevels[i] > 0 && itemstack != null && entityplayer.experienceLevel >= enchantLevels[i])
         {
-            if(!field_40338_h.singleplayerWorld)
+            if(!worldPointer.singleplayerWorld)
             {
-                List list = EnchantmentHelper.func_40629_a(field_40335_l, itemstack, field_40333_c[i]);
+                List list = EnchantmentHelper.buildEnchantmentList(field_40335_l, itemstack, enchantLevels[i]);
                 if(list != null)
                 {
-                    entityplayer.func_40108_b(field_40333_c[i]);
+                    entityplayer.removeExperience(enchantLevels[i]);
                     EnchantmentData enchantmentdata;
-                    for(Iterator iterator = list.iterator(); iterator.hasNext(); itemstack.func_40605_a(enchantmentdata.field_40494_a, enchantmentdata.field_40493_b))
+                    for(Iterator iterator = list.iterator(); iterator.hasNext(); itemstack.addEnchantment(enchantmentdata.field_40494_a, enchantmentdata.field_40493_b))
                     {
                         enchantmentdata = (EnchantmentData)iterator.next();
                     }
 
-                    onCraftMatrixChanged(field_40334_a);
+                    onCraftMatrixChanged(tableInventory);
                 }
             }
             return true;
@@ -170,11 +170,11 @@ public class ContainerEnchantment extends Container
     public void onCraftGuiClosed(EntityPlayer entityplayer)
     {
         super.onCraftGuiClosed(entityplayer);
-        if(field_40338_h.singleplayerWorld)
+        if(worldPointer.singleplayerWorld)
         {
             return;
         }
-        ItemStack itemstack = field_40334_a.getStackInSlot(0);
+        ItemStack itemstack = tableInventory.getStackInSlot(0);
         if(itemstack != null)
         {
             entityplayer.dropPlayerItem(itemstack);
@@ -183,7 +183,7 @@ public class ContainerEnchantment extends Container
 
     public boolean canInteractWith(EntityPlayer entityplayer)
     {
-        if(field_40338_h.getBlockId(field_40339_i, field_40336_j, field_40337_k) != Block.enchantmentTable.blockID)
+        if(worldPointer.getBlockId(field_40339_i, field_40336_j, field_40337_k) != Block.enchantmentTable.blockID)
         {
             return false;
         }

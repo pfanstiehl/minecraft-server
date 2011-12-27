@@ -38,7 +38,7 @@ public class BlockWeb extends Block
         return 1;
     }
 
-    public boolean isACube()
+    public boolean renderAsNormalBlock()
     {
         return false;
     }

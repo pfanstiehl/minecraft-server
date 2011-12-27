@@ -20,7 +20,7 @@ public class EntityDragon extends EntityDragonBase
     public double field_40147_c;
     public double field_40144_d[][];
     public int field_40145_e;
-    public DragonPart field_40142_f[];
+    public DragonPart dragonPartArray[];
     public DragonPart field_40143_g;
     public DragonPart field_40155_h;
     public DragonPart field_40156_i;
@@ -47,11 +47,11 @@ public class EntityDragon extends EntityDragonBase
         field_40159_q = false;
         field_40158_r = 0;
         field_41039_t = null;
-        field_40142_f = (new DragonPart[] {
+        dragonPartArray = (new DragonPart[] {
             field_40143_g = new DragonPart(this, "head", 6F, 6F), field_40155_h = new DragonPart(this, "body", 8F, 8F), field_40156_i = new DragonPart(this, "tail", 4F, 4F), field_40153_j = new DragonPart(this, "tail", 4F, 4F), field_40154_k = new DragonPart(this, "tail", 4F, 4F), field_40151_l = new DragonPart(this, "wing", 4F, 4F), field_40152_m = new DragonPart(this, "wing", 4F, 4F)
         });
-        field_40138_s = 200;
-        setEntityHealth(field_40138_s);
+        maxHealth = 200;
+        setEntityHealth(maxHealth);
         texture = "/mob/enderdragon/ender.png";
         setSize(16F, 8F);
         noClip = true;
@@ -63,7 +63,7 @@ public class EntityDragon extends EntityDragonBase
     protected void entityInit()
     {
         super.entityInit();
-        dataWatcher.addObject(16, new Integer(field_40138_s));
+        dataWatcher.addObject(16, new Integer(maxHealth));
     }
 
     public double[] func_40139_a(int i, float f)
@@ -310,11 +310,11 @@ public class EntityDragon extends EntityDragonBase
             {
                 if(!worldObj.singleplayerWorld)
                 {
-                    func_40136_a(field_40143_g, DamageSource.explosion, 10);
+                    attackEntityFromPart(field_40143_g, DamageSource.explosion, 10);
                 }
                 field_41039_t = null;
             } else
-            if(ticksExisted % 10 == 0 && health < field_40138_s)
+            if(ticksExisted % 10 == 0 && health < maxHealth)
             {
                 health++;
             }
@@ -467,7 +467,7 @@ public class EntityDragon extends EntityDragonBase
         return flag;
     }
 
-    public boolean func_40136_a(DragonPart dragonpart, DamageSource damagesource, int i)
+    public boolean attackEntityFromPart(DragonPart dragonpart, DamageSource damagesource, int i)
     {
         if(dragonpart != field_40143_g)
         {
@@ -503,7 +503,7 @@ public class EntityDragon extends EntityDragonBase
             {
                 int k = EntityXPOrb.getMore(i);
                 i -= k;
-                worldObj.entityJoinedWorld(new EntityXPOrb(worldObj, posX, posY, posZ, k));
+                worldObj.spawnEntityInWorld(new EntityXPOrb(worldObj, posX, posY, posZ, k));
             }
 
         }
@@ -515,7 +515,7 @@ public class EntityDragon extends EntityDragonBase
             {
                 int l = EntityXPOrb.getMore(j);
                 j -= l;
-                worldObj.entityJoinedWorld(new EntityXPOrb(worldObj, posX, posY, posZ, l));
+                worldObj.spawnEntityInWorld(new EntityXPOrb(worldObj, posX, posY, posZ, l));
             }
 
             int i1 = (5 + rand.nextInt(2) * 2) - 1;
@@ -585,7 +585,7 @@ public class EntityDragon extends EntityDragonBase
         worldObj.setBlockWithNotify(i, k + 2, j - 1, Block.torchWood.blockID);
         worldObj.setBlockWithNotify(i, k + 2, j + 1, Block.torchWood.blockID);
         worldObj.setBlockWithNotify(i, k + 3, j, Block.bedrock.blockID);
-        worldObj.setBlockWithNotify(i, k + 4, j, Block.field_41002_bK.blockID);
+        worldObj.setBlockWithNotify(i, k + 4, j, Block.dragonEgg.blockID);
         BlockEndPortal.field_41003_a = false;
     }
 
@@ -593,9 +593,9 @@ public class EntityDragon extends EntityDragonBase
     {
     }
 
-    public Entity[] func_40037_aF()
+    public Entity[] getParts()
     {
-        return field_40142_f;
+        return dragonPartArray;
     }
 
     public boolean canBeCollidedWith()

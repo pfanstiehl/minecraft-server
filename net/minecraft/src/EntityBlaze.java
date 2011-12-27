@@ -141,7 +141,7 @@ public class EntityBlaze extends EntityMob
                     {
                         EntitySmallFireball entitysmallfireball = new EntitySmallFireball(worldObj, this, d + rand.nextGaussian() * (double)f1, d1, d2 + rand.nextGaussian() * (double)f1);
                         entitysmallfireball.posY = posY + (double)(height / 2.0F) + 0.5D;
-                        worldObj.entityJoinedWorld(entitysmallfireball);
+                        worldObj.spawnEntityInWorld(entitysmallfireball);
                     }
 
                 }
@@ -170,7 +170,7 @@ public class EntityBlaze extends EntityMob
         return Item.blazeRod.shiftedIndex;
     }
 
-    public boolean func_40035_z()
+    public boolean isBurning()
     {
         return func_40126_A();
     }
@@ -206,7 +206,7 @@ public class EntityBlaze extends EntityMob
         dataWatcher.updateObject(16, Byte.valueOf(byte0));
     }
 
-    protected boolean isDarkEnough()
+    protected boolean func_40123_y()
     {
         return true;
     }

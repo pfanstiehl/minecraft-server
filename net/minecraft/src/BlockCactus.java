@@ -61,7 +61,7 @@ public class BlockCactus extends Block
         }
     }
 
-    public boolean isACube()
+    public boolean renderAsNormalBlock()
     {
         return false;
     }

@@ -40,7 +40,7 @@ public class ItemPainting extends Item
         {
             byte0 = 3;
         }
-        if(!entityplayer.func_35200_c(i, j, k))
+        if(!entityplayer.canPlayerEdit(i, j, k))
         {
             return false;
         }
@@ -49,7 +49,7 @@ public class ItemPainting extends Item
         {
             if(!world.singleplayerWorld)
             {
-                world.entityJoinedWorld(entitypainting);
+                world.spawnEntityInWorld(entitypainting);
             }
             itemstack.stackSize--;
         }

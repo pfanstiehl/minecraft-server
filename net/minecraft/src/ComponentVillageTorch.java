@@ -30,7 +30,7 @@ public class ComponentVillageTorch extends ComponentVillage
 
     public static StructureBoundingBox func_35382_a(List list, Random random, int i, int j, int k, int l)
     {
-        StructureBoundingBox structureboundingbox = StructureBoundingBox.func_35663_a(i, j, k, 0, 0, 0, 3, 4, 2, l);
+        StructureBoundingBox structureboundingbox = StructureBoundingBox.getComponentToAddBoundingBox(i, j, k, 0, 0, 0, 3, 4, 2, l);
         if(StructureComponent.canFitInside(list, structureboundingbox) != null)
         {
             return null;
@@ -52,14 +52,14 @@ public class ComponentVillageTorch extends ComponentVillage
             boundingBox.offset(0, ((field_35383_a - boundingBox.y2) + 4) - 1, 0);
         }
         fillWithBlocks(world, structureboundingbox, 0, 0, 0, 2, 3, 1, 0, 0, false);
-        func_35309_a(world, Block.fence.blockID, 0, 1, 0, 0, structureboundingbox);
-        func_35309_a(world, Block.fence.blockID, 0, 1, 1, 0, structureboundingbox);
-        func_35309_a(world, Block.fence.blockID, 0, 1, 2, 0, structureboundingbox);
-        func_35309_a(world, Block.cloth.blockID, 15, 1, 3, 0, structureboundingbox);
-        func_35309_a(world, Block.torchWood.blockID, 15, 0, 3, 0, structureboundingbox);
-        func_35309_a(world, Block.torchWood.blockID, 15, 1, 3, 1, structureboundingbox);
-        func_35309_a(world, Block.torchWood.blockID, 15, 2, 3, 0, structureboundingbox);
-        func_35309_a(world, Block.torchWood.blockID, 15, 1, 3, -1, structureboundingbox);
+        placeBlockAtCurrentPosition(world, Block.fence.blockID, 0, 1, 0, 0, structureboundingbox);
+        placeBlockAtCurrentPosition(world, Block.fence.blockID, 0, 1, 1, 0, structureboundingbox);
+        placeBlockAtCurrentPosition(world, Block.fence.blockID, 0, 1, 2, 0, structureboundingbox);
+        placeBlockAtCurrentPosition(world, Block.cloth.blockID, 15, 1, 3, 0, structureboundingbox);
+        placeBlockAtCurrentPosition(world, Block.torchWood.blockID, 15, 0, 3, 0, structureboundingbox);
+        placeBlockAtCurrentPosition(world, Block.torchWood.blockID, 15, 1, 3, 1, structureboundingbox);
+        placeBlockAtCurrentPosition(world, Block.torchWood.blockID, 15, 2, 3, 0, structureboundingbox);
+        placeBlockAtCurrentPosition(world, Block.torchWood.blockID, 15, 1, 3, -1, structureboundingbox);
         return true;
     }
 }

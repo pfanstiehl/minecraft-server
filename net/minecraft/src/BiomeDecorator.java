@@ -36,23 +36,23 @@ public class BiomeDecorator
     protected WorldGenerator plantRedGen;
     protected WorldGenerator mushroomBrownGen;
     protected WorldGenerator mushroomRedGen;
-    protected WorldGenerator field_40320_u;
-    protected WorldGenerator field_35286_p;
-    protected WorldGenerator field_35285_q;
-    protected WorldGenerator field_40322_x;
-    protected int field_40321_y;
+    protected WorldGenerator bigMushroomGen;
+    protected WorldGenerator reedGen;
+    protected WorldGenerator cactusGen;
+    protected WorldGenerator waterlilyGen;
+    protected int waterlilyPerChunk;
     protected int treesPerChunk;
     protected int flowersPerChunk;
     protected int grassPerChunk;
     protected int deadBushPerChunk;
     protected int mushroomsPerChunk;
     protected int reedsPerChunk;
-    protected int field_35289_x;
-    protected int field_35288_y;
-    protected int field_35287_z;
+    protected int cactiPerChunk;
+    protected int sandPerChunk;
+    protected int sandPerChunk2;
     protected int clayPerChunk;
-    protected int field_40318_J;
-    public boolean field_40319_K;
+    protected int bigMushroomsPerChunk;
+    public boolean generateFluid;
 
     public BiomeDecorator(BiomeGenBase biomegenbase)
     {
@@ -71,27 +71,27 @@ public class BiomeDecorator
         plantRedGen = new WorldGenFlowers(Block.plantRed.blockID);
         mushroomBrownGen = new WorldGenFlowers(Block.mushroomBrown.blockID);
         mushroomRedGen = new WorldGenFlowers(Block.mushroomRed.blockID);
-        field_40320_u = new WorldGenBigMushroom();
-        field_35286_p = new WorldGenReed();
-        field_35285_q = new WorldGenCactus();
-        field_40322_x = new MapGenWaterlily();
-        field_40321_y = 0;
+        bigMushroomGen = new WorldGenBigMushroom();
+        reedGen = new WorldGenReed();
+        cactusGen = new WorldGenCactus();
+        waterlilyGen = new MapGenWaterlily();
+        waterlilyPerChunk = 0;
         treesPerChunk = 0;
         flowersPerChunk = 2;
         grassPerChunk = 1;
         deadBushPerChunk = 0;
         mushroomsPerChunk = 0;
         reedsPerChunk = 0;
-        field_35289_x = 0;
-        field_35288_y = 1;
-        field_35287_z = 3;
+        cactiPerChunk = 0;
+        sandPerChunk = 1;
+        sandPerChunk2 = 3;
         clayPerChunk = 1;
-        field_40318_J = 0;
-        field_40319_K = true;
+        bigMushroomsPerChunk = 0;
+        generateFluid = true;
         biomeGenerator = biomegenbase;
     }
 
-    public void Decorates(World world, Random random, int i, int j)
+    public void decorate(World world, Random random, int i, int j)
     {
         if(curWorldObj != null)
         {
@@ -102,17 +102,17 @@ public class BiomeDecorator
             randomGenerator = random;
             chunk_X = i;
             chunk_Z = j;
-            func_35256_b();
+            decorate();
             curWorldObj = null;
             randomGenerator = null;
             return;
         }
     }
 
-    protected void func_35256_b()
+    protected void decorate()
     {
         generateOres();
-        for(int i = 0; i < field_35287_z; i++)
+        for(int i = 0; i < sandPerChunk2; i++)
         {
             int i1 = chunk_X + randomGenerator.nextInt(16) + 8;
             int k5 = chunk_Z + randomGenerator.nextInt(16) + 8;
@@ -126,7 +126,7 @@ public class BiomeDecorator
             clayGenerator.generate(curWorldObj, randomGenerator, j1, curWorldObj.findTopSolidBlock(j1, l5), l5);
         }
 
-        for(int k = 0; k < field_35288_y; k++)
+        for(int k = 0; k < sandPerChunk; k++)
         {
             int k1 = chunk_X + randomGenerator.nextInt(16) + 8;
             int i6 = chunk_Z + randomGenerator.nextInt(16) + 8;
@@ -147,11 +147,11 @@ public class BiomeDecorator
             worldgenerator.generate(curWorldObj, randomGenerator, j6, curWorldObj.getHeightValue(j6, k10), k10);
         }
 
-        for(int i2 = 0; i2 < field_40318_J; i2++)
+        for(int i2 = 0; i2 < bigMushroomsPerChunk; i2++)
         {
             int k6 = chunk_X + randomGenerator.nextInt(16) + 8;
             int l10 = chunk_Z + randomGenerator.nextInt(16) + 8;
-            field_40320_u.generate(curWorldObj, randomGenerator, k6, curWorldObj.getHeightValue(k6, l10), l10);
+            bigMushroomGen.generate(curWorldObj, randomGenerator, k6, curWorldObj.getHeightValue(k6, l10), l10);
         }
 
         for(int j2 = 0; j2 < flowersPerChunk; j2++)
@@ -186,13 +186,13 @@ public class BiomeDecorator
             (new WorldGenDeadBush(Block.deadBush.blockID)).generate(curWorldObj, randomGenerator, k7, l11, k15);
         }
 
-        for(int i3 = 0; i3 < field_40321_y; i3++)
+        for(int i3 = 0; i3 < waterlilyPerChunk; i3++)
         {
             int l7 = chunk_X + randomGenerator.nextInt(16) + 8;
             int i12 = chunk_Z + randomGenerator.nextInt(16) + 8;
             int l15;
             for(l15 = randomGenerator.nextInt(curWorldObj.worldYMax); l15 > 0 && curWorldObj.getBlockId(l7, l15 - 1, i12) == 0; l15--) { }
-            field_40322_x.generate(curWorldObj, randomGenerator, l7, l15, i12);
+            waterlilyGen.generate(curWorldObj, randomGenerator, l7, l15, i12);
         }
 
         for(int j3 = 0; j3 < mushroomsPerChunk; j3++)
@@ -232,7 +232,7 @@ public class BiomeDecorator
             int i9 = chunk_X + randomGenerator.nextInt(16) + 8;
             int j13 = chunk_Z + randomGenerator.nextInt(16) + 8;
             int k16 = randomGenerator.nextInt(curWorldObj.worldYMax);
-            field_35286_p.generate(curWorldObj, randomGenerator, i9, k16, j13);
+            reedGen.generate(curWorldObj, randomGenerator, i9, k16, j13);
         }
 
         for(int j4 = 0; j4 < 10; j4++)
@@ -240,7 +240,7 @@ public class BiomeDecorator
             int j9 = chunk_X + randomGenerator.nextInt(16) + 8;
             int k13 = randomGenerator.nextInt(curWorldObj.worldYMax);
             int l16 = chunk_Z + randomGenerator.nextInt(16) + 8;
-            field_35286_p.generate(curWorldObj, randomGenerator, j9, k13, l16);
+            reedGen.generate(curWorldObj, randomGenerator, j9, k13, l16);
         }
 
         if(randomGenerator.nextInt(32) == 0)
@@ -250,15 +250,15 @@ public class BiomeDecorator
             int l13 = chunk_Z + randomGenerator.nextInt(16) + 8;
             (new WorldGenPumpkin()).generate(curWorldObj, randomGenerator, k4, k9, l13);
         }
-        for(int l4 = 0; l4 < field_35289_x; l4++)
+        for(int l4 = 0; l4 < cactiPerChunk; l4++)
         {
             int l9 = chunk_X + randomGenerator.nextInt(16) + 8;
             int i14 = randomGenerator.nextInt(curWorldObj.worldYMax);
             int i17 = chunk_Z + randomGenerator.nextInt(16) + 8;
-            field_35285_q.generate(curWorldObj, randomGenerator, l9, i14, i17);
+            cactusGen.generate(curWorldObj, randomGenerator, l9, i14, i17);
         }
 
-        if(field_40319_K)
+        if(generateFluid)
         {
             for(int i5 = 0; i5 < 50; i5++)
             {
@@ -279,7 +279,7 @@ public class BiomeDecorator
         }
     }
 
-    protected void func_35257_a(int i, WorldGenerator worldgenerator, int j, int k)
+    protected void genStandardOre1(int i, WorldGenerator worldgenerator, int j, int k)
     {
         for(int l = 0; l < i; l++)
         {
@@ -291,7 +291,7 @@ public class BiomeDecorator
 
     }
 
-    protected void func_35254_b(int i, WorldGenerator worldgenerator, int j, int k)
+    protected void genStandardOre2(int i, WorldGenerator worldgenerator, int j, int k)
     {
         for(int l = 0; l < i; l++)
         {
@@ -305,13 +305,13 @@ public class BiomeDecorator
 
     protected void generateOres()
     {
-        func_35257_a(20, dirtGenerator, 0, curWorldObj.worldYMax);
-        func_35257_a(10, gravelGen, 0, curWorldObj.worldYMax);
-        func_35257_a(20, coalGen, 0, curWorldObj.worldYMax);
-        func_35257_a(20, ironGen, 0, curWorldObj.worldYMax / 2);
-        func_35257_a(2, goldGen, 0, curWorldObj.worldYMax / 4);
-        func_35257_a(8, redstoneGen, 0, curWorldObj.worldYMax / 8);
-        func_35257_a(1, diamondGen, 0, curWorldObj.worldYMax / 8);
-        func_35254_b(1, lapisGen, curWorldObj.worldYMax / 8, curWorldObj.worldYMax / 8);
+        genStandardOre1(20, dirtGenerator, 0, curWorldObj.worldYMax);
+        genStandardOre1(10, gravelGen, 0, curWorldObj.worldYMax);
+        genStandardOre1(20, coalGen, 0, curWorldObj.worldYMax);
+        genStandardOre1(20, ironGen, 0, curWorldObj.worldYMax / 2);
+        genStandardOre1(2, goldGen, 0, curWorldObj.worldYMax / 4);
+        genStandardOre1(8, redstoneGen, 0, curWorldObj.worldYMax / 8);
+        genStandardOre1(1, diamondGen, 0, curWorldObj.worldYMax / 8);
+        genStandardOre2(1, lapisGen, curWorldObj.worldYMax / 8, curWorldObj.worldYMax / 8);
     }
 }

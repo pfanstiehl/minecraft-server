@@ -13,11 +13,11 @@ import java.util.*;
 public abstract class MapGenStructure extends MapGenBase
 {
 
-    protected HashMap field_35534_e;
+    protected HashMap coordMap;
 
     public MapGenStructure()
     {
-        field_35534_e = new HashMap();
+        coordMap = new HashMap();
     }
 
     public void generate(IChunkProvider ichunkprovider, World world, int i, int j, byte abyte0[])
@@ -27,24 +27,24 @@ public abstract class MapGenStructure extends MapGenBase
 
     protected void recursiveGenerate(World world, int i, int j, int k, int l, byte abyte0[])
     {
-        if(field_35534_e.containsKey(Long.valueOf(ChunkCoordIntPair.chunkXZ2Int(i, j))))
+        if(coordMap.containsKey(Long.valueOf(ChunkCoordIntPair.chunkXZ2Int(i, j))))
         {
             return;
         }
         rand.nextInt();
-        if(func_35531_a(i, j))
+        if(canSpawnStructureAtCoords(i, j))
         {
-            StructureStart structurestart = func_35533_b(i, j);
-            field_35534_e.put(Long.valueOf(ChunkCoordIntPair.chunkXZ2Int(i, j)), structurestart);
+            StructureStart structurestart = getStructureStart(i, j);
+            coordMap.put(Long.valueOf(ChunkCoordIntPair.chunkXZ2Int(i, j)), structurestart);
         }
     }
 
-    public boolean func_35532_a(World world, Random random, int i, int j)
+    public boolean generateStructuresInChunk(World world, Random random, int i, int j)
     {
         int k = (i << 4) + 8;
         int l = (j << 4) + 8;
         boolean flag = false;
-        Iterator iterator = field_35534_e.values().iterator();
+        Iterator iterator = coordMap.values().iterator();
         do
         {
             if(!iterator.hasNext())
@@ -63,7 +63,7 @@ public abstract class MapGenStructure extends MapGenBase
 
     public boolean func_40204_a(int i, int j, int k)
     {
-        Iterator iterator = field_35534_e.values().iterator();
+        Iterator iterator = coordMap.values().iterator();
 label0:
         do
         {
@@ -105,7 +105,7 @@ label0:
         recursiveGenerate(world, i >> 4, k >> 4, 0, 0, null);
         double d = 1.7976931348623157E+308D;
         ChunkPosition chunkposition = null;
-        Object obj = field_35534_e.values().iterator();
+        Object obj = coordMap.values().iterator();
         do
         {
             if(!((Iterator) (obj)).hasNext())
@@ -166,7 +166,7 @@ label0:
         return null;
     }
 
-    protected abstract boolean func_35531_a(int i, int j);
+    protected abstract boolean canSpawnStructureAtCoords(int i, int j);
 
-    protected abstract StructureStart func_35533_b(int i, int j);
+    protected abstract StructureStart getStructureStart(int i, int j);
 }

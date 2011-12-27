@@ -13,13 +13,13 @@ import java.util.Random;
 public class WorldGenTallGrass extends WorldGenerator
 {
 
-    private int field_28057_a;
-    private int field_28056_b;
+    private int tallGrassID;
+    private int tallGrassMetadata;
 
     public WorldGenTallGrass(int i, int j)
     {
-        field_28057_a = i;
-        field_28056_b = j;
+        tallGrassID = i;
+        tallGrassMetadata = j;
     }
 
     public boolean generate(World world, Random random, int i, int j, int k)
@@ -30,9 +30,9 @@ public class WorldGenTallGrass extends WorldGenerator
             int j1 = (i + random.nextInt(8)) - random.nextInt(8);
             int k1 = (j + random.nextInt(4)) - random.nextInt(4);
             int l1 = (k + random.nextInt(8)) - random.nextInt(8);
-            if(world.isAirBlock(j1, k1, l1) && ((BlockFlower)Block.blocksList[field_28057_a]).canBlockStay(world, j1, k1, l1))
+            if(world.isAirBlock(j1, k1, l1) && ((BlockFlower)Block.blocksList[tallGrassID]).canBlockStay(world, j1, k1, l1))
             {
-                world.setBlockAndMetadata(j1, k1, l1, field_28057_a, field_28056_b);
+                world.setBlockAndMetadata(j1, k1, l1, tallGrassID, tallGrassMetadata);
             }
         }
 

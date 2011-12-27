@@ -23,15 +23,15 @@ public class StructureVillagePieces
     public static ArrayList getStructureVillageWeightedPieceList(Random random, int i)
     {
         ArrayList arraylist = new ArrayList();
-        arraylist.add(new StructureVillagePieceWeight(net.minecraft.src.ComponentVillageHouse4_Garden.class, 4, MathHelper.func_35476_a(random, 2 + i, 4 + i * 2)));
-        arraylist.add(new StructureVillagePieceWeight(net.minecraft.src.ComponentVillageChurch.class, 20, MathHelper.func_35476_a(random, 0 + i, 1 + i)));
-        arraylist.add(new StructureVillagePieceWeight(net.minecraft.src.ComponentVillageHouse1.class, 20, MathHelper.func_35476_a(random, 0 + i, 2 + i)));
-        arraylist.add(new StructureVillagePieceWeight(net.minecraft.src.ComponentVillageWoodHut.class, 3, MathHelper.func_35476_a(random, 2 + i, 5 + i * 3)));
-        arraylist.add(new StructureVillagePieceWeight(net.minecraft.src.ComponentVillageHall.class, 15, MathHelper.func_35476_a(random, 0 + i, 2 + i)));
-        arraylist.add(new StructureVillagePieceWeight(net.minecraft.src.ComponentVillageField.class, 3, MathHelper.func_35476_a(random, 1 + i, 4 + i)));
-        arraylist.add(new StructureVillagePieceWeight(net.minecraft.src.ComponentVillageField2.class, 3, MathHelper.func_35476_a(random, 2 + i, 4 + i * 2)));
-        arraylist.add(new StructureVillagePieceWeight(net.minecraft.src.ComponentVillageHouse2.class, 15, MathHelper.func_35476_a(random, 0, 1 + i)));
-        arraylist.add(new StructureVillagePieceWeight(net.minecraft.src.ComponentVillageHouse3.class, 8, MathHelper.func_35476_a(random, 0 + i, 3 + i * 2)));
+        arraylist.add(new StructureVillagePieceWeight(net.minecraft.src.ComponentVillageHouse4_Garden.class, 4, MathHelper.getRandomIntegerInRange(random, 2 + i, 4 + i * 2)));
+        arraylist.add(new StructureVillagePieceWeight(net.minecraft.src.ComponentVillageChurch.class, 20, MathHelper.getRandomIntegerInRange(random, 0 + i, 1 + i)));
+        arraylist.add(new StructureVillagePieceWeight(net.minecraft.src.ComponentVillageHouse1.class, 20, MathHelper.getRandomIntegerInRange(random, 0 + i, 2 + i)));
+        arraylist.add(new StructureVillagePieceWeight(net.minecraft.src.ComponentVillageWoodHut.class, 3, MathHelper.getRandomIntegerInRange(random, 2 + i, 5 + i * 3)));
+        arraylist.add(new StructureVillagePieceWeight(net.minecraft.src.ComponentVillageHall.class, 15, MathHelper.getRandomIntegerInRange(random, 0 + i, 2 + i)));
+        arraylist.add(new StructureVillagePieceWeight(net.minecraft.src.ComponentVillageField.class, 3, MathHelper.getRandomIntegerInRange(random, 1 + i, 4 + i)));
+        arraylist.add(new StructureVillagePieceWeight(net.minecraft.src.ComponentVillageField2.class, 3, MathHelper.getRandomIntegerInRange(random, 2 + i, 4 + i * 2)));
+        arraylist.add(new StructureVillagePieceWeight(net.minecraft.src.ComponentVillageHouse2.class, 15, MathHelper.getRandomIntegerInRange(random, 0, 1 + i)));
+        arraylist.add(new StructureVillagePieceWeight(net.minecraft.src.ComponentVillageHouse3.class, 8, MathHelper.getRandomIntegerInRange(random, 0 + i, 3 + i * 2)));
         Iterator iterator = arraylist.iterator();
         do
         {
@@ -109,7 +109,7 @@ public class StructureVillagePieces
 
     private static ComponentVillage getNextVillageComponent(ComponentVillageStartPiece var0, List var1, Random var2, int var3, int var4, int var5, int var6, int var7)
     {
-        int var8 = getAvailablePieceWeight(var0.field_35388_d);
+        int var8 = getAvailablePieceWeight(var0.structureVillageWeightedPieceList);
         if(var8 <= 0)
         {
             return null;
@@ -122,7 +122,7 @@ public class StructureVillagePieces
             {
                 ++var9;
                 int var10 = var2.nextInt(var8);
-                Iterator var11 = var0.field_35388_d.iterator();
+                Iterator var11 = var0.structureVillageWeightedPieceList.iterator();
 
                 while(var11.hasNext())
                 {
@@ -130,7 +130,7 @@ public class StructureVillagePieces
                     var10 -= var12.villagePieceWeight;
                     if(var10 < 0)
                     {
-                        if(!var12.canSpawnMoreVillagePiecesOfType(var7) || var12 == var0.field_35391_c && var0.field_35388_d.size() > 1)
+                        if(!var12.canSpawnMoreVillagePiecesOfType(var7) || var12 == var0.structVillagePieceWeight && var0.structureVillageWeightedPieceList.size() > 1)
                         {
                             break;
                         }
@@ -139,10 +139,10 @@ public class StructureVillagePieces
                         if(var13 != null)
                         {
                             ++var12.villagePiecesSpawned;
-                            var0.field_35391_c = var12;
+                            var0.structVillagePieceWeight = var12;
                             if(!var12.canSpawnMoreVillagePieces())
                             {
-                                var0.field_35388_d.remove(var12);
+                                var0.structureVillageWeightedPieceList.remove(var12);
                             }
 
                             return var13;
@@ -181,7 +181,7 @@ public class StructureVillagePieces
             int l1 = ((StructureComponent) (componentvillage)).boundingBox.x2 - ((StructureComponent) (componentvillage)).boundingBox.x1;
             int i2 = ((StructureComponent) (componentvillage)).boundingBox.z2 - ((StructureComponent) (componentvillage)).boundingBox.z1;
             int j2 = l1 <= i2 ? i2 : l1;
-            if(componentvillagestartpiece.func_35386_a().func_35141_a(j1, k1, j2 / 2 + 4, MapGenVillage.field_35538_a))
+            if(componentvillagestartpiece.getWorldChunkMngr().areBiomesViable(j1, k1, j2 / 2 + 4, MapGenVillage.villageSpawnBiomes))
             {
                 list.add(componentvillage);
                 componentvillagestartpiece.field_35389_e.add(componentvillage);
@@ -210,7 +210,7 @@ public class StructureVillagePieces
             int l1 = ((StructureComponent) (componentvillagepathgen)).boundingBox.x2 - ((StructureComponent) (componentvillagepathgen)).boundingBox.x1;
             int i2 = ((StructureComponent) (componentvillagepathgen)).boundingBox.z2 - ((StructureComponent) (componentvillagepathgen)).boundingBox.z1;
             int j2 = l1 <= i2 ? i2 : l1;
-            if(componentvillagestartpiece.func_35386_a().func_35141_a(j1, k1, j2 / 2 + 4, MapGenVillage.field_35538_a))
+            if(componentvillagestartpiece.getWorldChunkMngr().areBiomesViable(j1, k1, j2 / 2 + 4, MapGenVillage.villageSpawnBiomes))
             {
                 list.add(componentvillagepathgen);
                 componentvillagestartpiece.field_35387_f.add(componentvillagepathgen);

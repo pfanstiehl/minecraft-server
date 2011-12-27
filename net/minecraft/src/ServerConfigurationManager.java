@@ -118,7 +118,7 @@ public class ServerConfigurationManager
         WorldServer worldserver = mcServer.getWorldManager(entityplayermp.dimension);
         worldserver.chunkProviderServer.loadChunk((int)entityplayermp.posX >> 4, (int)entityplayermp.posZ >> 4);
         for(; worldserver.getCollidingBoundingBoxes(entityplayermp, entityplayermp.boundingBox).size() != 0; entityplayermp.setPosition(entityplayermp.posX, entityplayermp.posY + 1.0D, entityplayermp.posZ)) { }
-        worldserver.entityJoinedWorld(entityplayermp);
+        worldserver.spawnEntityInWorld(entityplayermp);
         getPlayerManager(entityplayermp.dimension).addPlayer(entityplayermp);
         for(int i = 0; i < playerEntities.size(); i++)
         {
@@ -191,7 +191,7 @@ public class ServerConfigurationManager
         EntityPlayerMP entityplayermp1 = new EntityPlayerMP(mcServer, mcServer.getWorldManager(entityplayermp.dimension), entityplayermp.username, new ItemInWorldManager(mcServer.getWorldManager(entityplayermp.dimension)));
         if(flag)
         {
-            entityplayermp1.func_41031_d(entityplayermp);
+            entityplayermp1.copyPlayer(entityplayermp);
         }
         entityplayermp1.entityId = entityplayermp.entityId;
         entityplayermp1.playerNetServerHandler = entityplayermp.playerNetServerHandler;
@@ -216,7 +216,7 @@ public class ServerConfigurationManager
         entityplayermp1.playerNetServerHandler.teleportTo(entityplayermp1.posX, entityplayermp1.posY, entityplayermp1.posZ, entityplayermp1.rotationYaw, entityplayermp1.rotationPitch);
         func_28170_a(entityplayermp1, worldserver);
         getPlayerManager(entityplayermp1.dimension).addPlayer(entityplayermp1);
-        worldserver.entityJoinedWorld(entityplayermp1);
+        worldserver.spawnEntityInWorld(entityplayermp1);
         playerEntities.add(entityplayermp1);
         entityplayermp1.func_20057_k();
         entityplayermp1.func_22068_s();
@@ -268,7 +268,7 @@ public class ServerConfigurationManager
         }
         if(j != 1 && entityplayermp.isEntityAlive())
         {
-            worldserver1.entityJoinedWorld(entityplayermp);
+            worldserver1.spawnEntityInWorld(entityplayermp);
             entityplayermp.setLocationAndAngles(d, entityplayermp.posY, d1, entityplayermp.rotationYaw, entityplayermp.rotationPitch);
             worldserver1.updateEntityWithOptionalForce(entityplayermp, false);
             worldserver1.chunkProviderServer.chunkLoadOverride = true;
@@ -277,7 +277,7 @@ public class ServerConfigurationManager
         }
         joinNewPlayerManager(entityplayermp);
         entityplayermp.playerNetServerHandler.teleportTo(entityplayermp.posX, entityplayermp.posY, entityplayermp.posZ, entityplayermp.rotationYaw, entityplayermp.rotationPitch);
-        entityplayermp.Sets(worldserver1);
+        entityplayermp.setWorld(worldserver1);
         entityplayermp.itemInWorldManager.setWorld(worldserver1);
         func_28170_a(entityplayermp, worldserver1);
         func_30008_g(entityplayermp);

@@ -29,41 +29,41 @@ abstract class ComponentStronghold extends StructureComponent
             break;
 
         case 2: // '\002'
-            func_35309_a(world, Block.stoneBrick.blockID, 0, i, j, k, structureboundingbox);
-            func_35309_a(world, Block.stoneBrick.blockID, 0, i, j + 1, k, structureboundingbox);
-            func_35309_a(world, Block.stoneBrick.blockID, 0, i, j + 2, k, structureboundingbox);
-            func_35309_a(world, Block.stoneBrick.blockID, 0, i + 1, j + 2, k, structureboundingbox);
-            func_35309_a(world, Block.stoneBrick.blockID, 0, i + 2, j + 2, k, structureboundingbox);
-            func_35309_a(world, Block.stoneBrick.blockID, 0, i + 2, j + 1, k, structureboundingbox);
-            func_35309_a(world, Block.stoneBrick.blockID, 0, i + 2, j, k, structureboundingbox);
-            func_35309_a(world, Block.doorWood.blockID, 0, i + 1, j, k, structureboundingbox);
-            func_35309_a(world, Block.doorWood.blockID, 8, i + 1, j + 1, k, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stoneBrick.blockID, 0, i, j, k, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stoneBrick.blockID, 0, i, j + 1, k, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stoneBrick.blockID, 0, i, j + 2, k, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stoneBrick.blockID, 0, i + 1, j + 2, k, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stoneBrick.blockID, 0, i + 2, j + 2, k, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stoneBrick.blockID, 0, i + 2, j + 1, k, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stoneBrick.blockID, 0, i + 2, j, k, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.doorWood.blockID, 0, i + 1, j, k, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.doorWood.blockID, 8, i + 1, j + 1, k, structureboundingbox);
             break;
 
         case 3: // '\003'
-            func_35309_a(world, 0, 0, i + 1, j, k, structureboundingbox);
-            func_35309_a(world, 0, 0, i + 1, j + 1, k, structureboundingbox);
-            func_35309_a(world, Block.fenceIron.blockID, 0, i, j, k, structureboundingbox);
-            func_35309_a(world, Block.fenceIron.blockID, 0, i, j + 1, k, structureboundingbox);
-            func_35309_a(world, Block.fenceIron.blockID, 0, i, j + 2, k, structureboundingbox);
-            func_35309_a(world, Block.fenceIron.blockID, 0, i + 1, j + 2, k, structureboundingbox);
-            func_35309_a(world, Block.fenceIron.blockID, 0, i + 2, j + 2, k, structureboundingbox);
-            func_35309_a(world, Block.fenceIron.blockID, 0, i + 2, j + 1, k, structureboundingbox);
-            func_35309_a(world, Block.fenceIron.blockID, 0, i + 2, j, k, structureboundingbox);
+            placeBlockAtCurrentPosition(world, 0, 0, i + 1, j, k, structureboundingbox);
+            placeBlockAtCurrentPosition(world, 0, 0, i + 1, j + 1, k, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.fenceIron.blockID, 0, i, j, k, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.fenceIron.blockID, 0, i, j + 1, k, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.fenceIron.blockID, 0, i, j + 2, k, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.fenceIron.blockID, 0, i + 1, j + 2, k, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.fenceIron.blockID, 0, i + 2, j + 2, k, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.fenceIron.blockID, 0, i + 2, j + 1, k, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.fenceIron.blockID, 0, i + 2, j, k, structureboundingbox);
             break;
 
         case 4: // '\004'
-            func_35309_a(world, Block.stoneBrick.blockID, 0, i, j, k, structureboundingbox);
-            func_35309_a(world, Block.stoneBrick.blockID, 0, i, j + 1, k, structureboundingbox);
-            func_35309_a(world, Block.stoneBrick.blockID, 0, i, j + 2, k, structureboundingbox);
-            func_35309_a(world, Block.stoneBrick.blockID, 0, i + 1, j + 2, k, structureboundingbox);
-            func_35309_a(world, Block.stoneBrick.blockID, 0, i + 2, j + 2, k, structureboundingbox);
-            func_35309_a(world, Block.stoneBrick.blockID, 0, i + 2, j + 1, k, structureboundingbox);
-            func_35309_a(world, Block.stoneBrick.blockID, 0, i + 2, j, k, structureboundingbox);
-            func_35309_a(world, Block.doorSteel.blockID, 0, i + 1, j, k, structureboundingbox);
-            func_35309_a(world, Block.doorSteel.blockID, 8, i + 1, j + 1, k, structureboundingbox);
-            func_35309_a(world, Block.button.blockID, func_35301_c(Block.button.blockID, 4), i + 2, j + 1, k + 1, structureboundingbox);
-            func_35309_a(world, Block.button.blockID, func_35301_c(Block.button.blockID, 3), i + 2, j + 1, k - 1, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stoneBrick.blockID, 0, i, j, k, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stoneBrick.blockID, 0, i, j + 1, k, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stoneBrick.blockID, 0, i, j + 2, k, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stoneBrick.blockID, 0, i + 1, j + 2, k, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stoneBrick.blockID, 0, i + 2, j + 2, k, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stoneBrick.blockID, 0, i + 2, j + 1, k, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stoneBrick.blockID, 0, i + 2, j, k, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.doorSteel.blockID, 0, i + 1, j, k, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.doorSteel.blockID, 8, i + 1, j + 1, k, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.button.blockID, func_35301_c(Block.button.blockID, 4), i + 2, j + 1, k + 1, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.button.blockID, func_35301_c(Block.button.blockID, 3), i + 2, j + 1, k - 1, structureboundingbox);
             break;
         }
     }
@@ -146,7 +146,7 @@ abstract class ComponentStronghold extends StructureComponent
         return null;
     }
 
-    protected static boolean func_35319_a(StructureBoundingBox structureboundingbox)
+    protected static boolean canStrongholdGoDeeper(StructureBoundingBox structureboundingbox)
     {
         return structureboundingbox != null && structureboundingbox.y1 > 10;
     }

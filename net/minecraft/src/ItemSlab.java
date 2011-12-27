@@ -41,7 +41,7 @@ public class ItemSlab extends ItemBlock
         {
             return false;
         }
-        if(!entityplayer.func_35200_c(i, j, k))
+        if(!entityplayer.canPlayerEdit(i, j, k))
         {
             return false;
         }

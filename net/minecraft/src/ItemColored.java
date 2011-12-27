@@ -17,7 +17,7 @@ public class ItemColored extends ItemBlock
     public ItemColored(int i, boolean flag)
     {
         super(i);
-        field_35421_a = Block.blocksList[func_35419_a()];
+        field_35421_a = Block.blocksList[getBlockID()];
         if(flag)
         {
             setMaxDamage(0);

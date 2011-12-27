@@ -16,13 +16,13 @@ public abstract class EntityCreature extends EntityLiving
     private PathEntity pathToEntity;
     protected Entity entityToAttack;
     protected boolean hasAttacked;
-    protected int field_35223_f;
+    protected int fleeingTick;
 
     public EntityCreature(World world)
     {
         super(world);
         hasAttacked = false;
-        field_35223_f = 0;
+        fleeingTick = 0;
     }
 
     protected boolean isMovementCeased()
@@ -33,9 +33,9 @@ public abstract class EntityCreature extends EntityLiving
     protected void updateEntityActionState()
     {
         Profiler.startSection("ai");
-        if(field_35223_f > 0)
+        if(fleeingTick > 0)
         {
-            field_35223_f--;
+            fleeingTick--;
         }
         hasAttacked = isMovementCeased();
         float f = 16F;
@@ -66,7 +66,7 @@ public abstract class EntityCreature extends EntityLiving
         {
             pathToEntity = worldObj.getPathToEntity(this, entityToAttack, f);
         } else
-        if(!hasAttacked && (pathToEntity == null && rand.nextInt(180) == 0 || rand.nextInt(120) == 0 || field_35223_f > 0) && entityAge < 100)
+        if(!hasAttacked && (pathToEntity == null && rand.nextInt(180) == 0 || rand.nextInt(120) == 0 || fleeingTick > 0) && entityAge < 100)
         {
             updateWanderPath();
         }
@@ -225,10 +225,10 @@ public abstract class EntityCreature extends EntityLiving
         entityToAttack = entity;
     }
 
-    protected float func_35178_D()
+    protected float getPotionSpeedMultiplier()
     {
-        float f = super.func_35178_D();
-        if(field_35223_f > 0)
+        float f = super.getPotionSpeedMultiplier();
+        if(fleeingTick > 0)
         {
             f *= 2.0F;
         }

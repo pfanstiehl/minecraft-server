@@ -44,7 +44,7 @@ public class EntityCaveSpider extends EntitySpider
                 }
                 if(byte0 > 0)
                 {
-                    ((EntityLiving)entity).func_35182_d(new PotionEffect(Potion.poisonPotion.potionId, byte0 * 20, 0));
+                    ((EntityLiving)entity).addPotionEffect(new PotionEffect(Potion.poison.id, byte0 * 20, 0));
                 }
             }
             return true;

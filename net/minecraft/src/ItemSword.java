@@ -47,7 +47,7 @@ public class ItemSword extends Item
         return weaponDamage;
     }
 
-    public EnumAction func_35406_b(ItemStack itemstack)
+    public EnumAction getAction(ItemStack itemstack)
     {
         return EnumAction.block;
     }
@@ -59,7 +59,7 @@ public class ItemSword extends Item
 
     public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer)
     {
-        entityplayer.func_35201_a(itemstack, getMaxItemUseDuration(itemstack));
+        entityplayer.setItemInUse(itemstack, getMaxItemUseDuration(itemstack));
         return itemstack;
     }
 

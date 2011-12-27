@@ -30,8 +30,8 @@ public class ComponentVillageField2 extends ComponentVillage
 
     public static ComponentVillageField2 func_35399_a(List list, Random random, int i, int j, int k, int l, int i1)
     {
-        StructureBoundingBox structureboundingbox = StructureBoundingBox.func_35663_a(i, j, k, 0, 0, 0, 7, 4, 9, l);
-        if(!func_35366_a(structureboundingbox) || StructureComponent.canFitInside(list, structureboundingbox) != null)
+        StructureBoundingBox structureboundingbox = StructureBoundingBox.getComponentToAddBoundingBox(i, j, k, 0, 0, 0, 7, 4, 9, l);
+        if(!canVillageGoDeeper(structureboundingbox) || StructureComponent.canFitInside(list, structureboundingbox) != null)
         {
             return null;
         } else
@@ -61,18 +61,18 @@ public class ComponentVillageField2 extends ComponentVillage
         fillWithBlocks(world, structureboundingbox, 3, 0, 1, 3, 0, 7, Block.waterMoving.blockID, Block.waterMoving.blockID, false);
         for(int i = 1; i <= 7; i++)
         {
-            func_35309_a(world, Block.crops.blockID, MathHelper.func_35476_a(random, 2, 7), 1, 1, i, structureboundingbox);
-            func_35309_a(world, Block.crops.blockID, MathHelper.func_35476_a(random, 2, 7), 2, 1, i, structureboundingbox);
-            func_35309_a(world, Block.crops.blockID, MathHelper.func_35476_a(random, 2, 7), 4, 1, i, structureboundingbox);
-            func_35309_a(world, Block.crops.blockID, MathHelper.func_35476_a(random, 2, 7), 5, 1, i, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.crops.blockID, MathHelper.getRandomIntegerInRange(random, 2, 7), 1, 1, i, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.crops.blockID, MathHelper.getRandomIntegerInRange(random, 2, 7), 2, 1, i, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.crops.blockID, MathHelper.getRandomIntegerInRange(random, 2, 7), 4, 1, i, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.crops.blockID, MathHelper.getRandomIntegerInRange(random, 2, 7), 5, 1, i, structureboundingbox);
         }
 
         for(int j = 0; j < 9; j++)
         {
             for(int k = 0; k < 7; k++)
             {
-                func_35314_b(world, k, 4, j, structureboundingbox);
-                func_35303_b(world, Block.dirt.blockID, 0, k, -1, j, structureboundingbox);
+                clearCurrentPositionBlocksUpwards(world, k, 4, j, structureboundingbox);
+                fillCurrentPositionBlocksDownwards(world, Block.dirt.blockID, 0, k, -1, j, structureboundingbox);
             }
 
         }

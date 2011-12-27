@@ -13,12 +13,12 @@ import java.util.Random;
 public class WorldGenSand extends WorldGenerator
 {
 
-    private int field_35291_a;
+    private int sandID;
     private int field_35290_b;
 
     public WorldGenSand(int i, int j)
     {
-        field_35291_a = j;
+        sandID = j;
         field_35290_b = i;
     }
 
@@ -45,7 +45,7 @@ public class WorldGenSand extends WorldGenerator
                     int j2 = world.getBlockId(i1, i2, j1);
                     if(j2 == Block.dirt.blockID || j2 == Block.grass.blockID)
                     {
-                        world.setBlock(i1, i2, j1, field_35291_a);
+                        world.setBlock(i1, i2, j1, sandID);
                     }
                 }
 

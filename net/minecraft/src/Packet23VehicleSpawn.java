@@ -16,11 +16,11 @@ public class Packet23VehicleSpawn extends Packet
     public int xPosition;
     public int yPosition;
     public int zPosition;
-    public int field_28044_e;
-    public int field_28043_f;
-    public int field_28042_g;
+    public int speedX;
+    public int speedY;
+    public int speedZ;
     public int type;
-    public int field_28041_i;
+    public int throwerEntityId;
 
     public Packet23VehicleSpawn()
     {
@@ -38,7 +38,7 @@ public class Packet23VehicleSpawn extends Packet
         yPosition = MathHelper.floor_double(entity.posY * 32D);
         zPosition = MathHelper.floor_double(entity.posZ * 32D);
         type = i;
-        field_28041_i = j;
+        throwerEntityId = j;
         if(j > 0)
         {
             double d = entity.motionX;
@@ -69,9 +69,9 @@ public class Packet23VehicleSpawn extends Packet
             {
                 d2 = d3;
             }
-            field_28044_e = (int)(d * 8000D);
-            field_28043_f = (int)(d1 * 8000D);
-            field_28042_g = (int)(d2 * 8000D);
+            speedX = (int)(d * 8000D);
+            speedY = (int)(d1 * 8000D);
+            speedZ = (int)(d2 * 8000D);
         }
     }
 
@@ -83,12 +83,12 @@ public class Packet23VehicleSpawn extends Packet
         xPosition = datainputstream.readInt();
         yPosition = datainputstream.readInt();
         zPosition = datainputstream.readInt();
-        field_28041_i = datainputstream.readInt();
-        if(field_28041_i > 0)
+        throwerEntityId = datainputstream.readInt();
+        if(throwerEntityId > 0)
         {
-            field_28044_e = datainputstream.readShort();
-            field_28043_f = datainputstream.readShort();
-            field_28042_g = datainputstream.readShort();
+            speedX = datainputstream.readShort();
+            speedY = datainputstream.readShort();
+            speedZ = datainputstream.readShort();
         }
     }
 
@@ -100,12 +100,12 @@ public class Packet23VehicleSpawn extends Packet
         dataoutputstream.writeInt(xPosition);
         dataoutputstream.writeInt(yPosition);
         dataoutputstream.writeInt(zPosition);
-        dataoutputstream.writeInt(field_28041_i);
-        if(field_28041_i > 0)
+        dataoutputstream.writeInt(throwerEntityId);
+        if(throwerEntityId > 0)
         {
-            dataoutputstream.writeShort(field_28044_e);
-            dataoutputstream.writeShort(field_28043_f);
-            dataoutputstream.writeShort(field_28042_g);
+            dataoutputstream.writeShort(speedX);
+            dataoutputstream.writeShort(speedY);
+            dataoutputstream.writeShort(speedZ);
         }
     }
 
@@ -116,6 +116,6 @@ public class Packet23VehicleSpawn extends Packet
 
     public int getPacketSize()
     {
-        return 21 + field_28041_i <= 0 ? 0 : 6;
+        return 21 + throwerEntityId <= 0 ? 0 : 6;
     }
 }

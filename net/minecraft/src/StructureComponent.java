@@ -124,7 +124,7 @@ public abstract class StructureComponent
         return false;
     }
 
-    protected int func_35306_a(int i, int j)
+    protected int getXWithOffset(int i, int j)
     {
         switch(coordBaseMode)
         {
@@ -141,7 +141,7 @@ public abstract class StructureComponent
         return i;
     }
 
-    protected int func_35300_a(int i)
+    protected int getYWithOffset(int i)
     {
         if(coordBaseMode == -1)
         {
@@ -152,7 +152,7 @@ public abstract class StructureComponent
         }
     }
 
-    protected int func_35296_b(int i, int j)
+    protected int getZWithOffset(int i, int j)
     {
         switch(coordBaseMode)
         {
@@ -361,11 +361,11 @@ public abstract class StructureComponent
         return j;
     }
 
-    protected void func_35309_a(World world, int i, int j, int k, int l, int i1, StructureBoundingBox structureboundingbox)
+    protected void placeBlockAtCurrentPosition(World world, int i, int j, int k, int l, int i1, StructureBoundingBox structureboundingbox)
     {
-        int j1 = func_35306_a(k, i1);
-        int k1 = func_35300_a(l);
-        int l1 = func_35296_b(k, i1);
+        int j1 = getXWithOffset(k, i1);
+        int k1 = getYWithOffset(l);
+        int l1 = getZWithOffset(k, i1);
         if(!structureboundingbox.isInBbVolume(j1, k1, l1))
         {
             return;
@@ -378,9 +378,9 @@ public abstract class StructureComponent
 
     protected int func_35297_a(World world, int i, int j, int k, StructureBoundingBox structureboundingbox)
     {
-        int l = func_35306_a(i, k);
-        int i1 = func_35300_a(j);
-        int j1 = func_35296_b(i, k);
+        int l = getXWithOffset(i, k);
+        int i1 = getYWithOffset(j);
+        int j1 = getZWithOffset(i, k);
         if(!structureboundingbox.isInBbVolume(l, i1, j1))
         {
             return 0;
@@ -405,10 +405,10 @@ public abstract class StructureComponent
                     }
                     if(i2 == j || i2 == i1 || j2 == i || j2 == l || k2 == k || k2 == j1)
                     {
-                        func_35309_a(world, k1, 0, j2, i2, k2, structureboundingbox);
+                        placeBlockAtCurrentPosition(world, k1, 0, j2, i2, k2, structureboundingbox);
                     } else
                     {
-                        func_35309_a(world, l1, 0, j2, i2, k2, structureboundingbox);
+                        placeBlockAtCurrentPosition(world, l1, 0, j2, i2, k2, structureboundingbox);
                     }
                 }
 
@@ -418,7 +418,7 @@ public abstract class StructureComponent
 
     }
 
-    protected void func_35307_a(World world, StructureBoundingBox structureboundingbox, int i, int j, int k, int l, int i1, 
+    protected void fillWithRandomizedBlocks(World world, StructureBoundingBox structureboundingbox, int i, int j, int k, int l, int i1, 
             int j1, boolean flag, Random random, StructurePieceBlockSelector structurepieceblockselector)
     {
         for(int k1 = j; k1 <= i1; k1++)
@@ -430,7 +430,7 @@ public abstract class StructureComponent
                     if(!flag || func_35297_a(world, l1, k1, i2, structureboundingbox) != 0)
                     {
                         structurepieceblockselector.selectBlocks(random, l1, k1, i2, k1 == j || k1 == i1 || l1 == i || l1 == l || i2 == k || i2 == j1);
-                        func_35309_a(world, structurepieceblockselector.func_35566_a(), structurepieceblockselector.func_35567_b(), l1, k1, i2, structureboundingbox);
+                        placeBlockAtCurrentPosition(world, structurepieceblockselector.getSelectedBlockId(), structurepieceblockselector.getSelectedBlockMetaData(), l1, k1, i2, structureboundingbox);
                     }
                 }
 
@@ -455,10 +455,10 @@ public abstract class StructureComponent
                     }
                     if(i2 == j || i2 == i1 || j2 == i || j2 == l || k2 == k || k2 == j1)
                     {
-                        func_35309_a(world, k1, 0, j2, i2, k2, structureboundingbox);
+                        placeBlockAtCurrentPosition(world, k1, 0, j2, i2, k2, structureboundingbox);
                     } else
                     {
-                        func_35309_a(world, l1, 0, j2, i2, k2, structureboundingbox);
+                        placeBlockAtCurrentPosition(world, l1, 0, j2, i2, k2, structureboundingbox);
                     }
                 }
 
@@ -473,11 +473,11 @@ public abstract class StructureComponent
     {
         if(random.nextFloat() < f)
         {
-            func_35309_a(world, l, i1, i, j, k, structureboundingbox);
+            placeBlockAtCurrentPosition(world, l, i1, i, j, k, structureboundingbox);
         }
     }
 
-    protected void func_35304_a(World world, StructureBoundingBox structureboundingbox, int i, int j, int k, int l, int i1, 
+    protected void randomlyRareFillWithBlocks(World world, StructureBoundingBox structureboundingbox, int i, int j, int k, int l, int i1, 
             int j1, int k1, boolean flag)
     {
         float f = (l - i) + 1;
@@ -501,7 +501,7 @@ public abstract class StructureComponent
                     float f8 = f6 * f6 + f5 * f5 + f7 * f7;
                     if(f8 <= 1.05F)
                     {
-                        func_35309_a(world, k1, 0, i2, l1, j2, structureboundingbox);
+                        placeBlockAtCurrentPosition(world, k1, 0, i2, l1, j2, structureboundingbox);
                     }
                 }
 
@@ -511,11 +511,11 @@ public abstract class StructureComponent
 
     }
 
-    protected void func_35314_b(World world, int i, int j, int k, StructureBoundingBox structureboundingbox)
+    protected void clearCurrentPositionBlocksUpwards(World world, int i, int j, int k, StructureBoundingBox structureboundingbox)
     {
-        int l = func_35306_a(i, k);
-        int i1 = func_35300_a(j);
-        int j1 = func_35296_b(i, k);
+        int l = getXWithOffset(i, k);
+        int i1 = getYWithOffset(j);
+        int j1 = getZWithOffset(i, k);
         if(!structureboundingbox.isInBbVolume(l, i1, j1))
         {
             return;
@@ -527,11 +527,11 @@ public abstract class StructureComponent
 
     }
 
-    protected void func_35303_b(World world, int i, int j, int k, int l, int i1, StructureBoundingBox structureboundingbox)
+    protected void fillCurrentPositionBlocksDownwards(World world, int i, int j, int k, int l, int i1, StructureBoundingBox structureboundingbox)
     {
-        int j1 = func_35306_a(k, i1);
-        int k1 = func_35300_a(l);
-        int l1 = func_35296_b(k, i1);
+        int j1 = getXWithOffset(k, i1);
+        int k1 = getYWithOffset(l);
+        int l1 = getZWithOffset(k, i1);
         if(!structureboundingbox.isInBbVolume(j1, k1, l1))
         {
             return;
@@ -543,51 +543,51 @@ public abstract class StructureComponent
 
     }
 
-    protected void func_35299_a(World world, StructureBoundingBox structureboundingbox, Random random, int i, int j, int k, StructurePieceTreasure astructurepiecetreasure[], 
+    protected void createTreasureChestAtCurrentPosition(World world, StructureBoundingBox structureboundingbox, Random random, int i, int j, int k, StructurePieceTreasure astructurepiecetreasure[], 
             int l)
     {
-        int i1 = func_35306_a(i, k);
-        int j1 = func_35300_a(j);
-        int k1 = func_35296_b(i, k);
+        int i1 = getXWithOffset(i, k);
+        int j1 = getYWithOffset(j);
+        int k1 = getZWithOffset(i, k);
         if(structureboundingbox.isInBbVolume(i1, j1, k1) && world.getBlockId(i1, j1, k1) != Block.chest.blockID)
         {
             world.setBlockWithNotify(i1, j1, k1, Block.chest.blockID);
             TileEntityChest tileentitychest = (TileEntityChest)world.getBlockTileEntity(i1, j1, k1);
             if(tileentitychest != null)
             {
-                func_35311_a(random, astructurepiecetreasure, tileentitychest, l);
+                fillTreasureChestWithLoot(random, astructurepiecetreasure, tileentitychest, l);
             }
         }
     }
 
-    private static void func_35311_a(Random random, StructurePieceTreasure astructurepiecetreasure[], TileEntityChest tileentitychest, int i)
+    private static void fillTreasureChestWithLoot(Random random, StructurePieceTreasure astructurepiecetreasure[], TileEntityChest tileentitychest, int i)
     {
         for(int j = 0; j < i; j++)
         {
             StructurePieceTreasure structurepiecetreasure = (StructurePieceTreasure)WeightedRandom.func_35691_a(random, astructurepiecetreasure);
-            int k = structurepiecetreasure.field_35488_c + random.nextInt((structurepiecetreasure.field_35486_e - structurepiecetreasure.field_35488_c) + 1);
-            if(Item.itemsList[structurepiecetreasure.field_35489_a].getItemStackLimit() >= k)
+            int k = structurepiecetreasure.minItemStack + random.nextInt((structurepiecetreasure.maxItemStack - structurepiecetreasure.minItemStack) + 1);
+            if(Item.itemsList[structurepiecetreasure.itemID].getItemStackLimit() >= k)
             {
-                tileentitychest.setInventorySlotContents(random.nextInt(tileentitychest.getSizeInventory()), new ItemStack(structurepiecetreasure.field_35489_a, k, structurepiecetreasure.field_35487_b));
+                tileentitychest.setInventorySlotContents(random.nextInt(tileentitychest.getSizeInventory()), new ItemStack(structurepiecetreasure.itemID, k, structurepiecetreasure.itemMetadata));
                 continue;
             }
             for(int l = 0; l < k; l++)
             {
-                tileentitychest.setInventorySlotContents(random.nextInt(tileentitychest.getSizeInventory()), new ItemStack(structurepiecetreasure.field_35489_a, 1, structurepiecetreasure.field_35487_b));
+                tileentitychest.setInventorySlotContents(random.nextInt(tileentitychest.getSizeInventory()), new ItemStack(structurepiecetreasure.itemID, 1, structurepiecetreasure.itemMetadata));
             }
 
         }
 
     }
 
-    protected void func_35298_a(World world, StructureBoundingBox structureboundingbox, Random random, int i, int j, int k, int l)
+    protected void placeDoorAtCurrentPosition(World world, StructureBoundingBox structureboundingbox, Random random, int i, int j, int k, int l)
     {
-        int i1 = func_35306_a(i, k);
-        int j1 = func_35300_a(j);
-        int k1 = func_35296_b(i, k);
+        int i1 = getXWithOffset(i, k);
+        int j1 = getYWithOffset(j);
+        int k1 = getZWithOffset(i, k);
         if(structureboundingbox.isInBbVolume(i1, j1, k1))
         {
-            ItemDoor.func_35418_a(world, i1, j1, k1, l, Block.doorWood);
+            ItemDoor.placeDoorBlock(world, i1, j1, k1, l, Block.doorWood);
         }
     }
 }

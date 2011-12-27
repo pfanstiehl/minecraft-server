@@ -19,11 +19,11 @@ class RConThreadQueryAuth
     private byte requestID[];
     private byte challengeValue[];
     private String requestIDstring;
-    final RConThreadQuery field_40392_a; /* synthetic field */
+    final RConThreadQuery queryThread; /* synthetic field */
 
     public RConThreadQueryAuth(RConThreadQuery rconthreadquery, DatagramPacket datagrampacket)
     {
-        field_40392_a = rconthreadquery;
+        queryThread = rconthreadquery;
 //        super();
         timestamp = (new Date()).getTime();
         byte abyte0[] = datagrampacket.getData();

@@ -37,8 +37,8 @@ public class ComponentStrongholdLeftTurn extends ComponentStronghold
 
     public static ComponentStrongholdLeftTurn func_35330_a(List list, Random random, int i, int j, int k, int l, int i1)
     {
-        StructureBoundingBox structureboundingbox = StructureBoundingBox.func_35663_a(i, j, k, -1, -1, 0, 5, 5, 5, l);
-        if(!func_35319_a(structureboundingbox) || StructureComponent.canFitInside(list, structureboundingbox) != null)
+        StructureBoundingBox structureboundingbox = StructureBoundingBox.getComponentToAddBoundingBox(i, j, k, -1, -1, 0, 5, 5, 5, l);
+        if(!canStrongholdGoDeeper(structureboundingbox) || StructureComponent.canFitInside(list, structureboundingbox) != null)
         {
             return null;
         } else
@@ -53,7 +53,7 @@ public class ComponentStrongholdLeftTurn extends ComponentStronghold
         {
             return false;
         }
-        func_35307_a(world, structureboundingbox, 0, 0, 0, 4, 4, 4, true, random, StructureStrongholdPieces.getStrongholdStones());
+        fillWithRandomizedBlocks(world, structureboundingbox, 0, 0, 0, 4, 4, 4, true, random, StructureStrongholdPieces.getStrongholdStones());
         placeDoor(world, random, structureboundingbox, field_35331_a, 1, 1, 0);
         if(coordBaseMode == 2 || coordBaseMode == 3)
         {

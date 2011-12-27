@@ -31,7 +31,7 @@ public class BlockFenceGate extends Block
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int i, int j, int k)
     {
         int l = world.getBlockMetadata(i, j, k);
-        if(func_35070_c(l))
+        if(isFenceGateOpen(l))
         {
             return null;
         } else
@@ -45,7 +45,7 @@ public class BlockFenceGate extends Block
         return false;
     }
 
-    public boolean isACube()
+    public boolean renderAsNormalBlock()
     {
         return false;
     }
@@ -64,7 +64,7 @@ public class BlockFenceGate extends Block
     public boolean blockActivated(World world, int i, int j, int k, EntityPlayer entityplayer)
     {
         int l = world.getBlockMetadata(i, j, k);
-        if(func_35070_c(l))
+        if(isFenceGateOpen(l))
         {
             world.setBlockMetadataWithNotify(i, j, k, l & -5);
         } else
@@ -81,7 +81,7 @@ public class BlockFenceGate extends Block
         return true;
     }
 
-    public static boolean func_35070_c(int i)
+    public static boolean isFenceGateOpen(int i)
     {
         return (i & 4) != 0;
     }

@@ -180,7 +180,7 @@ public class Block
     public static final Block endPortal;
     public static final Block endPortalFrame;
     public static final Block whiteStone;
-    public static final Block field_41002_bK;
+    public static final Block dragonEgg;
     public int blockIndexInTexture;
     public final int blockID;
     protected float blockHardness;
@@ -263,7 +263,7 @@ public class Block
         return this;
     }
 
-    public boolean isACube()
+    public boolean renderAsNormalBlock()
     {
         return true;
     }
@@ -444,7 +444,7 @@ public class Block
             double d2 = (double)(world.rand.nextFloat() * f) + (double)(1.0F - f) * 0.5D;
             EntityItem entityitem = new EntityItem(world, (double)i + d, (double)j + d1, (double)k + d2, itemstack);
             entityitem.delayBeforeCanPickup = 10;
-            world.entityJoinedWorld(entityitem);
+            world.spawnEntityInWorld(entityitem);
             return;
         }
     }
@@ -643,7 +643,7 @@ public class Block
         return false;
     }
 
-    public void func_40163_f()
+    public void setBlockBoundsForItemRender()
     {
     }
 
@@ -651,7 +651,7 @@ public class Block
     {
         entityplayer.addStat(StatList.mineBlockStatArray[blockID], 1);
         entityplayer.addExhaustion(0.025F);
-        if(isACube() && !isBlockContainer[blockID] && EnchantmentHelper.func_40644_d(entityplayer.inventory))
+        if(renderAsNormalBlock() && !isBlockContainer[blockID] && EnchantmentHelper.getSilkTouchModifier(entityplayer.inventory))
         {
             ItemStack itemstack = func_41001_e(l);
             if(itemstack != null)
@@ -705,7 +705,7 @@ public class Block
         return blockName;
     }
 
-    public void playBlock(World world, int i, int j, int k, int l, int i1)
+    public void powerBlock(World world, int i, int j, int k, int l, int i1)
     {
     }
 
@@ -872,7 +872,7 @@ public class Block
         endPortal = (new BlockEndPortal(119, Material.portal)).setHardness(-1F).setResistance(6000000F);
         endPortalFrame = (new BlockEndPortalFrame(120)).setStepSound(soundGlassFootstep).setLightValue(0.125F).setHardness(-1F).setBlockName("endPortalFrame").setRequiresSelfNotify().setResistance(6000000F);
         whiteStone = (new Block(121, 175, Material.rock)).setHardness(3F).setResistance(15F).setStepSound(soundStoneFootstep).setBlockName("whiteStone");
-        field_41002_bK = (new BlockDragonEgg(122, 167)).setHardness(3F).setResistance(15F).setStepSound(soundStoneFootstep).setLightValue(0.125F).setBlockName("dragonEgg");
+        dragonEgg = (new BlockDragonEgg(122, 167)).setHardness(3F).setResistance(15F).setStepSound(soundStoneFootstep).setLightValue(0.125F).setBlockName("dragonEgg");
         Item.itemsList[cloth.blockID] = (new ItemCloth(cloth.blockID - 256)).setItemName("cloth");
         Item.itemsList[wood.blockID] = (new ItemMetadata(wood.blockID - 256, wood)).setItemName("log");
         Item.itemsList[stoneBrick.blockID] = (new ItemMetadata(stoneBrick.blockID - 256, stoneBrick)).setItemName("stonebricksmooth");

@@ -10,22 +10,22 @@ import java.util.Map;
 public class PacketCount
 {
 
-    public static boolean field_40619_a = true;
+    public static boolean allowCounting = true;
     private static final Map field_40617_b = new HashMap();
     private static final Map field_40618_c = new HashMap();
-    private static final Object field_40616_d = new Object();
+    private static final Object lock = new Object();
 
     public PacketCount()
     {
     }
 
-    public static void func_40615_a(int i, long l)
+    public static void countPacket(int i, long l)
     {
-        if(!field_40619_a)
+        if(!allowCounting)
         {
             return;
         }
-        synchronized(field_40616_d)
+        synchronized(lock)
         {
             if(field_40617_b.containsKey(Integer.valueOf(i)))
             {

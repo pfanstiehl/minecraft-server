@@ -220,20 +220,20 @@ public class ComponentMineshaftCorridor extends StructureComponent
             randomlyPlaceBlock(world, structureboundingbox, random, 0.05F, 1, 2, l + 1, Block.torchWood.blockID, 0);
             if(random.nextInt(100) == 0)
             {
-                func_35299_a(world, structureboundingbox, random, 2, 0, l - 1, StructureMineshaftPieces.getTreasurePieces(), 3 + random.nextInt(4));
+                createTreasureChestAtCurrentPosition(world, structureboundingbox, random, 2, 0, l - 1, StructureMineshaftPieces.getTreasurePieces(), 3 + random.nextInt(4));
             }
             if(random.nextInt(100) == 0)
             {
-                func_35299_a(world, structureboundingbox, random, 0, 0, l + 1, StructureMineshaftPieces.getTreasurePieces(), 3 + random.nextInt(4));
+                createTreasureChestAtCurrentPosition(world, structureboundingbox, random, 0, 0, l + 1, StructureMineshaftPieces.getTreasurePieces(), 3 + random.nextInt(4));
             }
             if(!field_35359_b || field_35360_c)
             {
                 continue;
             }
-            int j1 = func_35300_a(0);
+            int j1 = getYWithOffset(0);
             int k1 = (l - 1) + random.nextInt(3);
-            int l1 = func_35306_a(1, k1);
-            k1 = func_35296_b(1, k1);
+            int l1 = getXWithOffset(1, k1);
+            k1 = getZWithOffset(1, k1);
             if(!structureboundingbox.isInBbVolume(l1, j1, k1))
             {
                 continue;

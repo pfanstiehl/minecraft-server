@@ -22,7 +22,7 @@ public class ItemBow extends Item
 
     public void onPlayerStoppedUsing(ItemStack itemstack, World world, EntityPlayer entityplayer, int i)
     {
-        if(entityplayer.field_35214_K.depleteBuckets || entityplayer.inventory.hasItemInInventory(Item.arrow.shiftedIndex))
+        if(entityplayer.capabilities.depleteBuckets || entityplayer.inventory.hasItemInInventory(Item.arrow.shiftedIndex))
         {
             int j = getMaxItemUseDuration(itemstack) - i;
             float f = (float)j / 20F;
@@ -38,14 +38,14 @@ public class ItemBow extends Item
             EntityArrow entityarrow = new EntityArrow(world, entityplayer, f * 2.0F);
             if(f == 1.0F)
             {
-                entityarrow.isAirborne = true;
+                entityarrow.arrowCritical = true;
             }
             itemstack.damageItem(1, entityplayer);
             world.playSoundAtEntity(entityplayer, "random.bow", 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
             entityplayer.inventory.consumeInventoryItem(Item.arrow.shiftedIndex);
             if(!world.singleplayerWorld)
             {
-                world.entityJoinedWorld(entityarrow);
+                world.spawnEntityInWorld(entityarrow);
             }
         }
     }
@@ -60,16 +60,16 @@ public class ItemBow extends Item
         return 0x11940;
     }
 
-    public EnumAction func_35406_b(ItemStack itemstack)
+    public EnumAction getAction(ItemStack itemstack)
     {
         return EnumAction.bow;
     }
 
     public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer)
     {
-        if(entityplayer.field_35214_K.depleteBuckets || entityplayer.inventory.hasItemInInventory(Item.arrow.shiftedIndex))
+        if(entityplayer.capabilities.depleteBuckets || entityplayer.inventory.hasItemInInventory(Item.arrow.shiftedIndex))
         {
-            entityplayer.func_35201_a(itemstack, getMaxItemUseDuration(itemstack));
+            entityplayer.setItemInUse(itemstack, getMaxItemUseDuration(itemstack));
         }
         return itemstack;
     }

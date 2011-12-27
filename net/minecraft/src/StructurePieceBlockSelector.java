@@ -18,12 +18,12 @@ public abstract class StructurePieceBlockSelector
 
     public abstract void selectBlocks(Random random, int i, int j, int k, boolean flag);
 
-    public int func_35566_a()
+    public int getSelectedBlockId()
     {
         return selectedBlockId;
     }
 
-    public int func_35567_b()
+    public int getSelectedBlockMetaData()
     {
         return selectedBlockMetaData;
     }

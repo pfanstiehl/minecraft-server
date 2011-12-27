@@ -49,7 +49,7 @@ public class DataWatcher
         return ((Byte)((WatchableObject)watchedObjects.get(Integer.valueOf(i))).getObject()).byteValue();
     }
 
-    public short func_41048_b(int i)
+    public short getWatchableObjectShort(int i)
     {
         return ((Short)((WatchableObject)watchedObjects.get(Integer.valueOf(i))).getObject()).shortValue();
     }

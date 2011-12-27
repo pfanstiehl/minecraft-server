@@ -27,7 +27,7 @@ public class EntityArrow extends Entity
     public Entity shootingEntity;
     private int ticksInGround;
     private int ticksInAir;
-    public boolean isAirborne;
+    public boolean arrowCritical;
 
     public EntityArrow(World world)
     {
@@ -41,7 +41,7 @@ public class EntityArrow extends Entity
         doesArrowBelongToPlayer = false;
         arrowShake = 0;
         ticksInAir = 0;
-        isAirborne = false;
+        arrowCritical = false;
         setSize(0.5F, 0.5F);
     }
 
@@ -57,7 +57,7 @@ public class EntityArrow extends Entity
         doesArrowBelongToPlayer = false;
         arrowShake = 0;
         ticksInAir = 0;
-        isAirborne = false;
+        arrowCritical = false;
         setSize(0.5F, 0.5F);
         setPosition(d, d1, d2);
         yOffset = 0.0F;
@@ -75,7 +75,7 @@ public class EntityArrow extends Entity
         doesArrowBelongToPlayer = false;
         arrowShake = 0;
         ticksInAir = 0;
-        isAirborne = false;
+        arrowCritical = false;
         shootingEntity = entityliving;
         doesArrowBelongToPlayer = entityliving instanceof EntityPlayer;
         setSize(0.5F, 0.5F);
@@ -206,7 +206,7 @@ public class EntityArrow extends Entity
             {
                 float f1 = MathHelper.sqrt_double(motionX * motionX + motionY * motionY + motionZ * motionZ);
                 int j1 = (int)Math.ceil((double)f1 * 2D);
-                if(isAirborne)
+                if(arrowCritical)
                 {
                     j1 += rand.nextInt(j1 / 2 + 2);
                 }
@@ -252,10 +252,10 @@ public class EntityArrow extends Entity
                 worldObj.playSoundAtEntity(this, "random.bowhit", 1.0F, 1.2F / (rand.nextFloat() * 0.2F + 0.9F));
                 inGround = true;
                 arrowShake = 7;
-                isAirborne = false;
+                arrowCritical = false;
             }
         }
-        if(isAirborne)
+        if(arrowCritical)
         {
             for(int i1 = 0; i1 < 4; i1++)
             {

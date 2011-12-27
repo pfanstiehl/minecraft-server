@@ -113,7 +113,7 @@ public class EntitySlime extends EntityLiving
     protected void updateEntityActionState()
     {
         despawnEntity();
-        EntityPlayer entityplayer = worldObj.func_40211_b(this, 16D);
+        EntityPlayer entityplayer = worldObj.getClosestVulnerablePlayerToEntity(this, 16D);
         if(entityplayer != null)
         {
             faceEntity(entityplayer, 10F, 20F);
@@ -171,7 +171,7 @@ public class EntitySlime extends EntityLiving
                 EntitySlime entityslime = func_40114_y();
                 entityslime.setSlimeSize(i / 2);
                 entityslime.setLocationAndAngles(posX + (double)f, posY + 0.5D, posZ + (double)f1, rand.nextFloat() * 360F, 0.0F);
-                worldObj.entityJoinedWorld(entityslime);
+                worldObj.spawnEntityInWorld(entityslime);
             }
 
         }

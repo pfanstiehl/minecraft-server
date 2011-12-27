@@ -47,7 +47,7 @@ public class CompressedStreamTools
         }
     }
 
-    public static NBTTagCompound func_40515_a(byte abyte0[])
+    public static NBTTagCompound loadMapFromByteArray(byte abyte0[])
         throws IOException
     {
         DataInputStream datainputstream = new DataInputStream(new BufferedInputStream(new GZIPInputStream(new ByteArrayInputStream(abyte0))));
@@ -62,7 +62,7 @@ public class CompressedStreamTools
         }
     }
 
-    public static byte[] func_40516_a(NBTTagCompound nbttagcompound)
+    public static byte[] writeMapToByteArray(NBTTagCompound nbttagcompound)
         throws IOException
     {
         ByteArrayOutputStream bytearrayoutputstream = new ByteArrayOutputStream();

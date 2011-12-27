@@ -37,9 +37,9 @@ public class Material
     public static final Material cactus;
     public static final Material clay;
     public static final Material pumpkin;
-    public static final Material field_41042_z;
+    public static final Material dragonEgg;
     public static final Material portal;
-    public static final Material cakeMaterial;
+    public static final Material cake;
     public static final Material web;
     public static final Material piston;
     private boolean canBurn;
@@ -93,7 +93,7 @@ public class Material
         return this;
     }
 
-    public boolean getBurning()
+    public boolean getCanBurn()
     {
         return canBurn;
     }
@@ -169,9 +169,9 @@ public class Material
         cactus = (new Material(MapColor.foliageColor)).setIsTranslucent().setNoPushMobility();
         clay = new Material(MapColor.clayColor);
         pumpkin = (new Material(MapColor.foliageColor)).setNoPushMobility();
-        field_41042_z = (new Material(MapColor.foliageColor)).setNoPushMobility();
+        dragonEgg = (new Material(MapColor.foliageColor)).setNoPushMobility();
         portal = (new MaterialPortal(MapColor.airColor)).setImmovableMobility();
-        cakeMaterial = (new Material(MapColor.airColor)).setNoPushMobility();
+        cake = (new Material(MapColor.airColor)).setNoPushMobility();
         web = (new MaterialWeb(MapColor.clothColor)).setNoHarvest().setNoPushMobility();
         piston = (new Material(MapColor.stoneColor)).setImmovableMobility();
     }

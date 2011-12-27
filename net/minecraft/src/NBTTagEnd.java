@@ -37,7 +37,7 @@ public class NBTTagEnd extends NBTBase
         return "END";
     }
 
-    public NBTBase func_40468_b()
+    public NBTBase cloneTag()
     {
         return new NBTTagEnd();
     }

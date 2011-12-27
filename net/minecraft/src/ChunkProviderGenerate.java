@@ -100,7 +100,7 @@ public class ChunkProviderGenerate
                         double d13 = (d4 - d2) * d9;
                         for(int l2 = 0; l2 < 4; l2++)
                         {
-                            int i3 = l2 + l1 * 4 << worldObj.field_35250_b | 0 + i2 * 4 << worldObj.worldYBits | j2 * 8 + k2;
+                            int i3 = l2 + l1 * 4 << worldObj.xShift | 0 + i2 * 4 << worldObj.worldYBits | j2 * 8 + k2;
                             int j3 = 1 << worldObj.worldYBits;
                             i3 -= j3;
                             double d14 = 0.25D;
@@ -397,9 +397,9 @@ public class ChunkProviderGenerate
         boolean flag = false;
         if(mapFeaturesEnabled)
         {
-            mineshaftGenerator.func_35532_a(worldObj, rand, i, j);
-            flag = villageGenerator.func_35532_a(worldObj, rand, i, j);
-            strongholdGenerator.func_35532_a(worldObj, rand, i, j);
+            mineshaftGenerator.generateStructuresInChunk(worldObj, rand, i, j);
+            flag = villageGenerator.generateStructuresInChunk(worldObj, rand, i, j);
+            strongholdGenerator.generateStructuresInChunk(worldObj, rand, i, j);
         }
         if(!flag && rand.nextInt(4) == 0)
         {
@@ -439,7 +439,7 @@ public class ChunkProviderGenerate
                 {
                     worldObj.setBlockWithNotify(i2 + k, j4 - 1, j3 + l, Block.ice.blockID);
                 }
-                if(worldObj.func_40215_r(i2 + k, j4, j3 + l))
+                if(worldObj.canSnowAt(i2 + k, j4, j3 + l))
                 {
                     worldObj.setBlockWithNotify(i2 + k, j4, j3 + l, Block.snow.blockID);
                 }

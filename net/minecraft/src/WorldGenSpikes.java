@@ -62,7 +62,7 @@ public class WorldGenSpikes extends WorldGenerator
 
         EntityEnderCrystal entityendercrystal = new EntityEnderCrystal(world);
         entityendercrystal.setLocationAndAngles((float)i + 0.5F, j + l, (float)k + 0.5F, random.nextFloat() * 360F, 0.0F);
-        world.entityJoinedWorld(entityendercrystal);
+        world.spawnEntityInWorld(entityendercrystal);
         world.setBlockWithNotify(i, j + l, k, Block.bedrock.blockID);
         return true;
     }

@@ -43,10 +43,10 @@ public class BlockCauldron extends Block
         super.getCollidingBoundingBoxes(world, i, j, k, axisalignedbb, arraylist);
         setBlockBounds(0.0F, 0.0F, 1.0F - f, 1.0F, 1.0F, 1.0F);
         super.getCollidingBoundingBoxes(world, i, j, k, axisalignedbb, arraylist);
-        func_40163_f();
+        setBlockBoundsForItemRender();
     }
 
-    public void func_40163_f()
+    public void setBlockBoundsForItemRender()
     {
         setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
     }
@@ -61,7 +61,7 @@ public class BlockCauldron extends Block
         return 24;
     }
 
-    public boolean isACube()
+    public boolean renderAsNormalBlock()
     {
         return false;
     }
@@ -82,7 +82,7 @@ public class BlockCauldron extends Block
         {
             if(l < 3)
             {
-                if(!entityplayer.field_35214_K.depleteBuckets)
+                if(!entityplayer.capabilities.depleteBuckets)
                 {
                     entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, new ItemStack(Item.bucketEmpty));
                 }
@@ -95,7 +95,7 @@ public class BlockCauldron extends Block
             ItemStack itemstack1 = new ItemStack(Item.potion, 1, 0);
             if(!entityplayer.inventory.addItemStackToInventory(itemstack1))
             {
-                world.entityJoinedWorld(new EntityItem(world, (double)i + 0.5D, (double)j + 1.5D, (double)k + 0.5D, itemstack1));
+                world.spawnEntityInWorld(new EntityItem(world, (double)i + 0.5D, (double)j + 1.5D, (double)k + 0.5D, itemstack1));
             }
             itemstack.stackSize--;
             if(itemstack.stackSize <= 0)

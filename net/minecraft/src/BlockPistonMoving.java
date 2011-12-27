@@ -61,7 +61,7 @@ public class BlockPistonMoving extends BlockContainer
         return false;
     }
 
-    public boolean isACube()
+    public boolean renderAsNormalBlock()
     {
         return false;
     }
@@ -125,7 +125,7 @@ public class BlockPistonMoving extends BlockContainer
         {
             f = 1.0F - f;
         }
-        return func_31032_a(world, i, j, k, tileentitypiston.getStoredBlockID(), f, tileentitypiston.func_31008_d());
+        return getAxisAlignedBB(world, i, j, k, tileentitypiston.getStoredBlockID(), f, tileentitypiston.func_31008_d());
     }
 
     public void setBlockBoundsBasedOnState(IBlockAccess iblockaccess, int i, int j, int k)
@@ -154,7 +154,7 @@ public class BlockPistonMoving extends BlockContainer
         }
     }
 
-    public AxisAlignedBB func_31032_a(World world, int i, int j, int k, int l, float f, int i1)
+    public AxisAlignedBB getAxisAlignedBB(World world, int i, int j, int k, int l, float f, int i1)
     {
         if(l == 0 || l == blockID)
         {

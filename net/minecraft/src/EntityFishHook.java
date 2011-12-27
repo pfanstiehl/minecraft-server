@@ -27,12 +27,12 @@ public class EntityFishHook extends Entity
     private int ticksInAir;
     private int ticksCatchable;
     public Entity bobber;
-    private int field_6149_an;
-    private double field_6148_ao;
-    private double field_6147_ap;
-    private double field_6146_aq;
-    private double field_6145_ar;
-    private double field_6144_as;
+    private int fishPosRotationIncrements;
+    private double fishX;
+    private double fishY;
+    private double fishZ;
+    private double fishYaw;
+    private double fishPitch;
 
     public EntityFishHook(World world)
     {
@@ -108,17 +108,17 @@ public class EntityFishHook extends Entity
     public void onUpdate()
     {
         super.onUpdate();
-        if(field_6149_an > 0)
+        if(fishPosRotationIncrements > 0)
         {
-            double d = posX + (field_6148_ao - posX) / (double)field_6149_an;
-            double d1 = posY + (field_6147_ap - posY) / (double)field_6149_an;
-            double d2 = posZ + (field_6146_aq - posZ) / (double)field_6149_an;
+            double d = posX + (fishX - posX) / (double)fishPosRotationIncrements;
+            double d1 = posY + (fishY - posY) / (double)fishPosRotationIncrements;
+            double d2 = posZ + (fishZ - posZ) / (double)fishPosRotationIncrements;
             double d4;
-            for(d4 = field_6145_ar - (double)rotationYaw; d4 < -180D; d4 += 360D) { }
+            for(d4 = fishYaw - (double)rotationYaw; d4 < -180D; d4 += 360D) { }
             for(; d4 >= 180D; d4 -= 360D) { }
-            rotationYaw += d4 / (double)field_6149_an;
-            rotationPitch += (field_6144_as - (double)rotationPitch) / (double)field_6149_an;
-            field_6149_an--;
+            rotationYaw += d4 / (double)fishPosRotationIncrements;
+            rotationPitch += (fishPitch - (double)rotationPitch) / (double)fishPosRotationIncrements;
+            fishPosRotationIncrements--;
             setPosition(d, d1, d2);
             setRotation(rotationYaw, rotationPitch);
             return;
@@ -354,7 +354,7 @@ public class EntityFishHook extends Entity
             entityitem.motionX = d1 * d9;
             entityitem.motionY = d3 * d9 + (double)MathHelper.sqrt_double(d7) * 0.080000000000000002D;
             entityitem.motionZ = d5 * d9;
-            worldObj.entityJoinedWorld(entityitem);
+            worldObj.spawnEntityInWorld(entityitem);
             angler.addStat(StatList.fishCaughtStat, 1);
             byte0 = 1;
         }

@@ -33,7 +33,7 @@ public class ChunkProviderHell
     private double field_4233_p[];
     private double gravelNoise[];
     private double field_4231_r[];
-    private MapGenBase field_4230_s;
+    private MapGenBase netherCaveGenerator;
     double field_4246_c[];
     double field_4245_d[];
     double field_4244_e[];
@@ -46,7 +46,7 @@ public class ChunkProviderHell
         field_4233_p = new double[256];
         gravelNoise = new double[256];
         field_4231_r = new double[256];
-        field_4230_s = new MapGenCavesHell();
+        netherCaveGenerator = new MapGenCavesHell();
         worldObj = world;
         hellRNG = new Random(l);
         field_4240_i = new NoiseGeneratorOctaves(hellRNG, 16);
@@ -58,7 +58,7 @@ public class ChunkProviderHell
         field_4247_b = new NoiseGeneratorOctaves(hellRNG, 16);
     }
 
-    public void func_4062_a(int i, int j, byte abyte0[])
+    public void generateNetherTerrain(int i, int j, byte abyte0[])
     {
         byte byte0 = 4;
         byte byte1 = 32;
@@ -90,7 +90,7 @@ public class ChunkProviderHell
                         double d13 = (d4 - d2) * d9;
                         for(int j2 = 0; j2 < 4; j2++)
                         {
-                            int k2 = j2 + j1 * 4 << worldObj.field_35250_b | 0 + k1 * 4 << worldObj.worldYBits | l1 * 8 + i2;
+                            int k2 = j2 + j1 * 4 << worldObj.xShift | 0 + k1 * 4 << worldObj.worldYBits | l1 * 8 + i2;
                             int l2 = 1 << worldObj.worldYBits;
                             double d14 = 0.25D;
                             double d15 = d10;
@@ -233,9 +233,9 @@ public class ChunkProviderHell
     {
         hellRNG.setSeed((long)i * 0x4f9939f508L + (long)j * 0x1ef1565bd5L);
         byte abyte0[] = new byte[16 * worldObj.worldYMax * 16];
-        func_4062_a(i, j, abyte0);
+        generateNetherTerrain(i, j, abyte0);
         func_4061_b(i, j, abyte0);
-        field_4230_s.generate(this, worldObj, i, j, abyte0);
+        netherCaveGenerator.generate(this, worldObj, i, j, abyte0);
         field_40183_c.generate(this, worldObj, i, j, abyte0);
         Chunk chunk = new Chunk(worldObj, abyte0, i, j);
         return chunk;
@@ -367,7 +367,7 @@ public class ChunkProviderHell
         BlockSand.fallInstantly = true;
         int k = i * 16;
         int l = j * 16;
-        field_40183_c.func_35532_a(worldObj, hellRNG, i, j);
+        field_40183_c.generateStructuresInChunk(worldObj, hellRNG, i, j);
         for(int i1 = 0; i1 < 8; i1++)
         {
             int k1 = k + hellRNG.nextInt(16) + 8;

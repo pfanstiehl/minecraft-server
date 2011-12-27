@@ -13,10 +13,10 @@ import java.util.Random;
 public class ComponentVillageStartPiece extends ComponentVillageWell
 {
 
-    public WorldChunkManager field_35392_a;
+    public WorldChunkManager worldChunkMngr;
     public int field_35390_b;
-    public StructureVillagePieceWeight field_35391_c;
-    public ArrayList field_35388_d;
+    public StructureVillagePieceWeight structVillagePieceWeight;
+    public ArrayList structureVillageWeightedPieceList;
     public ArrayList field_35389_e;
     public ArrayList field_35387_f;
 
@@ -25,13 +25,13 @@ public class ComponentVillageStartPiece extends ComponentVillageWell
         super(0, random, j, k);
         field_35389_e = new ArrayList();
         field_35387_f = new ArrayList();
-        field_35392_a = worldchunkmanager;
-        field_35388_d = arraylist;
+        worldChunkMngr = worldchunkmanager;
+        structureVillageWeightedPieceList = arraylist;
         field_35390_b = l;
     }
 
-    public WorldChunkManager func_35386_a()
+    public WorldChunkManager getWorldChunkMngr()
     {
-        return field_35392_a;
+        return worldChunkMngr;
     }
 }

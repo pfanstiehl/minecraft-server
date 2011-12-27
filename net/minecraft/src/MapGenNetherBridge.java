@@ -28,7 +28,7 @@ public class MapGenNetherBridge extends MapGenStructure
         return field_40206_a;
     }
 
-    protected boolean func_35531_a(int i, int j)
+    protected boolean canSpawnStructureAtCoords(int i, int j)
     {
         int k = i >> 4;
         int l = j >> 4;
@@ -45,7 +45,7 @@ public class MapGenNetherBridge extends MapGenStructure
         return j == (l << 4) + 4 + rand.nextInt(8);
     }
 
-    protected StructureStart func_35533_b(int i, int j)
+    protected StructureStart getStructureStart(int i, int j)
     {
         return new StructureNetherBridgeStart(worldObj, rand, i, j);
     }

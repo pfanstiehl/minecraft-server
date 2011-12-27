@@ -42,7 +42,7 @@ public class EntityGhast extends EntityFlying
 
     public boolean attackEntityFrom(DamageSource damagesource, int i)
     {
-        if("fireball".equals(damagesource.func_40274_l()) && (damagesource.getEntity() instanceof EntityPlayer))
+        if("fireball".equals(damagesource.getDamageType()) && (damagesource.getEntity() instanceof EntityPlayer))
         {
             super.attackEntityFrom(damagesource, 1000);
             ((EntityPlayer)damagesource.getEntity()).triggerAchievement(AchievementList.ghast);
@@ -110,7 +110,7 @@ public class EntityGhast extends EntityFlying
         }
         if(targetedEntity == null || aggroCooldown-- <= 0)
         {
-            targetedEntity = worldObj.func_40211_b(this, 100D);
+            targetedEntity = worldObj.getClosestVulnerablePlayerToEntity(this, 100D);
             if(targetedEntity != null)
             {
                 aggroCooldown = 20;
@@ -139,7 +139,7 @@ public class EntityGhast extends EntityFlying
                     entityfireball.posX = posX + vec3d.xCoord * d8;
                     entityfireball.posY = posY + (double)(height / 2.0F) + 0.5D;
                     entityfireball.posZ = posZ + vec3d.zCoord * d8;
-                    worldObj.entityJoinedWorld(entityfireball);
+                    worldObj.spawnEntityInWorld(entityfireball);
                     attackCounter = -40;
                 }
             } else

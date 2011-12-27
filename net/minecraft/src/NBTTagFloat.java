@@ -47,7 +47,7 @@ public class NBTTagFloat extends NBTBase
         return (new StringBuilder()).append("").append(floatValue).toString();
     }
 
-    public NBTBase func_40468_b()
+    public NBTBase cloneTag()
     {
         return new NBTTagFloat(getKey(), floatValue);
     }

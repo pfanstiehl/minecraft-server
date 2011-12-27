@@ -49,7 +49,7 @@ public abstract class StructureStart
 
     protected void updateBoundingBox()
     {
-        boundingBox = StructureBoundingBox.func_35672_a();
+        boundingBox = StructureBoundingBox.getNewBoundingBox();
         StructureComponent structurecomponent;
         for(Iterator iterator = components.iterator(); iterator.hasNext(); boundingBox.expandTo(structurecomponent.getStructureBoundingBox()))
         {
@@ -58,7 +58,7 @@ public abstract class StructureStart
 
     }
 
-    protected void func_35545_a(World world, Random random, int i)
+    protected void markAvailableHeight(World world, Random random, int i)
     {
         int j = world.worldOceanHeight - i;
         int k = boundingBox.bbHeight() + 1;

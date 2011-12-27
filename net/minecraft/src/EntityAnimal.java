@@ -17,13 +17,13 @@ public abstract class EntityAnimal extends EntityCreature
     implements IAnimals
 {
 
-    private int field_39000_a;
-    private int field_39001_b;
+    private int inLove;
+    private int breeding;
 
     public EntityAnimal(World world)
     {
         super(world);
-        field_39001_b = 0;
+        breeding = 0;
     }
 
     protected void entityInit()
@@ -32,12 +32,12 @@ public abstract class EntityAnimal extends EntityCreature
         dataWatcher.addObject(12, new Integer(0));
     }
 
-    public int func_40135_j()
+    public int getDelay()
     {
         return dataWatcher.getWatchableObjectInt(12);
     }
 
-    public void func_40132_b_(int i)
+    public void setDelay(int i)
     {
         dataWatcher.updateObject(12, Integer.valueOf(i));
     }
@@ -45,22 +45,22 @@ public abstract class EntityAnimal extends EntityCreature
     public void onLivingUpdate()
     {
         super.onLivingUpdate();
-        int i = func_40135_j();
+        int i = getDelay();
         if(i < 0)
         {
             i++;
-            func_40132_b_(i);
+            setDelay(i);
         } else
         if(i > 0)
         {
             i--;
-            func_40132_b_(i);
+            setDelay(i);
         }
-        if(field_39000_a > 0)
+        if(inLove > 0)
         {
-            field_39000_a--;
+            inLove--;
             String s = "heart";
-            if(field_39000_a % 10 == 0)
+            if(inLove % 10 == 0)
             {
                 double d = rand.nextGaussian() * 0.02D;
                 double d1 = rand.nextGaussian() * 0.02D;
@@ -69,7 +69,7 @@ public abstract class EntityAnimal extends EntityCreature
             }
         } else
         {
-            field_39001_b = 0;
+            breeding = 0;
         }
     }
 
@@ -85,7 +85,7 @@ public abstract class EntityAnimal extends EntityCreature
                 hasAttacked = true;
             }
             EntityPlayer entityplayer = (EntityPlayer)entity;
-            if(entityplayer.getCurrentEquippedItem() == null || !func_40134_a(entityplayer.getCurrentEquippedItem()))
+            if(entityplayer.getCurrentEquippedItem() == null || !isWheat(entityplayer.getCurrentEquippedItem()))
             {
                 entityToAttack = null;
             }
@@ -93,14 +93,14 @@ public abstract class EntityAnimal extends EntityCreature
         if(entity instanceof EntityAnimal)
         {
             EntityAnimal entityanimal = (EntityAnimal)entity;
-            if(func_40135_j() > 0 && entityanimal.func_40135_j() < 0)
+            if(getDelay() > 0 && entityanimal.getDelay() < 0)
             {
                 if((double)f < 2.5D)
                 {
                     hasAttacked = true;
                 }
             } else
-            if(field_39000_a > 0 && entityanimal.field_39000_a > 0)
+            if(inLove > 0 && entityanimal.inLove > 0)
             {
                 if(entityanimal.entityToAttack == null)
                 {
@@ -108,42 +108,42 @@ public abstract class EntityAnimal extends EntityCreature
                 }
                 if(entityanimal.entityToAttack == this && (double)f < 3.5D)
                 {
-                    entityanimal.field_39000_a++;
-                    field_39000_a++;
-                    field_39001_b++;
-                    if(field_39001_b % 4 == 0)
+                    entityanimal.inLove++;
+                    inLove++;
+                    breeding++;
+                    if(breeding % 4 == 0)
                     {
                         worldObj.spawnParticle("heart", (posX + (double)(rand.nextFloat() * width * 2.0F)) - (double)width, posY + 0.5D + (double)(rand.nextFloat() * height), (posZ + (double)(rand.nextFloat() * width * 2.0F)) - (double)width, 0.0D, 0.0D, 0.0D);
                     }
-                    if(field_39001_b == 60)
+                    if(breeding == 60)
                     {
-                        func_40131_b((EntityAnimal)entity);
+                        proceate((EntityAnimal)entity);
                     }
                 } else
                 {
-                    field_39001_b = 0;
+                    breeding = 0;
                 }
             } else
             {
-                field_39001_b = 0;
+                breeding = 0;
             }
         }
     }
 
-    private void func_40131_b(EntityAnimal entityanimal)
+    private void proceate(EntityAnimal entityanimal)
     {
-        EntityAnimal entityanimal1 = func_40133_a(entityanimal);
+        EntityAnimal entityanimal1 = spawnBabyAnimal(entityanimal);
         if(entityanimal1 != null)
         {
-            func_40132_b_(6000);
-            entityanimal.func_40132_b_(6000);
-            field_39000_a = 0;
-            field_39001_b = 0;
+            setDelay(6000);
+            entityanimal.setDelay(6000);
+            inLove = 0;
+            breeding = 0;
             entityToAttack = null;
             entityanimal.entityToAttack = null;
-            entityanimal.field_39001_b = 0;
-            entityanimal.field_39000_a = 0;
-            entityanimal1.func_40132_b_(-24000);
+            entityanimal.breeding = 0;
+            entityanimal.inLove = 0;
+            entityanimal1.setDelay(-24000);
             entityanimal1.setLocationAndAngles(posX, posY, posZ, rotationYaw, rotationPitch);
             for(int i = 0; i < 7; i++)
             {
@@ -153,11 +153,11 @@ public abstract class EntityAnimal extends EntityCreature
                 worldObj.spawnParticle("heart", (posX + (double)(rand.nextFloat() * width * 2.0F)) - (double)width, posY + 0.5D + (double)(rand.nextFloat() * height), (posZ + (double)(rand.nextFloat() * width * 2.0F)) - (double)width, d, d1, d2);
             }
 
-            worldObj.entityJoinedWorld(entityanimal1);
+            worldObj.spawnEntityInWorld(entityanimal1);
         }
     }
 
-    protected abstract EntityAnimal func_40133_a(EntityAnimal entityanimal);
+    protected abstract EntityAnimal spawnBabyAnimal(EntityAnimal entityanimal);
 
     protected void attackBlockedEntity(Entity entity, float f)
     {
@@ -165,9 +165,9 @@ public abstract class EntityAnimal extends EntityCreature
 
     public boolean attackEntityFrom(DamageSource damagesource, int i)
     {
-        field_35223_f = 60;
+        fleeingTick = 60;
         entityToAttack = null;
-        field_39000_a = 0;
+        inLove = 0;
         return super.attackEntityFrom(damagesource, i);
     }
 
@@ -185,57 +185,57 @@ public abstract class EntityAnimal extends EntityCreature
     public void writeEntityToNBT(NBTTagCompound nbttagcompound)
     {
         super.writeEntityToNBT(nbttagcompound);
-        nbttagcompound.setInteger("Age", func_40135_j());
-        nbttagcompound.setInteger("InLove", field_39000_a);
+        nbttagcompound.setInteger("Age", getDelay());
+        nbttagcompound.setInteger("InLove", inLove);
     }
 
     public void readEntityFromNBT(NBTTagCompound nbttagcompound)
     {
         super.readEntityFromNBT(nbttagcompound);
-        func_40132_b_(nbttagcompound.getInteger("Age"));
-        field_39000_a = nbttagcompound.getInteger("InLove");
+        setDelay(nbttagcompound.getInteger("Age"));
+        inLove = nbttagcompound.getInteger("InLove");
     }
 
     protected Entity findPlayerToAttack()
     {
-        if(field_35223_f > 0)
+        if(fleeingTick > 0)
         {
             return null;
         }
         float f = 8F;
-        if(field_39000_a > 0)
+        if(inLove > 0)
         {
             List list = worldObj.getEntitiesWithinAABB(getClass(), boundingBox.addCoord(f, f, f));
             for(int i = 0; i < list.size(); i++)
             {
                 EntityAnimal entityanimal = (EntityAnimal)list.get(i);
-                if(entityanimal != this && entityanimal.field_39000_a > 0)
+                if(entityanimal != this && entityanimal.inLove > 0)
                 {
                     return entityanimal;
                 }
             }
 
         } else
-        if(func_40135_j() == 0)
+        if(getDelay() == 0)
         {
             List list1 = worldObj.getEntitiesWithinAABB(net.minecraft.src.EntityPlayer.class, boundingBox.addCoord(f, f, f));
             for(int j = 0; j < list1.size(); j++)
             {
                 EntityPlayer entityplayer = (EntityPlayer)list1.get(j);
-                if(entityplayer.getCurrentEquippedItem() != null && func_40134_a(entityplayer.getCurrentEquippedItem()))
+                if(entityplayer.getCurrentEquippedItem() != null && isWheat(entityplayer.getCurrentEquippedItem()))
                 {
                     return entityplayer;
                 }
             }
 
         } else
-        if(func_40135_j() > 0)
+        if(getDelay() > 0)
         {
             List list2 = worldObj.getEntitiesWithinAABB(getClass(), boundingBox.addCoord(f, f, f));
             for(int k = 0; k < list2.size(); k++)
             {
                 EntityAnimal entityanimal1 = (EntityAnimal)list2.get(k);
-                if(entityanimal1 != this && entityanimal1.func_40135_j() < 0)
+                if(entityanimal1 != this && entityanimal1.getDelay() < 0)
                 {
                     return entityanimal1;
                 }
@@ -268,7 +268,7 @@ public abstract class EntityAnimal extends EntityCreature
         return 1 + worldObj.rand.nextInt(3);
     }
 
-    protected boolean func_40134_a(ItemStack itemstack)
+    protected boolean isWheat(ItemStack itemstack)
     {
         return itemstack.itemID == Item.wheat.shiftedIndex;
     }
@@ -276,14 +276,14 @@ public abstract class EntityAnimal extends EntityCreature
     public boolean interact(EntityPlayer entityplayer)
     {
         ItemStack itemstack = entityplayer.inventory.getCurrentItem();
-        if(itemstack != null && func_40134_a(itemstack) && func_40135_j() == 0)
+        if(itemstack != null && isWheat(itemstack) && getDelay() == 0)
         {
             itemstack.stackSize--;
             if(itemstack.stackSize <= 0)
             {
                 entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
             }
-            field_39000_a = 600;
+            inLove = 600;
             entityToAttack = null;
             for(int i = 0; i < 7; i++)
             {
@@ -302,6 +302,6 @@ public abstract class EntityAnimal extends EntityCreature
 
     public boolean func_40104_l()
     {
-        return func_40135_j() < 0;
+        return getDelay() < 0;
     }
 }

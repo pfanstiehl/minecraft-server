@@ -65,7 +65,6 @@ public class TileEntityMobSpawner extends TileEntity
 
 		if(!worldObj.singleplayerWorld)
 		{
-
 			// Only try spawning mobs if delay is 0. Decrement delay if above 0, reset if below.
 			if(delay == -1)
 			{
@@ -78,8 +77,8 @@ public class TileEntityMobSpawner extends TileEntity
 			}
 
 			// Attempt to spawn a mob 4 times.
-			byte attempts = 4;
-			for(int i = 0; i < attempts; i++)
+			byte spawnAttempts = 4;
+			for(int i = 0; i < spawnAttempts; i++)
 			{
 				EntityLiving mob = (EntityLiving)EntityList.createEntityInWorld(mobID, worldObj);
 
@@ -90,8 +89,8 @@ public class TileEntityMobSpawner extends TileEntity
 
 				// Abort spawning and reset delay if there are more than 6 mobs of this mob spawner's mob type
 				// in an axis aligned box with dimensions 17x9x17 centred around this mob spawner.
-				int mobTypeCount = worldObj.getEntitiesWithinAABB(mob.getClass(), AxisAlignedBB.getBoundingBoxFromPool(xCoord, yCoord, zCoord, xCoord + 1, yCoord + 1, zCoord + 1).expand(8D, 4D, 8D)).size();
-				if(mobTypeCount >= 6)
+				int spawnTypeMobCount = worldObj.getEntitiesWithinAABB(mob.getClass(), AxisAlignedBB.getBoundingBoxFromPool(xCoord, yCoord, zCoord, xCoord + 1, yCoord + 1, zCoord + 1).expand(8D, 4D, 8D)).size();
+				if(spawnTypeMobCount >= 6)
 				{
 					updateDelay();
 					return;
@@ -118,7 +117,7 @@ public class TileEntityMobSpawner extends TileEntity
 				// If mob can spawn at chosen position, spawn it, play sound, and display explosion.
 				if(mob.getCanSpawnHere())
 				{
-					worldObj.entityJoinedWorld(mob);
+					worldObj.spawnEntityInWorld(mob);
 					worldObj.playAuxSFX(2004, xCoord, yCoord, zCoord, 0);
 					mob.spawnExplosionParticle();
 					updateDelay();

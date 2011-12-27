@@ -47,7 +47,7 @@ public class NBTTagInt extends NBTBase
         return (new StringBuilder()).append("").append(intValue).toString();
     }
 
-    public NBTBase func_40468_b()
+    public NBTBase cloneTag()
     {
         return new NBTTagInt(getKey(), intValue);
     }

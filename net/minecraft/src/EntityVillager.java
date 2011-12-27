@@ -12,7 +12,7 @@ public class EntityVillager extends EntityCreature
     implements INpc
 {
 
-    private int field_40112_a;
+    private int profession;
 
     public EntityVillager(World world)
     {
@@ -22,8 +22,8 @@ public class EntityVillager extends EntityCreature
     public EntityVillager(World world, int i)
     {
         super(world);
-        field_40112_a = i;
-        func_40111_y();
+        profession = i;
+        setTextureByProfession();
         moveSpeed = 0.5F;
     }
 
@@ -40,36 +40,36 @@ public class EntityVillager extends EntityCreature
     public void writeEntityToNBT(NBTTagCompound nbttagcompound)
     {
         super.writeEntityToNBT(nbttagcompound);
-        nbttagcompound.setInteger("Profession", field_40112_a);
+        nbttagcompound.setInteger("Profession", profession);
     }
 
     public void readEntityFromNBT(NBTTagCompound nbttagcompound)
     {
         super.readEntityFromNBT(nbttagcompound);
-        field_40112_a = nbttagcompound.getInteger("Profession");
-        func_40111_y();
+        profession = nbttagcompound.getInteger("Profession");
+        setTextureByProfession();
     }
 
-    private void func_40111_y()
+    private void setTextureByProfession()
     {
         texture = "/mob/villager/villager.png";
-        if(field_40112_a == 0)
+        if(profession == 0)
         {
             texture = "/mob/villager/farmer.png";
         }
-        if(field_40112_a == 1)
+        if(profession == 1)
         {
             texture = "/mob/villager/librarian.png";
         }
-        if(field_40112_a == 2)
+        if(profession == 2)
         {
             texture = "/mob/villager/priest.png";
         }
-        if(field_40112_a == 3)
+        if(profession == 3)
         {
             texture = "/mob/villager/smith.png";
         }
-        if(field_40112_a == 4)
+        if(profession == 4)
         {
             texture = "/mob/villager/butcher.png";
         }

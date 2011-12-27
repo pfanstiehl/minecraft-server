@@ -116,7 +116,7 @@ public class NetLoginHandler extends NetHandler
         if(entityplayermp != null)
         {
             mcServer.configManager.readPlayerDataFromFile(entityplayermp);
-            entityplayermp.Sets(mcServer.getWorldManager(entityplayermp.dimension));
+            entityplayermp.setWorld(mcServer.getWorldManager(entityplayermp.dimension));
             entityplayermp.itemInWorldManager.setWorld((WorldServer)entityplayermp.worldObj);
             logger.info((new StringBuilder()).append(getUserAndIPString()).append(" logged in with entity id ").append(entityplayermp.entityId).append(" at (").append(entityplayermp.posX).append(", ").append(entityplayermp.posY).append(", ").append(entityplayermp.posZ).append(")").toString());
             WorldServer worldserver = mcServer.getWorldManager(entityplayermp.dimension);

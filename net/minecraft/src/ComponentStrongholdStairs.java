@@ -16,14 +16,14 @@ public class ComponentStrongholdStairs extends ComponentStronghold
 {
 
     private final boolean field_35327_a;
-    private final EnumDoor field_35326_b;
+    private final EnumDoor doorType;
 
     public ComponentStrongholdStairs(int i, Random random, int j, int k)
     {
         super(i);
         field_35327_a = true;
         coordBaseMode = random.nextInt(4);
-        field_35326_b = EnumDoor.OPENING;
+        doorType = EnumDoor.OPENING;
         switch(coordBaseMode)
         {
         case 0: // '\0'
@@ -42,7 +42,7 @@ public class ComponentStrongholdStairs extends ComponentStronghold
         super(i);
         field_35327_a = false;
         coordBaseMode = j;
-        field_35326_b = func_35322_a(random);
+        doorType = func_35322_a(random);
         boundingBox = structureboundingbox;
     }
 
@@ -57,8 +57,8 @@ public class ComponentStrongholdStairs extends ComponentStronghold
 
     public static ComponentStrongholdStairs getStrongholdStairsComponent(List list, Random random, int i, int j, int k, int l, int i1)
     {
-        StructureBoundingBox structureboundingbox = StructureBoundingBox.func_35663_a(i, j, k, -1, -7, 0, 5, 11, 5, l);
-        if(!func_35319_a(structureboundingbox) || StructureComponent.canFitInside(list, structureboundingbox) != null)
+        StructureBoundingBox structureboundingbox = StructureBoundingBox.getComponentToAddBoundingBox(i, j, k, -1, -7, 0, 5, 11, 5, l);
+        if(!canStrongholdGoDeeper(structureboundingbox) || StructureComponent.canFitInside(list, structureboundingbox) != null)
         {
             return null;
         } else
@@ -75,26 +75,26 @@ public class ComponentStrongholdStairs extends ComponentStronghold
         } else
         {
             if(!field_35327_a);
-            func_35307_a(world, structureboundingbox, 0, 0, 0, 4, 10, 4, true, random, StructureStrongholdPieces.getStrongholdStones());
-            placeDoor(world, random, structureboundingbox, field_35326_b, 1, 7, 0);
+            fillWithRandomizedBlocks(world, structureboundingbox, 0, 0, 0, 4, 10, 4, true, random, StructureStrongholdPieces.getStrongholdStones());
+            placeDoor(world, random, structureboundingbox, doorType, 1, 7, 0);
             placeDoor(world, random, structureboundingbox, EnumDoor.OPENING, 1, 1, 4);
-            func_35309_a(world, Block.stoneBrick.blockID, 0, 2, 6, 1, structureboundingbox);
-            func_35309_a(world, Block.stoneBrick.blockID, 0, 1, 5, 1, structureboundingbox);
-            func_35309_a(world, Block.stairSingle.blockID, 0, 1, 6, 1, structureboundingbox);
-            func_35309_a(world, Block.stoneBrick.blockID, 0, 1, 5, 2, structureboundingbox);
-            func_35309_a(world, Block.stoneBrick.blockID, 0, 1, 4, 3, structureboundingbox);
-            func_35309_a(world, Block.stairSingle.blockID, 0, 1, 5, 3, structureboundingbox);
-            func_35309_a(world, Block.stoneBrick.blockID, 0, 2, 4, 3, structureboundingbox);
-            func_35309_a(world, Block.stoneBrick.blockID, 0, 3, 3, 3, structureboundingbox);
-            func_35309_a(world, Block.stairSingle.blockID, 0, 3, 4, 3, structureboundingbox);
-            func_35309_a(world, Block.stoneBrick.blockID, 0, 3, 3, 2, structureboundingbox);
-            func_35309_a(world, Block.stoneBrick.blockID, 0, 3, 2, 1, structureboundingbox);
-            func_35309_a(world, Block.stairSingle.blockID, 0, 3, 3, 1, structureboundingbox);
-            func_35309_a(world, Block.stoneBrick.blockID, 0, 2, 2, 1, structureboundingbox);
-            func_35309_a(world, Block.stoneBrick.blockID, 0, 1, 1, 1, structureboundingbox);
-            func_35309_a(world, Block.stairSingle.blockID, 0, 1, 2, 1, structureboundingbox);
-            func_35309_a(world, Block.stoneBrick.blockID, 0, 1, 1, 2, structureboundingbox);
-            func_35309_a(world, Block.stairSingle.blockID, 0, 1, 1, 3, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stoneBrick.blockID, 0, 2, 6, 1, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stoneBrick.blockID, 0, 1, 5, 1, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stairSingle.blockID, 0, 1, 6, 1, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stoneBrick.blockID, 0, 1, 5, 2, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stoneBrick.blockID, 0, 1, 4, 3, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stairSingle.blockID, 0, 1, 5, 3, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stoneBrick.blockID, 0, 2, 4, 3, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stoneBrick.blockID, 0, 3, 3, 3, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stairSingle.blockID, 0, 3, 4, 3, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stoneBrick.blockID, 0, 3, 3, 2, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stoneBrick.blockID, 0, 3, 2, 1, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stairSingle.blockID, 0, 3, 3, 1, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stoneBrick.blockID, 0, 2, 2, 1, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stoneBrick.blockID, 0, 1, 1, 1, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stairSingle.blockID, 0, 1, 2, 1, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stoneBrick.blockID, 0, 1, 1, 2, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stairSingle.blockID, 0, 1, 1, 3, structureboundingbox);
             return true;
         }
     }

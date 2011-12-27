@@ -38,9 +38,9 @@ public class GenLayerZoomFuzzy extends GenLayer
                 int i4 = ai[l3 + 1 + (j2 + 0) * k1];
                 int j4 = ai[l3 + 1 + (j2 + 1) * k1];
                 ai1[i3] = j3;
-                ai1[i3++ + i2] = func_35032_a(j3, k3);
-                ai1[i3] = func_35032_a(j3, i4);
-                ai1[i3++ + i2] = func_35031_b(j3, i4, k3, j4);
+                ai1[i3++ + i2] = choose(j3, k3);
+                ai1[i3] = choose(j3, i4);
+                ai1[i3++ + i2] = choose(j3, i4, k3, j4);
                 j3 = i4;
                 k3 = j4;
             }
@@ -56,12 +56,12 @@ public class GenLayerZoomFuzzy extends GenLayer
         return ai2;
     }
 
-    protected int func_35032_a(int i, int j)
+    protected int choose(int i, int j)
     {
         return nextInt(2) != 0 ? j : i;
     }
 
-    protected int func_35031_b(int i, int j, int k, int l)
+    protected int choose(int i, int j, int k, int l)
     {
         int i1 = nextInt(4);
         if(i1 == 0)

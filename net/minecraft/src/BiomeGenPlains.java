@@ -14,8 +14,8 @@ public class BiomeGenPlains extends BiomeGenBase
     protected BiomeGenPlains(int i)
     {
         super(i);
-        decorator.treesPerChunk = -999;
-        decorator.flowersPerChunk = 4;
-        decorator.grassPerChunk = 10;
+        biomeDecorator.treesPerChunk = -999;
+        biomeDecorator.flowersPerChunk = 4;
+        biomeDecorator.grassPerChunk = 10;
     }
 }

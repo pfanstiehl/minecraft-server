@@ -85,7 +85,7 @@ abstract class ComponentVillage extends StructureComponent
         }
     }
 
-    protected static boolean func_35366_a(StructureBoundingBox structureboundingbox)
+    protected static boolean canVillageGoDeeper(StructureBoundingBox structureboundingbox)
     {
         return structureboundingbox != null && structureboundingbox.y1 > 10;
     }
@@ -103,9 +103,9 @@ abstract class ComponentVillage extends StructureComponent
             {
                 break;
             }
-            int j1 = func_35306_a(i + i1, k);
-            int k1 = func_35300_a(j);
-            int l1 = func_35296_b(i + i1, k);
+            int j1 = getXWithOffset(i + i1, k);
+            int k1 = getYWithOffset(j);
+            int l1 = getZWithOffset(i + i1, k);
             if(!structureboundingbox.isInBbVolume(j1, k1, l1))
             {
                 break;
@@ -113,7 +113,7 @@ abstract class ComponentVillage extends StructureComponent
             field_39005_a++;
             EntityVillager entityvillager = new EntityVillager(world, func_40310_a(i1));
             entityvillager.setLocationAndAngles((double)j1 + 0.5D, k1, (double)l1 + 0.5D, 0.0F, 0.0F);
-            world.entityJoinedWorld(entityvillager);
+            world.spawnEntityInWorld(entityvillager);
             i1++;
         } while(true);
     }

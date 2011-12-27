@@ -15,18 +15,18 @@ public class BiomeGenSwamp extends BiomeGenBase
     protected BiomeGenSwamp(int i)
     {
         super(i);
-        decorator.treesPerChunk = 2;
-        decorator.flowersPerChunk = -999;
-        decorator.deadBushPerChunk = 1;
-        decorator.mushroomsPerChunk = 8;
-        decorator.reedsPerChunk = 10;
-        decorator.clayPerChunk = 1;
-        decorator.field_40321_y = 4;
-        field_40461_A = 0xe0ff70;
+        biomeDecorator.treesPerChunk = 2;
+        biomeDecorator.flowersPerChunk = -999;
+        biomeDecorator.deadBushPerChunk = 1;
+        biomeDecorator.mushroomsPerChunk = 8;
+        biomeDecorator.reedsPerChunk = 10;
+        biomeDecorator.clayPerChunk = 1;
+        biomeDecorator.waterlilyPerChunk = 4;
+        waterColorMultiplier = 0xe0ff70;
     }
 
     public WorldGenerator getRandomWorldGenForTrees(Random random)
     {
-        return swampTreeGenerator;
+        return worldGenSwamp;
     }
 }

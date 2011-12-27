@@ -15,7 +15,7 @@ public class BlockDragonEgg extends Block
 
     public BlockDragonEgg(int i, int j)
     {
-        super(i, j, Material.field_41042_z);
+        super(i, j, Material.dragonEgg);
     }
 
     public void onBlockAdded(World world, int i, int j, int k)
@@ -52,7 +52,7 @@ public class BlockDragonEgg extends Block
             } else
             {
                 EntityFallingSand entityfallingsand = new EntityFallingSand(world, (float)i + 0.5F, (float)j + 0.5F, (float)k + 0.5F, blockID);
-                world.entityJoinedWorld(entityfallingsand);
+                world.spawnEntityInWorld(entityfallingsand);
             }
         }
     }
@@ -121,7 +121,7 @@ public class BlockDragonEgg extends Block
         return false;
     }
 
-    public boolean isACube()
+    public boolean renderAsNormalBlock()
     {
         return false;
     }

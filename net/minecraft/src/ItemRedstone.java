@@ -50,7 +50,7 @@ public class ItemRedstone extends Item
                 return false;
             }
         }
-        if(!entityplayer.func_35200_c(i, j, k))
+        if(!entityplayer.canPlayerEdit(i, j, k))
         {
             return false;
         }

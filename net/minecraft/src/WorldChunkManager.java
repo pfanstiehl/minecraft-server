@@ -40,7 +40,7 @@ public class WorldChunkManager
         rainfallLayer = agenlayer[3];
     }
 
-    public List func_35137_a()
+    public List getBiomesToSpawnIn()
     {
         return biomesToSpawnIn;
     }
@@ -55,7 +55,7 @@ public class WorldChunkManager
         return biomeCache.func_35683_a(i, j);
     }
 
-    public float[] func_4065_a(float af[], int i, int j, int k, int l)
+    public float[] getRainfall(float af[], int i, int j, int k, int l)
     {
         IntCache.func_35550_a();
         if(af == null || af.length < k * l)
@@ -143,7 +143,7 @@ public class WorldChunkManager
         }
         if(flag && k == 16 && l == 16 && (i & 0xf) == 0 && (j & 0xf) == 0)
         {
-            BiomeGenBase abiomegenbase1[] = biomeCache.func_35682_b(i, j);
+            BiomeGenBase abiomegenbase1[] = biomeCache.getCachedBiomes(i, j);
             System.arraycopy(abiomegenbase1, 0, abiomegenbase, 0, k * l);
             return abiomegenbase;
         }
@@ -156,7 +156,7 @@ public class WorldChunkManager
         return abiomegenbase;
     }
 
-    public boolean func_35141_a(int i, int j, int k, List list)
+    public boolean areBiomesViable(int i, int j, int k, List list)
     {
         int l = i - k >> 2;
         int i1 = j - k >> 2;
@@ -205,6 +205,6 @@ public class WorldChunkManager
 
     public void func_35138_b()
     {
-        biomeCache.func_35681_a();
+        biomeCache.cleanupCache();
     }
 }

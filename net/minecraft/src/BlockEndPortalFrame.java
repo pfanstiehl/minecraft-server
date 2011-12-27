@@ -44,7 +44,7 @@ public class BlockEndPortalFrame extends Block
         return 26;
     }
 
-    public void func_40163_f()
+    public void setBlockBoundsForItemRender()
     {
         setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.8125F, 1.0F);
     }
@@ -59,7 +59,7 @@ public class BlockEndPortalFrame extends Block
             setBlockBounds(0.3125F, 0.8125F, 0.3125F, 0.6875F, 1.0F, 0.6875F);
             super.getCollidingBoundingBoxes(world, i, j, k, axisalignedbb, arraylist);
         }
-        func_40163_f();
+        setBlockBoundsForItemRender();
     }
 
     public static boolean func_40179_c(int i)

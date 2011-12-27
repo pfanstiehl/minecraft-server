@@ -11,13 +11,13 @@ package net.minecraft.src;
 public class ItemSeeds extends Item
 {
 
-    private int cropID;
+    private int blockType;
     private int field_40253_bQ;
 
     public ItemSeeds(int i, int j, int k)
     {
         super(i);
-        cropID = j;
+        blockType = j;
         field_40253_bQ = k;
     }
 
@@ -27,14 +27,14 @@ public class ItemSeeds extends Item
         {
             return false;
         }
-        if(!entityplayer.func_35200_c(i, j, k) || !entityplayer.func_35200_c(i, j + 1, k))
+        if(!entityplayer.canPlayerEdit(i, j, k) || !entityplayer.canPlayerEdit(i, j + 1, k))
         {
             return false;
         }
         int i1 = world.getBlockId(i, j, k);
         if(i1 == field_40253_bQ && world.isAirBlock(i, j + 1, k))
         {
-            world.setBlockWithNotify(i, j + 1, k, cropID);
+            world.setBlockWithNotify(i, j + 1, k, blockType);
             itemstack.stackSize--;
             return true;
         } else

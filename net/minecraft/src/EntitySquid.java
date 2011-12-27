@@ -20,8 +20,8 @@ public class EntitySquid extends EntityWaterMob
     public float field_21059_f;
     public float field_21060_ak;
     public float field_21058_al;
-    public float field_21057_am;
-    public float field_21056_an;
+    public float tentacleAngle;
+    public float lastTentacleAngle;
     private float randomMotionSpeed;
     private float field_21054_ap;
     private float field_21053_aq;
@@ -38,8 +38,8 @@ public class EntitySquid extends EntityWaterMob
         field_21059_f = 0.0F;
         field_21060_ak = 0.0F;
         field_21058_al = 0.0F;
-        field_21057_am = 0.0F;
-        field_21056_an = 0.0F;
+        tentacleAngle = 0.0F;
+        lastTentacleAngle = 0.0F;
         randomMotionSpeed = 0.0F;
         field_21054_ap = 0.0F;
         field_21053_aq = 0.0F;
@@ -117,7 +117,7 @@ public class EntitySquid extends EntityWaterMob
         field_21062_b = field_21063_a;
         field_21059_f = field_21061_c;
         field_21058_al = field_21060_ak;
-        field_21056_an = field_21057_am;
+        lastTentacleAngle = tentacleAngle;
         field_21060_ak += field_21054_ap;
         if(field_21060_ak > 6.283185F)
         {
@@ -132,7 +132,7 @@ public class EntitySquid extends EntityWaterMob
             if(field_21060_ak < 3.141593F)
             {
                 float f = field_21060_ak / 3.141593F;
-                field_21057_am = MathHelper.sin(f * f * 3.141593F) * 3.141593F * 0.25F;
+                tentacleAngle = MathHelper.sin(f * f * 3.141593F) * 3.141593F * 0.25F;
                 if((double)f > 0.75D)
                 {
                     randomMotionSpeed = 1.0F;
@@ -143,7 +143,7 @@ public class EntitySquid extends EntityWaterMob
                 }
             } else
             {
-                field_21057_am = 0.0F;
+                tentacleAngle = 0.0F;
                 randomMotionSpeed = randomMotionSpeed * 0.9F;
                 field_21053_aq = field_21053_aq * 0.99F;
             }
@@ -160,7 +160,7 @@ public class EntitySquid extends EntityWaterMob
             field_21063_a += ((-(float)Math.atan2(f1, motionY) * 180F) / 3.141593F - field_21063_a) * 0.1F;
         } else
         {
-            field_21057_am = MathHelper.abs(MathHelper.sin(field_21060_ak)) * 3.141593F * 0.25F;
+            tentacleAngle = MathHelper.abs(MathHelper.sin(field_21060_ak)) * 3.141593F * 0.25F;
             if(!isMultiplayerEntity)
             {
                 motionX = 0.0D;

@@ -63,7 +63,7 @@ public class EntitySpider extends EntityMob
         if(f < 0.5F)
         {
             double d = 16D;
-            return worldObj.func_40211_b(this, d);
+            return worldObj.getClosestVulnerablePlayerToEntity(this, d);
         } else
         {
             return null;
@@ -143,14 +143,14 @@ public class EntitySpider extends EntityMob
     {
     }
 
-    public EnumCreatureAttribute func_40093_t()
+    public EnumCreatureAttribute getCreatureAttribute()
     {
         return EnumCreatureAttribute.ARTHROPOD;
     }
 
     public boolean func_40096_a(PotionEffect potioneffect)
     {
-        if(potioneffect.getPotionID() == Potion.poisonPotion.potionId)
+        if(potioneffect.getPotionID() == Potion.poison.id)
         {
             return false;
         } else

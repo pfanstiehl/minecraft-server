@@ -162,7 +162,7 @@ public class EmptyChunk extends Chunk
         return new Random(worldObj.getRandomSeed() + (long)(xPosition * xPosition * 0x4c1906) + (long)(xPosition * 0x5ac0db) + (long)(zPosition * zPosition) * 0x4307a7L + (long)(zPosition * 0x5f24f) ^ l);
     }
 
-    public boolean func_41049_g()
+    public boolean isEmpty()
     {
         return true;
     }

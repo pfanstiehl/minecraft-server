@@ -21,6 +21,7 @@ public class BlockMushroom extends BlockFlower
         setTickOnLoad(true);
     }
 
+    
     // An update will randomly cause a mushroom to propagate if the number of mushrooms nearby does not
     // exceed a certain limit and if the randomly picked location to propagate to can support
     // a mushroom.
@@ -91,7 +92,7 @@ public class BlockMushroom extends BlockFlower
         if(y < 0 || y >= world.worldYMax)
         {
             return false;
-        } 
+        }
         // Can exist on mycelium block under any conditions. Otherwise, light level must be below a
         // threshold and supporting block must be appropriate type.
         else
@@ -101,7 +102,7 @@ public class BlockMushroom extends BlockFlower
         }
     }
 
-    public boolean fertilizeMushrom(World world, int i, int j, int k, Random random)
+    public boolean fertilizeMushroom(World world, int i, int j, int k, Random random)
     {
         int l = world.getBlockMetadata(i, j, k);
         world.setBlock(i, j, k, 0);

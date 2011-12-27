@@ -55,7 +55,7 @@ public class ItemBoat extends Item
             {
                 continue;
             }
-            float f11 = entity.func_41010_j_();
+            float f11 = entity.getCollisionBorderSize();
             AxisAlignedBB axisalignedbb = entity.boundingBox.expand(f11, f11, f11);
             if(axisalignedbb.isVecInside(vec3d))
             {
@@ -78,9 +78,9 @@ public class ItemBoat extends Item
                 {
                     j--;
                 }
-                world.entityJoinedWorld(new EntityBoat(world, (float)i + 0.5F, (float)j + 1.0F, (float)k + 0.5F));
+                world.spawnEntityInWorld(new EntityBoat(world, (float)i + 0.5F, (float)j + 1.0F, (float)k + 0.5F));
             }
-            if(!entityplayer.field_35214_K.depleteBuckets)
+            if(!entityplayer.capabilities.depleteBuckets)
             {
                 itemstack.stackSize--;
             }

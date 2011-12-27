@@ -182,7 +182,7 @@ label0:
                         entityitem.motionX = (float)furnaceRand.nextGaussian() * f3;
                         entityitem.motionY = (float)furnaceRand.nextGaussian() * f3 + 0.2F;
                         entityitem.motionZ = (float)furnaceRand.nextGaussian() * f3;
-                        world.entityJoinedWorld(entityitem);
+                        world.spawnEntityInWorld(entityitem);
                     } while(true);
                 }
 

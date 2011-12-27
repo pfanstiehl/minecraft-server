@@ -84,13 +84,13 @@ public class PotionEffect
     {
         if(duration > 0)
         {
-            Potion.potionTypes[potionID].func_35438_a(entityliving, amplifier);
+            Potion.potionTypes[potionID].performEffect(entityliving, amplifier);
         }
     }
 
-    public String func_40614_d()
+    public String getEffectName()
     {
-        return Potion.potionTypes[potionID].func_40596_c();
+        return Potion.potionTypes[potionID].getName();
     }
 
     public int hashCode()
@@ -103,10 +103,10 @@ public class PotionEffect
         String s = "";
         if(getAmplifier() > 0)
         {
-            s = (new StringBuilder()).append(func_40614_d()).append(" x ").append(getAmplifier() + 1).append(", Duration: ").append(getDuration()).toString();
+            s = (new StringBuilder()).append(getEffectName()).append(" x ").append(getAmplifier() + 1).append(", Duration: ").append(getDuration()).toString();
         } else
         {
-            s = (new StringBuilder()).append(func_40614_d()).append(", Duration: ").append(getDuration()).toString();
+            s = (new StringBuilder()).append(getEffectName()).append(", Duration: ").append(getDuration()).toString();
         }
         if(Potion.potionTypes[potionID].func_40593_f())
         {

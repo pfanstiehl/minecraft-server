@@ -90,7 +90,7 @@ public class BlockFence extends Block
         return false;
     }
 
-    public boolean isACube()
+    public boolean renderAsNormalBlock()
     {
         return false;
     }
@@ -108,7 +108,7 @@ public class BlockFence extends Block
             return true;
         }
         Block block = Block.blocksList[l];
-        if(block != null && block.blockMaterial.getIsOpaque() && block.isACube())
+        if(block != null && block.blockMaterial.getIsOpaque() && block.renderAsNormalBlock())
         {
             return block.blockMaterial != Material.pumpkin;
         } else

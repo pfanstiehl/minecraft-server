@@ -19,7 +19,7 @@ public class BlockEnchantmentTable extends BlockContainer
         setLightOpacity(0);
     }
 
-    public boolean isACube()
+    public boolean renderAsNormalBlock()
     {
         return false;
     }
@@ -61,7 +61,7 @@ public class BlockEnchantmentTable extends BlockContainer
             return true;
         } else
         {
-            entityplayer.func_40106_c(i, j, k);
+            entityplayer.displayGUIEnchantment(i, j, k);
             return true;
         }
     }

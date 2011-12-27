@@ -155,7 +155,7 @@ public class BlockBed extends Block
         return 14;
     }
 
-    public boolean isACube()
+    public boolean renderAsNormalBlock()
     {
         return false;
     }

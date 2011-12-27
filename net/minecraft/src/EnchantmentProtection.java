@@ -11,24 +11,24 @@ package net.minecraft.src;
 public class EnchantmentProtection extends Enchantment
 {
 
-    private static final String field_40378_w[] = {
+    private static final String protectionName[] = {
         "all", "fire", "fall", "explosion", "projectile"
     };
-    private static final int field_40382_x[] = {
+    private static final int baseEnchantability[] = {
         1, 10, 5, 5, 3
     };
-    private static final int field_40381_y[] = {
+    private static final int levelEnchantability[] = {
         16, 8, 6, 8, 6
     };
-    private static final int field_40380_z[] = {
+    private static final int thresholdEnchantability[] = {
         20, 12, 10, 12, 15
     };
-    public final int field_40379_a;
+    public final int protectionType;
 
     public EnchantmentProtection(int i, int j, int k)
     {
         super(i, j, EnumEnchantmentType.armor);
-        field_40379_a = k;
+        protectionType = k;
         if(k == 2)
         {
             type = EnumEnchantmentType.armor_feet;
@@ -37,12 +37,12 @@ public class EnchantmentProtection extends Enchantment
 
     public int getMinEnchantability(int i)
     {
-        return field_40382_x[field_40379_a] + (i - 1) * field_40381_y[field_40379_a];
+        return baseEnchantability[protectionType] + (i - 1) * levelEnchantability[protectionType];
     }
 
     public int getMaxEnchantability(int i)
     {
-        return getMinEnchantability(i) + field_40380_z[field_40379_a];
+        return getMinEnchantability(i) + thresholdEnchantability[protectionType];
     }
 
     public int getMaxLevel()
@@ -57,23 +57,23 @@ public class EnchantmentProtection extends Enchantment
             return 0;
         }
         int j = (6 + i * i) / 2;
-        if(field_40379_a == 0)
+        if(protectionType == 0)
         {
             return j;
         }
-        if(field_40379_a == 1 && damagesource.func_40272_k())
+        if(protectionType == 1 && damagesource.fireDamage())
         {
             return j;
         }
-        if(field_40379_a == 2 && damagesource == DamageSource.fall)
+        if(protectionType == 2 && damagesource == DamageSource.fall)
         {
             return j * 2;
         }
-        if(field_40379_a == 3 && damagesource == DamageSource.explosion)
+        if(protectionType == 3 && damagesource == DamageSource.explosion)
         {
             return j;
         }
-        if(field_40379_a == 4 && damagesource.func_40275_b())
+        if(protectionType == 4 && damagesource.isProjectile())
         {
             return j;
         } else
@@ -87,11 +87,11 @@ public class EnchantmentProtection extends Enchantment
         if(enchantment instanceof EnchantmentProtection)
         {
             EnchantmentProtection enchantmentprotection = (EnchantmentProtection)enchantment;
-            if(enchantmentprotection.field_40379_a == field_40379_a)
+            if(enchantmentprotection.protectionType == protectionType)
             {
                 return false;
             }
-            return field_40379_a == 2 || enchantmentprotection.field_40379_a == 2;
+            return protectionType == 2 || enchantmentprotection.protectionType == 2;
         } else
         {
             return super.canApplyTogether(enchantment);

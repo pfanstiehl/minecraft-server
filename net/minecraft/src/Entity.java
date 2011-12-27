@@ -43,7 +43,7 @@ public abstract class Entity
     public boolean isCollidedHorizontally;
     public boolean isCollidedVertically;
     public boolean isCollided;
-    public boolean beenAttacked;
+    public boolean velocityChanged;
     protected boolean isInWeb;
     public boolean field_9077_F;
     public boolean isDead;
@@ -86,7 +86,7 @@ public abstract class Entity
         preventEntitySpawning = false;
         onGround = false;
         isCollided = false;
-        beenAttacked = false;
+        velocityChanged = false;
         field_9077_F = true;
         isDead = false;
         yOffset = 0.0F;
@@ -186,7 +186,7 @@ public abstract class Entity
         prevPosZ = posZ;
         prevRotationPitch = rotationPitch;
         prevRotationYaw = rotationYaw;
-        if(getSprinting())
+        if(isSprinting())
         {
             int i = MathHelper.floor_double(posX);
             int j = MathHelper.floor_double(posY - 0.20000000298023224D - (double)yOffset);
@@ -275,11 +275,11 @@ public abstract class Entity
         if(!isImmuneToFire)
         {
             attackEntityFrom(DamageSource.lava, 4);
-            func_40034_j(15);
+            setFire(15);
         }
     }
 
-    public void func_40034_j(int i)
+    public void setFire(int i)
     {
         int j = i * 20;
         if(fire < j)
@@ -288,7 +288,7 @@ public abstract class Entity
         }
     }
 
-    public void func_40036_aw()
+    public void extinguish()
     {
         fire = 0;
     }
@@ -552,7 +552,7 @@ public abstract class Entity
                 fire++;
                 if(fire == 0)
                 {
-                    func_40034_j(8);
+                    setFire(8);
                 }
             }
         } else
@@ -616,7 +616,7 @@ public abstract class Entity
         }
     }
 
-    public final boolean func_40033_ax()
+    public final boolean isImmuneToFire()
     {
         return isImmuneToFire;
     }
@@ -707,7 +707,7 @@ public abstract class Entity
         }
     }
 
-    public void Sets(World world)
+    public void setWorld(World world)
     {
         worldObj = world;
     }
@@ -821,7 +821,7 @@ public abstract class Entity
 
     protected void setBeenAttacked()
     {
-        beenAttacked = true;
+        velocityChanged = true;
     }
 
     public boolean attackEntityFrom(DamageSource damagesource, int i)
@@ -871,7 +871,7 @@ public abstract class Entity
         }));
         nbttagcompound.setFloat("FallDistance", fallDistance);
         nbttagcompound.setShort("Fire", (short)fire);
-        nbttagcompound.setShort("Air", (short)func_41009_al());
+        nbttagcompound.setShort("Air", (short)getAir());
         nbttagcompound.setBoolean("OnGround", onGround);
         writeEntityToNBT(nbttagcompound);
     }
@@ -903,7 +903,7 @@ public abstract class Entity
         prevRotationPitch = rotationPitch = ((NBTTagFloat)nbttaglist2.tagAt(1)).floatValue;
         fallDistance = nbttagcompound.getFloat("FallDistance");
         fire = nbttagcompound.getShort("Fire");
-        func_41008_j(nbttagcompound.getShort("Air"));
+        setAir(nbttagcompound.getShort("Air"));
         onGround = nbttagcompound.getBoolean("OnGround");
         setPosition(posX, posY, posZ);
         setRotation(rotationYaw, rotationPitch);
@@ -961,7 +961,7 @@ public abstract class Entity
     {
         EntityItem entityitem = new EntityItem(worldObj, posX, posY + (double)f, posZ, itemstack);
         entityitem.delayBeforeCanPickup = 10;
-        worldObj.entityJoinedWorld(entityitem);
+        worldObj.spawnEntityInWorld(entityitem);
         return entityitem;
     }
 
@@ -1094,7 +1094,7 @@ public abstract class Entity
         entity.riddenByEntity = this;
     }
 
-    public float func_41010_j_()
+    public float getCollisionBorderSize()
     {
         return 0.1F;
     }
@@ -1113,7 +1113,7 @@ public abstract class Entity
         return null;
     }
 
-    public boolean func_40035_z()
+    public boolean isBurning()
     {
         return fire > 0 || getFlag(0);
     }
@@ -1128,7 +1128,7 @@ public abstract class Entity
         setFlag(1, flag);
     }
 
-    public boolean getSprinting()
+    public boolean isSprinting()
     {
         return getFlag(3);
     }
@@ -1138,7 +1138,7 @@ public abstract class Entity
         setFlag(3, flag);
     }
 
-    public void func_35148_h(boolean flag)
+    public void setEating(boolean flag)
     {
         setFlag(4, flag);
     }
@@ -1160,12 +1160,12 @@ public abstract class Entity
         }
     }
 
-    public int func_41009_al()
+    public int getAir()
     {
-        return dataWatcher.func_41048_b(1);
+        return dataWatcher.getWatchableObjectShort(1);
     }
 
-    public void func_41008_j(int i)
+    public void setAir(int i)
     {
         dataWatcher.updateObject(1, Short.valueOf((short)i));
     }
@@ -1176,7 +1176,7 @@ public abstract class Entity
         fire++;
         if(fire == 0)
         {
-            func_40034_j(8);
+            setFire(8);
         }
     }
 
@@ -1279,12 +1279,12 @@ public abstract class Entity
         return StatCollector.translateToLocal((new StringBuilder()).append("entity.").append(s).append(".name").toString());
     }
 
-    public Entity[] func_40037_aF()
+    public Entity[] getParts()
     {
         return null;
     }
 
-    public boolean func_41012_c_(Entity entity)
+    public boolean isEntityEqual(Entity entity)
     {
         return this == entity;
     }

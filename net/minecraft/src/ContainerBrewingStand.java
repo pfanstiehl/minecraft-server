@@ -14,13 +14,13 @@ import java.util.List;
 public class ContainerBrewingStand extends Container
 {
 
-    private TileEntityBrewingStand field_40341_a;
-    private int field_40340_b;
+    private TileEntityBrewingStand tileBrewingStand;
+    private int brewTime;
 
     public ContainerBrewingStand(InventoryPlayer inventoryplayer, TileEntityBrewingStand tileentitybrewingstand)
     {
-        field_40340_b = 0;
-        field_40341_a = tileentitybrewingstand;
+        brewTime = 0;
+        tileBrewingStand = tileentitybrewingstand;
         addSlot(new SlotBrewingStandPotion(this, inventoryplayer.player, tileentitybrewingstand, 0, 56, 46));
         addSlot(new SlotBrewingStandPotion(this, inventoryplayer.player, tileentitybrewingstand, 1, 79, 53));
         addSlot(new SlotBrewingStandPotion(this, inventoryplayer.player, tileentitybrewingstand, 2, 102, 46));
@@ -44,7 +44,7 @@ public class ContainerBrewingStand extends Container
     public void onCraftGuiOpened(ICrafting icrafting)
     {
         super.onCraftGuiOpened(icrafting);
-        icrafting.updateCraftingInventoryInfo(this, 0, field_40341_a.func_40077_h());
+        icrafting.updateCraftingInventoryInfo(this, 0, tileBrewingStand.getBrewTime());
     }
 
     public void updateCraftingResults()
@@ -53,18 +53,18 @@ public class ContainerBrewingStand extends Container
         for(int i = 0; i < crafters.size(); i++)
         {
             ICrafting icrafting = (ICrafting)crafters.get(i);
-            if(field_40340_b != field_40341_a.func_40077_h())
+            if(brewTime != tileBrewingStand.getBrewTime())
             {
-                icrafting.updateCraftingInventoryInfo(this, 0, field_40341_a.func_40077_h());
+                icrafting.updateCraftingInventoryInfo(this, 0, tileBrewingStand.getBrewTime());
             }
         }
 
-        field_40340_b = field_40341_a.func_40077_h();
+        brewTime = tileBrewingStand.getBrewTime();
     }
 
     public boolean canInteractWith(EntityPlayer entityplayer)
     {
-        return field_40341_a.isUseableByPlayer(entityplayer);
+        return tileBrewingStand.isUseableByPlayer(entityplayer);
     }
 
     public ItemStack transferStackInSlot(int i)

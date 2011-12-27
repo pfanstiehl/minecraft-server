@@ -15,21 +15,21 @@ import java.util.*;
 public class EnchantmentHelper
 {
 
-    private static final Random field_40647_a = new Random();
-    private static final EnchantmentModifierDamage field_40645_b = new EnchantmentModifierDamage(null);
-    private static final EnchantmentModifierLiving field_40646_c = new EnchantmentModifierLiving(null);
+    private static final Random enchantmentRand = new Random();
+    private static final EnchantmentModifierDamage enchantmentModifierDamage = new EnchantmentModifierDamage(null);
+    private static final EnchantmentModifierLiving enchantmentModifierLiving = new EnchantmentModifierLiving(null);
 
     public EnchantmentHelper()
     {
     }
 
-    private static int func_40638_b(int i, ItemStack itemstack)
+    private static int getEnchantmentLevel(int i, ItemStack itemstack)
     {
         if(itemstack == null)
         {
             return 0;
         }
-        NBTTagList nbttaglist = itemstack.func_40609_p();
+        NBTTagList nbttaglist = itemstack.getEnchantmentTagList();
         if(nbttaglist == null)
         {
             return 0;
@@ -47,7 +47,7 @@ public class EnchantmentHelper
         return 0;
     }
 
-    private static int func_40639_a(int i, ItemStack aitemstack[])
+    private static int getMaxEnchantmentLevel(int i, ItemStack aitemstack[])
     {
         int j = 0;
         ItemStack aitemstack1[] = aitemstack;
@@ -55,7 +55,7 @@ public class EnchantmentHelper
         for(int l = 0; l < k; l++)
         {
             ItemStack itemstack = aitemstack1[l];
-            int i1 = func_40638_b(i, itemstack);
+            int i1 = getEnchantmentLevel(i, itemstack);
             if(i1 > j)
             {
                 j = i1;
@@ -65,13 +65,13 @@ public class EnchantmentHelper
         return j;
     }
 
-    private static void func_40627_a(IEnchantmentModifier ienchantmentmodifier, ItemStack itemstack)
+    private static void applyEnchantmentModifier(IEnchantmentModifier ienchantmentmodifier, ItemStack itemstack)
     {
         if(itemstack == null)
         {
             return;
         }
-        NBTTagList nbttaglist = itemstack.func_40609_p();
+        NBTTagList nbttaglist = itemstack.getEnchantmentTagList();
         if(nbttaglist == null)
         {
             return;
@@ -88,90 +88,90 @@ public class EnchantmentHelper
 
     }
 
-    private static void func_40640_a(IEnchantmentModifier ienchantmentmodifier, ItemStack aitemstack[])
+    private static void applyEnchantmentModifierArray(IEnchantmentModifier ienchantmentmodifier, ItemStack aitemstack[])
     {
         ItemStack aitemstack1[] = aitemstack;
         int i = aitemstack1.length;
         for(int j = 0; j < i; j++)
         {
             ItemStack itemstack = aitemstack1[j];
-            func_40627_a(ienchantmentmodifier, itemstack);
+            applyEnchantmentModifier(ienchantmentmodifier, itemstack);
         }
 
     }
 
-    public static int func_40634_a(InventoryPlayer inventoryplayer, DamageSource damagesource)
+    public static int getEnchantmentModifierDamage(InventoryPlayer inventoryplayer, DamageSource damagesource)
     {
-        field_40645_b.damageModifier = 0;
-        field_40645_b.damageSource = damagesource;
-        func_40640_a(field_40645_b, inventoryplayer.armorInventory);
-        if(field_40645_b.damageModifier > 25)
+        enchantmentModifierDamage.damageModifier = 0;
+        enchantmentModifierDamage.damageSource = damagesource;
+        applyEnchantmentModifierArray(enchantmentModifierDamage, inventoryplayer.armorInventory);
+        if(enchantmentModifierDamage.damageModifier > 25)
         {
-            field_40645_b.damageModifier = 25;
+            enchantmentModifierDamage.damageModifier = 25;
         }
-        return (field_40645_b.damageModifier + 1 >> 1) + field_40647_a.nextInt((field_40645_b.damageModifier >> 1) + 1);
+        return (enchantmentModifierDamage.damageModifier + 1 >> 1) + enchantmentRand.nextInt((enchantmentModifierDamage.damageModifier >> 1) + 1);
     }
 
-    public static int func_40641_a(InventoryPlayer inventoryplayer, EntityLiving entityliving)
+    public static int getEnchantmentModifierLiving(InventoryPlayer inventoryplayer, EntityLiving entityliving)
     {
-        field_40646_c.livingModifier = 0;
-        field_40646_c.entityLiving = entityliving;
-        func_40627_a(field_40646_c, inventoryplayer.getCurrentItem());
-        if(field_40646_c.livingModifier > 0)
+        enchantmentModifierLiving.livingModifier = 0;
+        enchantmentModifierLiving.entityLiving = entityliving;
+        applyEnchantmentModifier(enchantmentModifierLiving, inventoryplayer.getCurrentItem());
+        if(enchantmentModifierLiving.livingModifier > 0)
         {
-            return 1 + field_40647_a.nextInt(field_40646_c.livingModifier);
+            return 1 + enchantmentRand.nextInt(enchantmentModifierLiving.livingModifier);
         } else
         {
             return 0;
         }
     }
 
-    public static int func_40637_b(InventoryPlayer inventoryplayer, EntityLiving entityliving)
+    public static int getKnockbackModifier(InventoryPlayer inventoryplayer, EntityLiving entityliving)
     {
-        return func_40638_b(Enchantment.knockback.effectId, inventoryplayer.getCurrentItem());
+        return getEnchantmentLevel(Enchantment.knockback.effectId, inventoryplayer.getCurrentItem());
     }
 
-    public static int func_40636_c(InventoryPlayer inventoryplayer, EntityLiving entityliving)
+    public static int getFireAspectModifier(InventoryPlayer inventoryplayer, EntityLiving entityliving)
     {
-        return func_40638_b(Enchantment.fireAspect.effectId, inventoryplayer.getCurrentItem());
+        return getEnchantmentLevel(Enchantment.fireAspect.effectId, inventoryplayer.getCurrentItem());
     }
 
-    public static int func_40628_a(InventoryPlayer inventoryplayer)
+    public static int getRespiration(InventoryPlayer inventoryplayer)
     {
-        return func_40639_a(Enchantment.respiration.effectId, inventoryplayer.armorInventory);
+        return getMaxEnchantmentLevel(Enchantment.respiration.effectId, inventoryplayer.armorInventory);
     }
 
-    public static int func_40630_b(InventoryPlayer inventoryplayer)
+    public static int getEfficiencyModifier(InventoryPlayer inventoryplayer)
     {
-        return func_40638_b(Enchantment.efficiency.effectId, inventoryplayer.getCurrentItem());
+        return getEnchantmentLevel(Enchantment.efficiency.effectId, inventoryplayer.getCurrentItem());
     }
 
-    public static int func_40643_c(InventoryPlayer inventoryplayer)
+    public static int getUnbreakingModifier(InventoryPlayer inventoryplayer)
     {
-        return func_40638_b(Enchantment.unbreaking.effectId, inventoryplayer.getCurrentItem());
+        return getEnchantmentLevel(Enchantment.unbreaking.effectId, inventoryplayer.getCurrentItem());
     }
 
-    public static boolean func_40644_d(InventoryPlayer inventoryplayer)
+    public static boolean getSilkTouchModifier(InventoryPlayer inventoryplayer)
     {
-        return func_40638_b(Enchantment.silkTouch.effectId, inventoryplayer.getCurrentItem()) > 0;
+        return getEnchantmentLevel(Enchantment.silkTouch.effectId, inventoryplayer.getCurrentItem()) > 0;
     }
 
     public static int getFortuneModifier(InventoryPlayer inventoryplayer)
     {
-        return func_40638_b(Enchantment.fortune.effectId, inventoryplayer.getCurrentItem());
+        return getEnchantmentLevel(Enchantment.fortune.effectId, inventoryplayer.getCurrentItem());
     }
 
-    public static int func_40633_f(InventoryPlayer inventoryplayer)
+    public static int getLootingModifier(InventoryPlayer inventoryplayer)
     {
-        return func_40638_b(Enchantment.looting.effectId, inventoryplayer.getCurrentItem());
+        return getEnchantmentLevel(Enchantment.looting.effectId, inventoryplayer.getCurrentItem());
     }
 
-    public static boolean func_40632_g(InventoryPlayer inventoryplayer)
+    public static boolean getAquaAffinityModifier(InventoryPlayer inventoryplayer)
     {
-        return func_40639_a(Enchantment.aquaAffinity.effectId, inventoryplayer.armorInventory) > 0;
+        return getMaxEnchantmentLevel(Enchantment.aquaAffinity.effectId, inventoryplayer.armorInventory) > 0;
     }
 
-    public static int func_40642_a(Random random, int i, int j, ItemStack itemstack)
+    public static int calcItemStackEnchantability(Random random, int i, int j, ItemStack itemstack)
     {
         Item item = itemstack.getItem();
         int k = item.getItemEnchantability();
@@ -198,7 +198,7 @@ public class EnchantmentHelper
         }
     }
 
-    public static List func_40629_a(Random random, ItemStack itemstack, int i)
+    public static List buildEnchantmentList(Random random, ItemStack itemstack, int i)
     {
         Item item = itemstack.getItem();
         int j = item.getItemEnchantability();
@@ -211,7 +211,7 @@ public class EnchantmentHelper
         float f = ((random.nextFloat() + random.nextFloat()) - 1.0F) * 0.25F;
         int l = (int)((float)k * (1.0F + f) + 0.5F);
         ArrayList arraylist = null;
-        Map map = func_40631_a(l, itemstack);
+        Map map = mapEnchantmentData(l, itemstack);
         if(map != null && !map.isEmpty())
         {
             EnchantmentData enchantmentdata = (EnchantmentData)WeightedRandom.func_35689_a(random, map.values());
@@ -262,7 +262,7 @@ public class EnchantmentHelper
         return arraylist;
     }
 
-    public static Map func_40631_a(int i, ItemStack itemstack)
+    public static Map mapEnchantmentData(int i, ItemStack itemstack)
     {
         Item item = itemstack.getItem();
         HashMap hashmap = null;

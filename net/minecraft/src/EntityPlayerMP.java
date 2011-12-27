@@ -35,7 +35,7 @@ public class EntityPlayerMP extends EntityPlayer
     public double managedPosX;
     public double managedPosZ;
     public List loadedChunks;
-    public Set field_420_ah;
+    public Set listeningChunks;
     private int lastHealth;
     private int field_35221_cc;
     private boolean field_35222_cd;
@@ -53,7 +53,7 @@ public class EntityPlayerMP extends EntityPlayer
     {
         super(world);
         loadedChunks = new LinkedList();
-        field_420_ah = new HashSet();
+        listeningChunks = new HashSet();
         lastHealth = 0xfa0a1f01;
         field_35221_cc = 0xfa0a1f01;
         field_35222_cd = true;
@@ -95,14 +95,14 @@ public class EntityPlayerMP extends EntityPlayer
         nbttagcompound.setInteger("playerGameType", itemInWorldManager.getGameType());
     }
 
-    public void Sets(World world)
+    public void setWorld(World world)
     {
-        super.Sets(world);
+        super.setWorld(world);
     }
 
-    public void func_40108_b(int i)
+    public void removeExperience(int i)
     {
-        super.func_40108_b(i);
+        super.removeExperience(i);
         field_35220_ce = -1;
     }
 
@@ -430,7 +430,7 @@ public class EntityPlayerMP extends EntityPlayer
         currentCraftingInventory.onCraftGuiOpened(this);
     }
 
-    public void func_40106_c(int i, int j, int k)
+    public void displayGUIEnchantment(int i, int j, int k)
     {
         getNextWidowId();
         playerNetServerHandler.sendPacket(new Packet100OpenWindow(currentWindowId, 4, "Enchanting", 9));
@@ -466,7 +466,7 @@ public class EntityPlayerMP extends EntityPlayer
         currentCraftingInventory.onCraftGuiOpened(this);
     }
 
-    public void func_40110_a(TileEntityBrewingStand tileentitybrewingstand)
+    public void displayGUIBrewingStand(TileEntityBrewingStand tileentitybrewingstand)
     {
         getNextWidowId();
         playerNetServerHandler.sendPacket(new Packet100OpenWindow(currentWindowId, 5, tileentitybrewingstand.getInvName(), tileentitybrewingstand.getSizeInventory()));
@@ -596,40 +596,40 @@ public class EntityPlayerMP extends EntityPlayer
         super.func_35199_C();
     }
 
-    public void func_35201_a(ItemStack itemstack, int i)
+    public void setItemInUse(ItemStack itemstack, int i)
     {
-        super.func_35201_a(itemstack, i);
-        if(itemstack != null && itemstack.getItem() != null && itemstack.getItem().func_35406_b(itemstack) == EnumAction.eat)
+        super.setItemInUse(itemstack, i);
+        if(itemstack != null && itemstack.getItem() != null && itemstack.getItem().getAction(itemstack) == EnumAction.eat)
         {
             EntityTracker entitytracker = mcServer.getEntityTracker(dimension);
             entitytracker.sendPacketToTrackedPlayersAndTrackedEntity(this, new Packet18Animation(this, 5));
         }
     }
 
-    protected void func_35181_a(PotionEffect potioneffect)
+    protected void onNewPotionEffect(PotionEffect potioneffect)
     {
-        super.func_35181_a(potioneffect);
+        super.onNewPotionEffect(potioneffect);
         playerNetServerHandler.sendPacket(new Packet41EntityEffect(entityId, potioneffect));
     }
 
-    protected void func_35179_b(PotionEffect potioneffect)
+    protected void onChangedPotionEffect(PotionEffect potioneffect)
     {
-        super.func_35179_b(potioneffect);
+        super.onChangedPotionEffect(potioneffect);
         playerNetServerHandler.sendPacket(new Packet41EntityEffect(entityId, potioneffect));
     }
 
-    protected void func_35185_c(PotionEffect potioneffect)
+    protected void onFinishedPotionEffect(PotionEffect potioneffect)
     {
-        super.func_35185_c(potioneffect);
+        super.onFinishedPotionEffect(potioneffect);
         playerNetServerHandler.sendPacket(new Packet42RemoveEntityEffect(entityId, potioneffect));
     }
 
-    public void func_40098_a_(double d, double d1, double d2)
+    public void setPositionAndUpdate(double d, double d1, double d2)
     {
         playerNetServerHandler.teleportTo(d, d1, d2, rotationYaw, rotationPitch);
     }
 
-    public void func_35202_e(Entity entity)
+    public void onCriticalHit(Entity entity)
     {
         EntityTracker entitytracker = mcServer.getEntityTracker(dimension);
         entitytracker.sendPacketToTrackedPlayersAndTrackedEntity(this, new Packet18Animation(entity, 6));

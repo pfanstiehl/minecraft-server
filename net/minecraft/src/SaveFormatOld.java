@@ -63,14 +63,14 @@ public class SaveFormatOld
         return null;
     }
 
-    protected static void func_22104_a(File afile[])
+    protected static void deleteFiles(File afile[])
     {
         for(int i = 0; i < afile.length; i++)
         {
             if(afile[i].isDirectory())
             {
                 System.out.println((new StringBuilder()).append("Deleting ").append(afile[i]).toString());
-                func_22104_a(afile[i].listFiles());
+                deleteFiles(afile[i].listFiles());
             }
             afile[i].delete();
         }

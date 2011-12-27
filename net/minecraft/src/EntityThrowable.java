@@ -15,26 +15,26 @@ import java.util.Random;
 public abstract class EntityThrowable extends Entity
 {
 
-    private int field_40047_d;
-    private int field_40048_e;
-    private int field_40045_f;
-    private int field_40046_g;
-    protected boolean field_40051_a;
-    public int field_40049_b;
-    protected EntityLiving field_40050_c;
-    private int field_40052_h;
-    private int field_40053_i;
+    private int xTile;
+    private int yTile;
+    private int zTile;
+    private int inTile;
+    protected boolean inGround;
+    public int throwableShake;
+    protected EntityLiving thrower;
+    private int ticksInGround;
+    private int ticksInAir;
 
     public EntityThrowable(World world)
     {
         super(world);
-        field_40047_d = -1;
-        field_40048_e = -1;
-        field_40045_f = -1;
-        field_40046_g = 0;
-        field_40051_a = false;
-        field_40049_b = 0;
-        field_40053_i = 0;
+        xTile = -1;
+        yTile = -1;
+        zTile = -1;
+        inTile = 0;
+        inGround = false;
+        throwableShake = 0;
+        ticksInAir = 0;
         setSize(0.25F, 0.25F);
     }
 
@@ -45,14 +45,14 @@ public abstract class EntityThrowable extends Entity
     public EntityThrowable(World world, EntityLiving entityliving)
     {
         super(world);
-        field_40047_d = -1;
-        field_40048_e = -1;
-        field_40045_f = -1;
-        field_40046_g = 0;
-        field_40051_a = false;
-        field_40049_b = 0;
-        field_40053_i = 0;
-        field_40050_c = entityliving;
+        xTile = -1;
+        yTile = -1;
+        zTile = -1;
+        inTile = 0;
+        inGround = false;
+        throwableShake = 0;
+        ticksInAir = 0;
+        thrower = entityliving;
         setSize(0.25F, 0.25F);
         setLocationAndAngles(entityliving.posX, entityliving.posY + (double)entityliving.getEyeHeight(), entityliving.posZ, entityliving.rotationYaw, entityliving.rotationPitch);
         posX -= MathHelper.cos((rotationYaw / 180F) * 3.141593F) * 0.16F;
@@ -64,20 +64,20 @@ public abstract class EntityThrowable extends Entity
         motionX = -MathHelper.sin((rotationYaw / 180F) * 3.141593F) * MathHelper.cos((rotationPitch / 180F) * 3.141593F) * f;
         motionZ = MathHelper.cos((rotationYaw / 180F) * 3.141593F) * MathHelper.cos((rotationPitch / 180F) * 3.141593F) * f;
         motionY = -MathHelper.sin(((rotationPitch + func_40040_d()) / 180F) * 3.141593F) * f;
-        func_40043_a(motionX, motionY, motionZ, func_40044_c(), 1.0F);
+        setThrowableHeading(motionX, motionY, motionZ, func_40044_c(), 1.0F);
     }
 
     public EntityThrowable(World world, double d, double d1, double d2)
     {
         super(world);
-        field_40047_d = -1;
-        field_40048_e = -1;
-        field_40045_f = -1;
-        field_40046_g = 0;
-        field_40051_a = false;
-        field_40049_b = 0;
-        field_40053_i = 0;
-        field_40052_h = 0;
+        xTile = -1;
+        yTile = -1;
+        zTile = -1;
+        inTile = 0;
+        inGround = false;
+        throwableShake = 0;
+        ticksInAir = 0;
+        ticksInGround = 0;
         setSize(0.25F, 0.25F);
         setPosition(d, d1, d2);
         yOffset = 0.0F;
@@ -93,7 +93,7 @@ public abstract class EntityThrowable extends Entity
         return 0.0F;
     }
 
-    public void func_40043_a(double d, double d1, double d2, float f, 
+    public void setThrowableHeading(double d, double d1, double d2, float f, 
             float f1)
     {
         float f2 = MathHelper.sqrt_double(d * d + d1 * d1 + d2 * d2);
@@ -112,7 +112,7 @@ public abstract class EntityThrowable extends Entity
         float f3 = MathHelper.sqrt_double(d * d + d2 * d2);
         prevRotationYaw = rotationYaw = (float)((Math.atan2(d, d2) * 180D) / 3.1415927410125732D);
         prevRotationPitch = rotationPitch = (float)((Math.atan2(d1, f3) * 180D) / 3.1415927410125732D);
-        field_40052_h = 0;
+        ticksInGround = 0;
     }
 
     public void onUpdate()
@@ -121,25 +121,25 @@ public abstract class EntityThrowable extends Entity
         lastTickPosY = posY;
         lastTickPosZ = posZ;
         super.onUpdate();
-        if(field_40049_b > 0)
+        if(throwableShake > 0)
         {
-            field_40049_b--;
+            throwableShake--;
         }
-        if(field_40051_a)
+        if(inGround)
         {
-            int i = worldObj.getBlockId(field_40047_d, field_40048_e, field_40045_f);
-            if(i != field_40046_g)
+            int i = worldObj.getBlockId(xTile, yTile, zTile);
+            if(i != inTile)
             {
-                field_40051_a = false;
+                inGround = false;
                 motionX *= rand.nextFloat() * 0.2F;
                 motionY *= rand.nextFloat() * 0.2F;
                 motionZ *= rand.nextFloat() * 0.2F;
-                field_40052_h = 0;
-                field_40053_i = 0;
+                ticksInGround = 0;
+                ticksInAir = 0;
             } else
             {
-                field_40052_h++;
-                if(field_40052_h == 1200)
+                ticksInGround++;
+                if(ticksInGround == 1200)
                 {
                     setEntityDead();
                 }
@@ -147,7 +147,7 @@ public abstract class EntityThrowable extends Entity
             }
         } else
         {
-            field_40053_i++;
+            ticksInAir++;
         }
         Vec3D vec3d = Vec3D.createVector(posX, posY, posZ);
         Vec3D vec3d1 = Vec3D.createVector(posX + motionX, posY + motionY, posZ + motionZ);
@@ -166,7 +166,7 @@ public abstract class EntityThrowable extends Entity
             for(int k = 0; k < list.size(); k++)
             {
                 Entity entity1 = (Entity)list.get(k);
-                if(!entity1.canBeCollidedWith() || entity1 == field_40050_c && field_40053_i < 5)
+                if(!entity1.canBeCollidedWith() || entity1 == thrower && ticksInAir < 5)
                 {
                     continue;
                 }
@@ -192,7 +192,7 @@ public abstract class EntityThrowable extends Entity
         }
         if(movingobjectposition != null)
         {
-            func_40041_a(movingobjectposition);
+            onImpact(movingobjectposition);
         }
         posX += motionX;
         posY += motionY;
@@ -229,26 +229,26 @@ public abstract class EntityThrowable extends Entity
         return 0.03F;
     }
 
-    protected abstract void func_40041_a(MovingObjectPosition movingobjectposition);
+    protected abstract void onImpact(MovingObjectPosition movingobjectposition);
 
     public void writeEntityToNBT(NBTTagCompound nbttagcompound)
     {
-        nbttagcompound.setShort("xTile", (short)field_40047_d);
-        nbttagcompound.setShort("yTile", (short)field_40048_e);
-        nbttagcompound.setShort("zTile", (short)field_40045_f);
-        nbttagcompound.setByte("inTile", (byte)field_40046_g);
-        nbttagcompound.setByte("shake", (byte)field_40049_b);
-        nbttagcompound.setByte("inGround", (byte)(field_40051_a ? 1 : 0));
+        nbttagcompound.setShort("xTile", (short)xTile);
+        nbttagcompound.setShort("yTile", (short)yTile);
+        nbttagcompound.setShort("zTile", (short)zTile);
+        nbttagcompound.setByte("inTile", (byte)inTile);
+        nbttagcompound.setByte("shake", (byte)throwableShake);
+        nbttagcompound.setByte("inGround", (byte)(inGround ? 1 : 0));
     }
 
     public void readEntityFromNBT(NBTTagCompound nbttagcompound)
     {
-        field_40047_d = nbttagcompound.getShort("xTile");
-        field_40048_e = nbttagcompound.getShort("yTile");
-        field_40045_f = nbttagcompound.getShort("zTile");
-        field_40046_g = nbttagcompound.getByte("inTile") & 0xff;
-        field_40049_b = nbttagcompound.getByte("shake") & 0xff;
-        field_40051_a = nbttagcompound.getByte("inGround") == 1;
+        xTile = nbttagcompound.getShort("xTile");
+        yTile = nbttagcompound.getShort("yTile");
+        zTile = nbttagcompound.getShort("zTile");
+        inTile = nbttagcompound.getByte("inTile") & 0xff;
+        throwableShake = nbttagcompound.getByte("shake") & 0xff;
+        inGround = nbttagcompound.getByte("inGround") == 1;
     }
 
     public void onCollideWithPlayer(EntityPlayer entityplayer)

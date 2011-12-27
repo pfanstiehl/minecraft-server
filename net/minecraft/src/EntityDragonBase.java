@@ -11,20 +11,20 @@ package net.minecraft.src;
 public class EntityDragonBase extends EntityLiving
 {
 
-    protected int field_40138_s;
+    protected int maxHealth;
 
     public EntityDragonBase(World world)
     {
         super(world);
-        field_40138_s = 100;
+        maxHealth = 100;
     }
 
     public int getMaxHealth()
     {
-        return field_40138_s;
+        return maxHealth;
     }
 
-    public boolean func_40136_a(DragonPart dragonpart, DamageSource damagesource, int i)
+    public boolean attackEntityFromPart(DragonPart dragonpart, DamageSource damagesource, int i)
     {
         return attackEntityFrom(damagesource, i);
     }

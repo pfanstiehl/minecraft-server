@@ -41,7 +41,7 @@ public class BlockPressurePlate extends Block
         return false;
     }
 
-    public boolean isACube()
+    public boolean renderAsNormalBlock()
     {
         return false;
     }
@@ -190,7 +190,7 @@ public class BlockPressurePlate extends Block
         return true;
     }
 
-    public void func_40163_f()
+    public void setBlockBoundsForItemRender()
     {
         float f = 0.5F;
         float f1 = 0.125F;

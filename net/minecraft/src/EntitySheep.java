@@ -183,7 +183,7 @@ public class EntitySheep extends EntityAnimal
         return random.nextInt(500) != 0 ? 0 : 6;
     }
 
-    protected EntityAnimal func_40133_a(EntityAnimal entityanimal)
+    protected EntityAnimal spawnBabyAnimal(EntityAnimal entityanimal)
     {
         EntitySheep entitysheep = (EntitySheep)entityanimal;
         EntitySheep entitysheep1 = new EntitySheep(worldObj);

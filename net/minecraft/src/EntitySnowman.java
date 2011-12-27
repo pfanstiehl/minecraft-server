@@ -70,8 +70,8 @@ public class EntitySnowman extends EntitySnowmanBase
                 double d2 = (entity.posY + (double)entity.getEyeHeight()) - 1.1000000238418579D - entitysnowball.posY;
                 float f1 = MathHelper.sqrt_double(d * d + d1 * d1) * 0.2F;
                 worldObj.playSoundAtEntity(this, "random.bow", 1.0F, 1.0F / (rand.nextFloat() * 0.4F + 0.8F));
-                worldObj.entityJoinedWorld(entitysnowball);
-                entitysnowball.func_40043_a(d, d2 + (double)f1, d1, 1.6F, 12F);
+                worldObj.spawnEntityInWorld(entitysnowball);
+                entitysnowball.setThrowableHeading(d, d2 + (double)f1, d1, 1.6F, 12F);
                 attackTime = 10;
             }
             rotationYaw = (float)((Math.atan2(d1, d) * 180D) / 3.1415927410125732D) - 90F;

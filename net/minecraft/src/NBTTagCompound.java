@@ -114,7 +114,7 @@ public class NBTTagCompound extends NBTBase
         setByte(s, ((byte)(flag ? 1 : 0)));
     }
 
-    public NBTBase func_40469_b(String s)
+    public NBTBase getTag(String s)
     {
         return (NBTBase)tagMap.get(s);
     }
@@ -244,11 +244,11 @@ public class NBTTagCompound extends NBTBase
         return (new StringBuilder()).append("").append(tagMap.size()).append(" entries").toString();
     }
 
-    public NBTBase func_40468_b()
+    public NBTBase cloneTag()
     {
         NBTTagCompound nbttagcompound = new NBTTagCompound(getKey());
         String s;
-        for(Iterator iterator = tagMap.keySet().iterator(); iterator.hasNext(); nbttagcompound.setTag(s, ((NBTBase)tagMap.get(s)).func_40468_b()))
+        for(Iterator iterator = tagMap.keySet().iterator(); iterator.hasNext(); nbttagcompound.setTag(s, ((NBTBase)tagMap.get(s)).cloneTag()))
         {
             s = (String)iterator.next();
         }

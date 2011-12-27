@@ -34,8 +34,8 @@ public class ComponentStrongholdPortalRoom extends ComponentStronghold
 
     public static ComponentStrongholdPortalRoom func_40315_a(List list, Random random, int i, int j, int k, int l, int i1)
     {
-        StructureBoundingBox structureboundingbox = StructureBoundingBox.func_35663_a(i, j, k, -4, -1, 0, 11, 8, 16, l);
-        if(!func_35319_a(structureboundingbox) || StructureComponent.canFitInside(list, structureboundingbox) != null)
+        StructureBoundingBox structureboundingbox = StructureBoundingBox.getComponentToAddBoundingBox(i, j, k, -4, -1, 0, 11, 8, 16, l);
+        if(!canStrongholdGoDeeper(structureboundingbox) || StructureComponent.canFitInside(list, structureboundingbox) != null)
         {
             return null;
         } else
@@ -46,18 +46,18 @@ public class ComponentStrongholdPortalRoom extends ComponentStronghold
 
     public boolean addComponentParts(World world, Random random, StructureBoundingBox structureboundingbox)
     {
-        func_35307_a(world, structureboundingbox, 0, 0, 0, 10, 7, 15, false, random, StructureStrongholdPieces.getStrongholdStones());
+        fillWithRandomizedBlocks(world, structureboundingbox, 0, 0, 0, 10, 7, 15, false, random, StructureStrongholdPieces.getStrongholdStones());
         placeDoor(world, random, structureboundingbox, EnumDoor.GRATES, 4, 1, 0);
         byte byte0 = 6;
-        func_35307_a(world, structureboundingbox, 1, byte0, 1, 1, byte0, 14, false, random, StructureStrongholdPieces.getStrongholdStones());
-        func_35307_a(world, structureboundingbox, 9, byte0, 1, 9, byte0, 14, false, random, StructureStrongholdPieces.getStrongholdStones());
-        func_35307_a(world, structureboundingbox, 2, byte0, 1, 8, byte0, 2, false, random, StructureStrongholdPieces.getStrongholdStones());
-        func_35307_a(world, structureboundingbox, 2, byte0, 14, 8, byte0, 14, false, random, StructureStrongholdPieces.getStrongholdStones());
-        func_35307_a(world, structureboundingbox, 1, 1, 1, 2, 1, 4, false, random, StructureStrongholdPieces.getStrongholdStones());
-        func_35307_a(world, structureboundingbox, 8, 1, 1, 9, 1, 4, false, random, StructureStrongholdPieces.getStrongholdStones());
+        fillWithRandomizedBlocks(world, structureboundingbox, 1, byte0, 1, 1, byte0, 14, false, random, StructureStrongholdPieces.getStrongholdStones());
+        fillWithRandomizedBlocks(world, structureboundingbox, 9, byte0, 1, 9, byte0, 14, false, random, StructureStrongholdPieces.getStrongholdStones());
+        fillWithRandomizedBlocks(world, structureboundingbox, 2, byte0, 1, 8, byte0, 2, false, random, StructureStrongholdPieces.getStrongholdStones());
+        fillWithRandomizedBlocks(world, structureboundingbox, 2, byte0, 14, 8, byte0, 14, false, random, StructureStrongholdPieces.getStrongholdStones());
+        fillWithRandomizedBlocks(world, structureboundingbox, 1, 1, 1, 2, 1, 4, false, random, StructureStrongholdPieces.getStrongholdStones());
+        fillWithRandomizedBlocks(world, structureboundingbox, 8, 1, 1, 9, 1, 4, false, random, StructureStrongholdPieces.getStrongholdStones());
         fillWithBlocks(world, structureboundingbox, 1, 1, 1, 1, 1, 3, Block.lavaMoving.blockID, Block.lavaMoving.blockID, false);
         fillWithBlocks(world, structureboundingbox, 9, 1, 1, 9, 1, 3, Block.lavaMoving.blockID, Block.lavaMoving.blockID, false);
-        func_35307_a(world, structureboundingbox, 3, 1, 8, 7, 1, 12, false, random, StructureStrongholdPieces.getStrongholdStones());
+        fillWithRandomizedBlocks(world, structureboundingbox, 3, 1, 8, 7, 1, 12, false, random, StructureStrongholdPieces.getStrongholdStones());
         fillWithBlocks(world, structureboundingbox, 4, 1, 9, 6, 1, 11, Block.lavaMoving.blockID, Block.lavaMoving.blockID, false);
         for(int j = 3; j < 14; j += 2)
         {
@@ -71,14 +71,14 @@ public class ComponentStrongholdPortalRoom extends ComponentStronghold
         }
 
         int l = func_35301_c(Block.stairsStoneBrickSmooth.blockID, 3);
-        func_35307_a(world, structureboundingbox, 4, 1, 5, 6, 1, 7, false, random, StructureStrongholdPieces.getStrongholdStones());
-        func_35307_a(world, structureboundingbox, 4, 2, 6, 6, 2, 7, false, random, StructureStrongholdPieces.getStrongholdStones());
-        func_35307_a(world, structureboundingbox, 4, 3, 7, 6, 3, 7, false, random, StructureStrongholdPieces.getStrongholdStones());
+        fillWithRandomizedBlocks(world, structureboundingbox, 4, 1, 5, 6, 1, 7, false, random, StructureStrongholdPieces.getStrongholdStones());
+        fillWithRandomizedBlocks(world, structureboundingbox, 4, 2, 6, 6, 2, 7, false, random, StructureStrongholdPieces.getStrongholdStones());
+        fillWithRandomizedBlocks(world, structureboundingbox, 4, 3, 7, 6, 3, 7, false, random, StructureStrongholdPieces.getStrongholdStones());
         for(int i1 = 4; i1 <= 6; i1++)
         {
-            func_35309_a(world, Block.stairsStoneBrickSmooth.blockID, l, i1, 1, 4, structureboundingbox);
-            func_35309_a(world, Block.stairsStoneBrickSmooth.blockID, l, i1, 2, 5, structureboundingbox);
-            func_35309_a(world, Block.stairsStoneBrickSmooth.blockID, l, i1, 3, 6, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stairsStoneBrickSmooth.blockID, l, i1, 1, 4, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stairsStoneBrickSmooth.blockID, l, i1, 2, 5, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stairsStoneBrickSmooth.blockID, l, i1, 3, 6, structureboundingbox);
         }
 
         byte byte1 = 2;
@@ -106,23 +106,23 @@ public class ComponentStrongholdPortalRoom extends ComponentStronghold
             byte4 = 2;
             break;
         }
-        func_35309_a(world, Block.endPortalFrame.blockID, byte1 + (random.nextFloat() <= 0.9F ? 0 : 4), 4, 3, 8, structureboundingbox);
-        func_35309_a(world, Block.endPortalFrame.blockID, byte1 + (random.nextFloat() <= 0.9F ? 0 : 4), 5, 3, 8, structureboundingbox);
-        func_35309_a(world, Block.endPortalFrame.blockID, byte1 + (random.nextFloat() <= 0.9F ? 0 : 4), 6, 3, 8, structureboundingbox);
-        func_35309_a(world, Block.endPortalFrame.blockID, byte2 + (random.nextFloat() <= 0.9F ? 0 : 4), 4, 3, 12, structureboundingbox);
-        func_35309_a(world, Block.endPortalFrame.blockID, byte2 + (random.nextFloat() <= 0.9F ? 0 : 4), 5, 3, 12, structureboundingbox);
-        func_35309_a(world, Block.endPortalFrame.blockID, byte2 + (random.nextFloat() <= 0.9F ? 0 : 4), 6, 3, 12, structureboundingbox);
-        func_35309_a(world, Block.endPortalFrame.blockID, byte3 + (random.nextFloat() <= 0.9F ? 0 : 4), 3, 3, 9, structureboundingbox);
-        func_35309_a(world, Block.endPortalFrame.blockID, byte3 + (random.nextFloat() <= 0.9F ? 0 : 4), 3, 3, 10, structureboundingbox);
-        func_35309_a(world, Block.endPortalFrame.blockID, byte3 + (random.nextFloat() <= 0.9F ? 0 : 4), 3, 3, 11, structureboundingbox);
-        func_35309_a(world, Block.endPortalFrame.blockID, byte4 + (random.nextFloat() <= 0.9F ? 0 : 4), 7, 3, 9, structureboundingbox);
-        func_35309_a(world, Block.endPortalFrame.blockID, byte4 + (random.nextFloat() <= 0.9F ? 0 : 4), 7, 3, 10, structureboundingbox);
-        func_35309_a(world, Block.endPortalFrame.blockID, byte4 + (random.nextFloat() <= 0.9F ? 0 : 4), 7, 3, 11, structureboundingbox);
+        placeBlockAtCurrentPosition(world, Block.endPortalFrame.blockID, byte1 + (random.nextFloat() <= 0.9F ? 0 : 4), 4, 3, 8, structureboundingbox);
+        placeBlockAtCurrentPosition(world, Block.endPortalFrame.blockID, byte1 + (random.nextFloat() <= 0.9F ? 0 : 4), 5, 3, 8, structureboundingbox);
+        placeBlockAtCurrentPosition(world, Block.endPortalFrame.blockID, byte1 + (random.nextFloat() <= 0.9F ? 0 : 4), 6, 3, 8, structureboundingbox);
+        placeBlockAtCurrentPosition(world, Block.endPortalFrame.blockID, byte2 + (random.nextFloat() <= 0.9F ? 0 : 4), 4, 3, 12, structureboundingbox);
+        placeBlockAtCurrentPosition(world, Block.endPortalFrame.blockID, byte2 + (random.nextFloat() <= 0.9F ? 0 : 4), 5, 3, 12, structureboundingbox);
+        placeBlockAtCurrentPosition(world, Block.endPortalFrame.blockID, byte2 + (random.nextFloat() <= 0.9F ? 0 : 4), 6, 3, 12, structureboundingbox);
+        placeBlockAtCurrentPosition(world, Block.endPortalFrame.blockID, byte3 + (random.nextFloat() <= 0.9F ? 0 : 4), 3, 3, 9, structureboundingbox);
+        placeBlockAtCurrentPosition(world, Block.endPortalFrame.blockID, byte3 + (random.nextFloat() <= 0.9F ? 0 : 4), 3, 3, 10, structureboundingbox);
+        placeBlockAtCurrentPosition(world, Block.endPortalFrame.blockID, byte3 + (random.nextFloat() <= 0.9F ? 0 : 4), 3, 3, 11, structureboundingbox);
+        placeBlockAtCurrentPosition(world, Block.endPortalFrame.blockID, byte4 + (random.nextFloat() <= 0.9F ? 0 : 4), 7, 3, 9, structureboundingbox);
+        placeBlockAtCurrentPosition(world, Block.endPortalFrame.blockID, byte4 + (random.nextFloat() <= 0.9F ? 0 : 4), 7, 3, 10, structureboundingbox);
+        placeBlockAtCurrentPosition(world, Block.endPortalFrame.blockID, byte4 + (random.nextFloat() <= 0.9F ? 0 : 4), 7, 3, 11, structureboundingbox);
         if(!field_40316_a)
         {
-            int i = func_35300_a(3);
-            int j1 = func_35306_a(5, 6);
-            int k1 = func_35296_b(5, 6);
+            int i = getYWithOffset(3);
+            int j1 = getXWithOffset(5, 6);
+            int k1 = getZWithOffset(5, 6);
             if(structureboundingbox.isInBbVolume(j1, i, k1))
             {
                 field_40316_a = true;

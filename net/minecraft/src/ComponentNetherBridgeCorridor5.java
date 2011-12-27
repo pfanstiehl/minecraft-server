@@ -28,7 +28,7 @@ public class ComponentNetherBridgeCorridor5 extends ComponentNetherBridgePiece
 
     public static ComponentNetherBridgeCorridor5 func_40300_a(List list, Random random, int i, int j, int k, int l, int i1)
     {
-        StructureBoundingBox structureboundingbox = StructureBoundingBox.func_35663_a(i, j, k, -1, 0, 0, 5, 7, 5, l);
+        StructureBoundingBox structureboundingbox = StructureBoundingBox.getComponentToAddBoundingBox(i, j, k, -1, 0, 0, 5, 7, 5, l);
         if(!func_40286_a(structureboundingbox) || StructureComponent.canFitInside(list, structureboundingbox) != null)
         {
             return null;
@@ -53,7 +53,7 @@ public class ComponentNetherBridgeCorridor5 extends ComponentNetherBridgePiece
         {
             for(int j = 0; j <= 4; j++)
             {
-                func_35303_b(world, Block.netherBrick.blockID, 0, i, -1, j, structureboundingbox);
+                fillCurrentPositionBlocksDownwards(world, Block.netherBrick.blockID, 0, i, -1, j, structureboundingbox);
             }
 
         }

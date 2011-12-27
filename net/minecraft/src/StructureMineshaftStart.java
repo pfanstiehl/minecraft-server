@@ -19,6 +19,6 @@ public class StructureMineshaftStart extends StructureStart
         components.add(componentmineshaftroom);
         componentmineshaftroom.buildComponent(componentmineshaftroom, components, random);
         updateBoundingBox();
-        func_35545_a(world, random, 10);
+        markAvailableHeight(world, random, 10);
     }
 }

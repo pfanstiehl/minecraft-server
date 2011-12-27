@@ -13,13 +13,13 @@ import java.util.*;
 public class MapGenVillage extends MapGenStructure
 {
 
-    public static List field_35538_a;
+    public static List villageSpawnBiomes;
 
     public MapGenVillage()
     {
     }
 
-    protected boolean func_35531_a(int i, int j)
+    protected boolean canSpawnStructureAtCoords(int i, int j)
     {
         byte byte0 = 32;
         byte byte1 = 8;
@@ -35,7 +35,7 @@ public class MapGenVillage extends MapGenStructure
         }
         int i1 = i / byte0;
         int j1 = j / byte0;
-        Random random = worldObj.func_35238_t(i1, j1, 0x9e7f70);
+        Random random = worldObj.setRandomSeed(i1, j1, 0x9e7f70);
         i1 *= byte0;
         j1 *= byte0;
         i1 += random.nextInt(byte0 - byte1);
@@ -44,7 +44,7 @@ public class MapGenVillage extends MapGenStructure
         j = l;
         if(i == i1 && j == j1)
         {
-            boolean flag = worldObj.getWorldChunkManager().func_35141_a(i * 16 + 8, j * 16 + 8, 0, field_35538_a);
+            boolean flag = worldObj.getWorldChunkManager().areBiomesViable(i * 16 + 8, j * 16 + 8, 0, villageSpawnBiomes);
             if(flag)
             {
                 return true;
@@ -53,14 +53,14 @@ public class MapGenVillage extends MapGenStructure
         return false;
     }
 
-    protected StructureStart func_35533_b(int i, int j)
+    protected StructureStart getStructureStart(int i, int j)
     {
         return new StructureVillageStart(worldObj, rand, i, j);
     }
 
     static 
     {
-        field_35538_a = Arrays.asList(new BiomeGenBase[] {
+        villageSpawnBiomes = Arrays.asList(new BiomeGenBase[] {
             BiomeGenBase.plains, BiomeGenBase.desert
         });
     }

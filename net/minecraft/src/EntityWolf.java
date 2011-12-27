@@ -53,8 +53,8 @@ public class EntityWolf extends EntityAnimal
     public void writeEntityToNBT(NBTTagCompound nbttagcompound)
     {
         super.writeEntityToNBT(nbttagcompound);
-        nbttagcompound.setBoolean("Angry", isWolfAngry());
-        nbttagcompound.setBoolean("Sitting", getIsSitting());
+        nbttagcompound.setBoolean("Angry", isAngry());
+        nbttagcompound.setBoolean("Sitting", isSitting());
         if(getOwner() == null)
         {
             nbttagcompound.setString("Owner", "");
@@ -67,7 +67,7 @@ public class EntityWolf extends EntityAnimal
     public void readEntityFromNBT(NBTTagCompound nbttagcompound)
     {
         super.readEntityFromNBT(nbttagcompound);
-        setIsAngry(nbttagcompound.getBoolean("Angry"));
+        setAngry(nbttagcompound.getBoolean("Angry"));
         setIsSitting(nbttagcompound.getBoolean("Sitting"));
         String s = nbttagcompound.getString("Owner");
         if(s.length() > 0)
@@ -79,12 +79,12 @@ public class EntityWolf extends EntityAnimal
 
     protected boolean canDespawn()
     {
-        return isWolfAngry();
+        return isAngry();
     }
 
     protected String getLivingSound()
     {
-        if(isWolfAngry())
+        if(isAngry())
         {
             return "mob.wolf.growl";
         }
@@ -164,7 +164,7 @@ public class EntityWolf extends EntityAnimal
     {
         super.onLivingUpdate();
         looksWithInterest = false;
-        if(hasCurrentTarget() && !hasPath() && !isWolfAngry())
+        if(hasCurrentTarget() && !hasPath() && !isAngry())
         {
             Entity entity = getCurrentTarget();
             if(entity instanceof EntityPlayer)
@@ -252,7 +252,7 @@ public class EntityWolf extends EntityAnimal
 
     protected int getVerticalFaceSpeed()
     {
-        if(getIsSitting())
+        if(isSitting())
         {
             return 20;
         } else
@@ -290,7 +290,7 @@ public class EntityWolf extends EntityAnimal
 
     protected boolean isMovementCeased()
     {
-        return getIsSitting() || field_25042_g;
+        return isSitting() || field_25042_g;
     }
 
     public boolean attackEntityFrom(DamageSource damagesource, int i)
@@ -303,11 +303,11 @@ public class EntityWolf extends EntityAnimal
         }
         if(super.attackEntityFrom(damagesource, i))
         {
-            if(!isTamed() && !isWolfAngry())
+            if(!isTamed() && !isAngry())
             {
                 if(entity instanceof EntityPlayer)
                 {
-                    setIsAngry(true);
+                    setAngry(true);
                     entityToAttack = entity;
                 }
                 if((entity instanceof EntityArrow) && ((EntityArrow)entity).shootingEntity != null)
@@ -331,7 +331,7 @@ public class EntityWolf extends EntityAnimal
                             entitywolf.entityToAttack = entity;
                             if(entity instanceof EntityPlayer)
                             {
-                                entitywolf.setIsAngry(true);
+                                entitywolf.setAngry(true);
                             }
                         }
                     } while(true);
@@ -354,7 +354,7 @@ public class EntityWolf extends EntityAnimal
 
     protected Entity findPlayerToAttack()
     {
-        if(isWolfAngry())
+        if(isAngry())
         {
             return worldObj.getClosestPlayerToEntity(this, 16D);
         } else
@@ -394,7 +394,7 @@ public class EntityWolf extends EntityAnimal
         ItemStack itemstack = entityplayer.inventory.getCurrentItem();
         if(!isTamed())
         {
-            if(itemstack != null && itemstack.itemID == Item.bone.shiftedIndex && !isWolfAngry())
+            if(itemstack != null && itemstack.itemID == Item.bone.shiftedIndex && !isAngry())
             {
                 itemstack.stackSize--;
                 if(itemstack.stackSize <= 0)
@@ -440,7 +440,7 @@ public class EntityWolf extends EntityAnimal
             {
                 if(!worldObj.singleplayerWorld)
                 {
-                    setIsSitting(!getIsSitting());
+                    setIsSitting(!isSitting());
                     isJumping = false;
                     setPathToEntity(null);
                 }
@@ -482,7 +482,7 @@ public class EntityWolf extends EntityAnimal
         dataWatcher.updateObject(17, s);
     }
 
-    public boolean getIsSitting()
+    public boolean isSitting()
     {
         return (dataWatcher.getWatchableObjectByte(16) & 1) != 0;
     }
@@ -499,12 +499,12 @@ public class EntityWolf extends EntityAnimal
         }
     }
 
-    public boolean isWolfAngry()
+    public boolean isAngry()
     {
         return (dataWatcher.getWatchableObjectByte(16) & 2) != 0;
     }
 
-    public void setIsAngry(boolean flag)
+    public void setAngry(boolean flag)
     {
         byte byte0 = dataWatcher.getWatchableObjectByte(16);
         if(flag)
@@ -533,7 +533,7 @@ public class EntityWolf extends EntityAnimal
         }
     }
 
-    protected EntityAnimal func_40133_a(EntityAnimal entityanimal)
+    protected EntityAnimal spawnBabyAnimal(EntityAnimal entityanimal)
     {
         return new EntityWolf(worldObj);
     }

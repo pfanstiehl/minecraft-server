@@ -62,7 +62,7 @@ public class NBTTagByteArray extends NBTBase
         }
     }
 
-    public NBTBase func_40468_b()
+    public NBTBase cloneTag()
     {
         byte abyte0[] = new byte[byteArray.length];
         System.arraycopy(byteArray, 0, abyte0, 0, byteArray.length);

@@ -43,8 +43,8 @@ public class ComponentStrongholdStraight extends ComponentStronghold
 
     public static ComponentStrongholdStraight func_35338_a(List list, Random random, int i, int j, int k, int l, int i1)
     {
-        StructureBoundingBox structureboundingbox = StructureBoundingBox.func_35663_a(i, j, k, -1, -1, 0, 5, 5, 7, l);
-        if(!func_35319_a(structureboundingbox) || StructureComponent.canFitInside(list, structureboundingbox) != null)
+        StructureBoundingBox structureboundingbox = StructureBoundingBox.getComponentToAddBoundingBox(i, j, k, -1, -1, 0, 5, 5, 7, l);
+        if(!canStrongholdGoDeeper(structureboundingbox) || StructureComponent.canFitInside(list, structureboundingbox) != null)
         {
             return null;
         } else
@@ -59,7 +59,7 @@ public class ComponentStrongholdStraight extends ComponentStronghold
         {
             return false;
         }
-        func_35307_a(world, structureboundingbox, 0, 0, 0, 4, 4, 6, true, random, StructureStrongholdPieces.getStrongholdStones());
+        fillWithRandomizedBlocks(world, structureboundingbox, 0, 0, 0, 4, 4, 6, true, random, StructureStrongholdPieces.getStrongholdStones());
         placeDoor(world, random, structureboundingbox, field_35341_a, 1, 1, 0);
         placeDoor(world, random, structureboundingbox, EnumDoor.OPENING, 1, 1, 6);
         randomlyPlaceBlock(world, structureboundingbox, random, 0.1F, 1, 2, 1, Block.torchWood.blockID, 0);

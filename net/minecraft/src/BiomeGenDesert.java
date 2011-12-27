@@ -18,9 +18,9 @@ public class BiomeGenDesert extends BiomeGenBase
         spawnableCreatureList.clear();
         topBlock = (byte)Block.sand.blockID;
         fillerBlock = (byte)Block.sand.blockID;
-        decorator.treesPerChunk = -999;
-        decorator.deadBushPerChunk = 2;
-        decorator.reedsPerChunk = 50;
-        decorator.field_35289_x = 10;
+        biomeDecorator.treesPerChunk = -999;
+        biomeDecorator.deadBushPerChunk = 2;
+        biomeDecorator.reedsPerChunk = 50;
+        biomeDecorator.cactiPerChunk = 10;
     }
 }

@@ -18,8 +18,8 @@ public class BiomeGenTaiga extends BiomeGenBase
     {
         super(i);
         spawnableCreatureList.add(new SpawnListEntry(net.minecraft.src.EntityWolf.class, 8, 4, 4));
-        decorator.treesPerChunk = 10;
-        decorator.grassPerChunk = 1;
+        biomeDecorator.treesPerChunk = 10;
+        biomeDecorator.grassPerChunk = 1;
     }
 
     public WorldGenerator getRandomWorldGenForTrees(Random random)

@@ -187,5 +187,5 @@ public abstract class NBTBase
         return "UNKNOWN";
     }
 
-    public abstract NBTBase func_40468_b();
+    public abstract NBTBase cloneTag();
 }

@@ -57,7 +57,7 @@ public abstract class WorldProvider
 
     public IChunkProvider getChunkProvider()
     {
-        return new ChunkProviderGenerate(worldObj, worldObj.getRandomSeed(), worldObj.getWorldInfo().getMapFeaturesEnabled());
+        return new ChunkProviderGenerate(worldObj, worldObj.getRandomSeed(), worldObj.getWorldInfo().isMapFeaturesEnabled());
     }
 
     public boolean canCoordinateBeSpawn(int i, int j)
@@ -108,7 +108,7 @@ public abstract class WorldProvider
         }
     }
 
-    public ChunkCoordinates func_40545_d()
+    public ChunkCoordinates getEntrancePortalLocation()
     {
         return null;
     }

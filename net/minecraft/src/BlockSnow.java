@@ -38,7 +38,7 @@ public class BlockSnow extends Block
         return false;
     }
 
-    public boolean isACube()
+    public boolean renderAsNormalBlock()
     {
         return false;
     }
@@ -64,10 +64,10 @@ public class BlockSnow extends Block
 
     public void onNeighborBlockChange(World world, int i, int j, int k, int l)
     {
-        reduntantonNeighborBlockChange(world, i, j, k);
+        redundantOnNeighborBlockChange(world, i, j, k);
     }
 
-    private boolean reduntantonNeighborBlockChange(World world, int i, int j, int k)
+    private boolean redundantOnNeighborBlockChange(World world, int i, int j, int k)
     {
         if(!canPlaceBlockAt(world, i, j, k))
         {
@@ -89,7 +89,7 @@ public class BlockSnow extends Block
         double d2 = (double)(world.rand.nextFloat() * f) + (double)(1.0F - f) * 0.5D;
         EntityItem entityitem = new EntityItem(world, (double)i + d, (double)j + d1, (double)k + d2, new ItemStack(i1, 1, 0));
         entityitem.delayBeforeCanPickup = 10;
-        world.entityJoinedWorld(entityitem);
+        world.spawnEntityInWorld(entityitem);
         world.setBlockWithNotify(i, j, k, 0);
         entityplayer.addStat(StatList.mineBlockStatArray[blockID], 1);
     }

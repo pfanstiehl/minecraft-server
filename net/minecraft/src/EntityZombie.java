@@ -26,7 +26,7 @@ public class EntityZombie extends EntityMob
         return 20;
     }
 
-    protected int func_40092_O()
+    protected int getTotalArmorValue()
     {
         return 2;
     }
@@ -38,7 +38,7 @@ public class EntityZombie extends EntityMob
             float f = getEntityBrightness(1.0F);
             if(f > 0.5F && worldObj.canBlockSeeTheSky(MathHelper.floor_double(posX), MathHelper.floor_double(posY), MathHelper.floor_double(posZ)) && rand.nextFloat() * 30F < (f - 0.4F) * 2.0F)
             {
-                func_40034_j(8);
+                setFire(8);
             }
         }
         super.onLivingUpdate();
@@ -64,7 +64,7 @@ public class EntityZombie extends EntityMob
         return Item.rottenFlesh.shiftedIndex;
     }
 
-    public EnumCreatureAttribute func_40093_t()
+    public EnumCreatureAttribute getCreatureAttribute()
     {
         return EnumCreatureAttribute.UNDEAD;
     }

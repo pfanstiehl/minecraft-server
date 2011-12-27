@@ -36,7 +36,7 @@ public class ComponentStrongholdRightTurn extends ComponentStrongholdLeftTurn
         {
             return false;
         }
-        func_35307_a(world, structureboundingbox, 0, 0, 0, 4, 4, 4, true, random, StructureStrongholdPieces.getStrongholdStones());
+        fillWithRandomizedBlocks(world, structureboundingbox, 0, 0, 0, 4, 4, 4, true, random, StructureStrongholdPieces.getStrongholdStones());
         placeDoor(world, random, structureboundingbox, field_35331_a, 1, 1, 0);
         if(coordBaseMode == 2 || coordBaseMode == 3)
         {

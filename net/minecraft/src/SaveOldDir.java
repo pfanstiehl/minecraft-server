@@ -50,7 +50,7 @@ public class SaveOldDir extends PlayerNBTManager
     {
         try
         {
-            ThreadedFileIOBase.field_40514_a.func_40508_a();
+            ThreadedFileIOBase.threadedIOInstance.waitForFinish();
         }
         catch(InterruptedException interruptedexception)
         {

@@ -150,7 +150,7 @@ public final class SpawnerAnimals
                                                                 if(var38.getCanSpawnHere())
                                                                 {
                                                                     ++var15;
-                                                                    var0.entityJoinedWorld(var38);
+                                                                    var0.spawnEntityInWorld(var38);
                                                                     creatureSpecificInit(var38, var0, var23, var24, var25);
                                                                     if(var15 >= var38.getMaxSpawnedInChunk())
                                                                     {
@@ -199,7 +199,7 @@ public final class SpawnerAnimals
         {
             EntitySkeleton entityskeleton = new EntitySkeleton(world);
             entityskeleton.setLocationAndAngles(f, f1, f2, entityliving.rotationYaw, 0.0F);
-            world.entityJoinedWorld(entityskeleton);
+            world.spawnEntityInWorld(entityskeleton);
             entityskeleton.mountEntity(entityliving);
         } else
         if(entityliving instanceof EntitySheep)
@@ -215,7 +215,7 @@ public final class SpawnerAnimals
         {
             return;
         }
-        while(random.nextFloat() < biomegenbase.getBiome()) 
+        while(random.nextFloat() < biomegenbase.getSpawningChance()) 
         {
             SpawnListEntry spawnlistentry = (SpawnListEntry)WeightedRandom.func_35689_a(world.rand, list);
             int i1 = spawnlistentry.field_35484_b + random.nextInt((1 + spawnlistentry.field_35485_c) - spawnlistentry.field_35484_b);
@@ -250,7 +250,7 @@ public final class SpawnerAnimals
                             continue;
                         }
                         entityliving.setLocationAndAngles(f, f1, f2, random.nextFloat() * 360F, 0.0F);
-                        world.entityJoinedWorld(entityliving);
+                        world.spawnEntityInWorld(entityliving);
                         creatureSpecificInit(entityliving, world, f, f1, f2);
                         flag = true;
                     }

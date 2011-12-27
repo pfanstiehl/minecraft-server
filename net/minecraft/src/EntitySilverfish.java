@@ -38,7 +38,7 @@ public class EntitySilverfish extends EntityMob
     protected Entity findPlayerToAttack()
     {
         double d = 8D;
-        return worldObj.func_40211_b(this, d);
+        return worldObj.getClosestVulnerablePlayerToEntity(this, d);
     }
 
     protected String getLivingSound()
@@ -151,7 +151,7 @@ public class EntitySilverfish extends EntityMob
             int j1 = MathHelper.floor_double(posZ);
             int k1 = rand.nextInt(6);
             int i2 = worldObj.getBlockId(j + Facing.offsetsXForSide[k1], l + Facing.offsetsYForSide[k1], j1 + Facing.offsetsZForSide[k1]);
-            if(BlockSilverfish.func_35060_c(i2))
+            if(BlockSilverfish.getPosingIdByMetadata(i2))
             {
                 worldObj.setBlockAndMetadataWithNotify(j + Facing.offsetsXForSide[k1], l + Facing.offsetsYForSide[k1], j1 + Facing.offsetsZForSide[k1], Block.silverfish.blockID, BlockSilverfish.func_35061_d(i2));
                 spawnExplosionParticle();
@@ -178,7 +178,7 @@ public class EntitySilverfish extends EntityMob
         }
     }
 
-    protected boolean isDarkEnough()
+    protected boolean func_40123_y()
     {
         return true;
     }
@@ -195,7 +195,7 @@ public class EntitySilverfish extends EntityMob
         }
     }
 
-    public EnumCreatureAttribute func_40093_t()
+    public EnumCreatureAttribute getCreatureAttribute()
     {
         return EnumCreatureAttribute.ARTHROPOD;
     }

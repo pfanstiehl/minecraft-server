@@ -34,8 +34,8 @@ public class ComponentStrongholdChestCorridor extends ComponentStronghold
 
     public static ComponentStrongholdChestCorridor func_40311_a(List list, Random random, int i, int j, int k, int l, int i1)
     {
-        StructureBoundingBox structureboundingbox = StructureBoundingBox.func_35663_a(i, j, k, -1, -1, 0, 5, 5, 7, l);
-        if(!func_35319_a(structureboundingbox) || StructureComponent.canFitInside(list, structureboundingbox) != null)
+        StructureBoundingBox structureboundingbox = StructureBoundingBox.getComponentToAddBoundingBox(i, j, k, -1, -1, 0, 5, 5, 7, l);
+        if(!canStrongholdGoDeeper(structureboundingbox) || StructureComponent.canFitInside(list, structureboundingbox) != null)
         {
             return null;
         } else
@@ -50,28 +50,28 @@ public class ComponentStrongholdChestCorridor extends ComponentStronghold
         {
             return false;
         }
-        func_35307_a(world, structureboundingbox, 0, 0, 0, 4, 4, 6, true, random, StructureStrongholdPieces.getStrongholdStones());
+        fillWithRandomizedBlocks(world, structureboundingbox, 0, 0, 0, 4, 4, 6, true, random, StructureStrongholdPieces.getStrongholdStones());
         placeDoor(world, random, structureboundingbox, field_40312_b, 1, 1, 0);
         placeDoor(world, random, structureboundingbox, EnumDoor.OPENING, 1, 1, 6);
         fillWithBlocks(world, structureboundingbox, 3, 1, 2, 3, 1, 4, Block.stoneBrick.blockID, Block.stoneBrick.blockID, false);
-        func_35309_a(world, Block.stairSingle.blockID, 5, 3, 1, 1, structureboundingbox);
-        func_35309_a(world, Block.stairSingle.blockID, 5, 3, 1, 5, structureboundingbox);
-        func_35309_a(world, Block.stairSingle.blockID, 5, 3, 2, 2, structureboundingbox);
-        func_35309_a(world, Block.stairSingle.blockID, 5, 3, 2, 4, structureboundingbox);
+        placeBlockAtCurrentPosition(world, Block.stairSingle.blockID, 5, 3, 1, 1, structureboundingbox);
+        placeBlockAtCurrentPosition(world, Block.stairSingle.blockID, 5, 3, 1, 5, structureboundingbox);
+        placeBlockAtCurrentPosition(world, Block.stairSingle.blockID, 5, 3, 2, 2, structureboundingbox);
+        placeBlockAtCurrentPosition(world, Block.stairSingle.blockID, 5, 3, 2, 4, structureboundingbox);
         for(int i = 2; i <= 4; i++)
         {
-            func_35309_a(world, Block.stairSingle.blockID, 5, 2, 1, i, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stairSingle.blockID, 5, 2, 1, i, structureboundingbox);
         }
 
         if(!field_40313_c)
         {
-            int j = func_35300_a(2);
-            int k = func_35306_a(3, 3);
-            int l = func_35296_b(3, 3);
+            int j = getYWithOffset(2);
+            int k = getXWithOffset(3, 3);
+            int l = getZWithOffset(3, 3);
             if(structureboundingbox.isInBbVolume(k, j, l))
             {
                 field_40313_c = true;
-                func_35299_a(world, structureboundingbox, random, 3, 2, 3, field_40314_a, 2 + random.nextInt(2));
+                createTreasureChestAtCurrentPosition(world, structureboundingbox, random, 3, 2, 3, field_40314_a, 2 + random.nextInt(2));
             }
         }
         return true;

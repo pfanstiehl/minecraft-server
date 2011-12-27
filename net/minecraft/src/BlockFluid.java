@@ -68,7 +68,7 @@ public abstract class BlockFluid extends Block
         return l;
     }
 
-    public boolean isACube()
+    public boolean renderAsNormalBlock()
     {
         return false;
     }

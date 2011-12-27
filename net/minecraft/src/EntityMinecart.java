@@ -87,12 +87,12 @@ public class EntityMinecart extends Entity
             }
         }
     };
-    private int field_9163_an;
-    private double field_9162_ao;
-    private double field_9161_ap;
-    private double field_9160_aq;
+    private int turnProgress;
+    private double minecartX;
+    private double minecartY;
+    private double minecartZ;
     private double field_9159_ar;
-    private double field_9158_as;
+    private double minecartPitch;
 
     public EntityMinecart(World world)
     {
@@ -201,7 +201,7 @@ label0:
                         entityitem.motionX = (float)rand.nextGaussian() * f3;
                         entityitem.motionY = (float)rand.nextGaussian() * f3 + 0.2F;
                         entityitem.motionZ = (float)rand.nextGaussian() * f3;
-                        worldObj.entityJoinedWorld(entityitem);
+                        worldObj.spawnEntityInWorld(entityitem);
                     } while(true);
                 }
 
@@ -250,7 +250,7 @@ label0:
                 entityitem.motionX = (float)rand.nextGaussian() * f3;
                 entityitem.motionY = (float)rand.nextGaussian() * f3 + 0.2F;
                 entityitem.motionZ = (float)rand.nextGaussian() * f3;
-                worldObj.entityJoinedWorld(entityitem);
+                worldObj.spawnEntityInWorld(entityitem);
             } while(true);
         }
 
@@ -267,23 +267,23 @@ label0:
         {
             func_41018_e_(func_41020_o() - 1);
         }
-        if(func_41015_m() && rand.nextInt(4) == 0)
+        if(isMinecartPowered() && rand.nextInt(4) == 0)
         {
             worldObj.spawnParticle("largesmoke", posX, posY + 0.80000000000000004D, posZ, 0.0D, 0.0D, 0.0D);
         }
         if(worldObj.singleplayerWorld)
         {
-            if(field_9163_an > 0)
+            if(turnProgress > 0)
             {
-                double d = posX + (field_9162_ao - posX) / (double)field_9163_an;
-                double d1 = posY + (field_9161_ap - posY) / (double)field_9163_an;
-                double d3 = posZ + (field_9160_aq - posZ) / (double)field_9163_an;
+                double d = posX + (minecartX - posX) / (double)turnProgress;
+                double d1 = posY + (minecartY - posY) / (double)turnProgress;
+                double d3 = posZ + (minecartZ - posZ) / (double)turnProgress;
                 double d5;
                 for(d5 = field_9159_ar - (double)rotationYaw; d5 < -180D; d5 += 360D) { }
                 for(; d5 >= 180D; d5 -= 360D) { }
-                rotationYaw += d5 / (double)field_9163_an;
-                rotationPitch += (field_9158_as - (double)rotationPitch) / (double)field_9163_an;
-                field_9163_an--;
+                rotationYaw += d5 / (double)turnProgress;
+                rotationPitch += (minecartPitch - (double)rotationPitch) / (double)turnProgress;
+                turnProgress--;
                 setPosition(d, d1, d3);
                 setRotation(rotationYaw, rotationPitch);
             } else
@@ -611,7 +611,7 @@ label0:
         {
             pushX = pushZ = 0.0D;
         }
-        func_41017_a(fuel > 0);
+        setMinecartPowered(fuel > 0);
     }
 
     public Vec3D func_182_g(double d, double d1, double d2)
@@ -917,12 +917,12 @@ label0:
         return entityplayer.getDistanceSqToEntity(this) <= 64D;
     }
 
-    protected boolean func_41015_m()
+    protected boolean isMinecartPowered()
     {
         return (dataWatcher.getWatchableObjectByte(16) & 1) != 0;
     }
 
-    protected void func_41017_a(boolean flag)
+    protected void setMinecartPowered(boolean flag)
     {
         if(flag)
         {

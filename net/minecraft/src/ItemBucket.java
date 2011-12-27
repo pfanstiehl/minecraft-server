@@ -46,14 +46,14 @@ public class ItemBucket extends Item
             }
             if(isFull == 0)
             {
-                if(!entityplayer.func_35200_c(i, j, k))
+                if(!entityplayer.canPlayerEdit(i, j, k))
                 {
                     return itemstack;
                 }
                 if(world.getBlockMaterial(i, j, k) == Material.water && world.getBlockMetadata(i, j, k) == 0)
                 {
                     world.setBlockWithNotify(i, j, k, 0);
-                    if(entityplayer.field_35214_K.depleteBuckets)
+                    if(entityplayer.capabilities.depleteBuckets)
                     {
                         return itemstack;
                     } else
@@ -64,7 +64,7 @@ public class ItemBucket extends Item
                 if(world.getBlockMaterial(i, j, k) == Material.lava && world.getBlockMetadata(i, j, k) == 0)
                 {
                     world.setBlockWithNotify(i, j, k, 0);
-                    if(entityplayer.field_35214_K.depleteBuckets)
+                    if(entityplayer.capabilities.depleteBuckets)
                     {
                         return itemstack;
                     } else
@@ -102,7 +102,7 @@ public class ItemBucket extends Item
                 {
                     i++;
                 }
-                if(!entityplayer.func_35200_c(i, j, k))
+                if(!entityplayer.canPlayerEdit(i, j, k))
                 {
                     return itemstack;
                 }
@@ -120,7 +120,7 @@ public class ItemBucket extends Item
                     {
                         world.setBlockAndMetadataWithNotify(i, j, k, isFull, 0);
                     }
-                    if(entityplayer.field_35214_K.depleteBuckets)
+                    if(entityplayer.capabilities.depleteBuckets)
                     {
                         return itemstack;
                     } else

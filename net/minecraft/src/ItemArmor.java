@@ -16,26 +16,26 @@ public class ItemArmor extends Item
     };
     public final int armorType;
     public final int damageReduceAmount;
-    public final int field_40252_bR;
-    private final EnumArmorMaterial field_40251_bT;
+    public final int renderIndex;
+    private final EnumArmorMaterial material;
 
     public ItemArmor(int i, EnumArmorMaterial enumarmormaterial, int j, int k)
     {
         super(i);
-        field_40251_bT = enumarmormaterial;
+        material = enumarmormaterial;
         armorType = k;
-        field_40252_bR = j;
-        damageReduceAmount = enumarmormaterial.func_40495_b(k);
+        renderIndex = j;
+        damageReduceAmount = enumarmormaterial.getDamageReductionAmount(k);
         setMaxDamage(enumarmormaterial.func_40497_a(k));
         maxStackSize = 1;
     }
 
     public int getItemEnchantability()
     {
-        return field_40251_bT.getEnchantability();
+        return material.getEnchantability();
     }
 
-    static int[] func_40250_n()
+    static int[] getMaxDamageArray()
     {
         return maxDamageArray;
     }

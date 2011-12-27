@@ -47,7 +47,7 @@ public class NBTTagLong extends NBTBase
         return (new StringBuilder()).append("").append(longValue).toString();
     }
 
-    public NBTBase func_40468_b()
+    public NBTBase cloneTag()
     {
         return new NBTTagLong(getKey(), longValue);
     }

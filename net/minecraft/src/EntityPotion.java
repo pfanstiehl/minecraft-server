@@ -15,7 +15,7 @@ import java.util.List;
 public class EntityPotion extends EntityThrowable
 {
 
-    private int field_40055_d;
+    private int potionDamage;
 
     public EntityPotion(World world)
     {
@@ -25,14 +25,14 @@ public class EntityPotion extends EntityThrowable
     public EntityPotion(World world, EntityLiving entityliving, int i)
     {
         super(world, entityliving);
-        field_40055_d = i;
+        potionDamage = i;
     }
 
     public EntityPotion(World world, double d, double d1, double d2, 
             int i)
     {
         super(world, d, d1, d2);
-        field_40055_d = i;
+        potionDamage = i;
     }
 
     protected float func_40042_e()
@@ -50,16 +50,16 @@ public class EntityPotion extends EntityThrowable
         return -20F;
     }
 
-    public int func_40054_n_()
+    public int getPotionDamage()
     {
-        return field_40055_d;
+        return potionDamage;
     }
 
-    protected void func_40041_a(MovingObjectPosition movingobjectposition)
+    protected void onImpact(MovingObjectPosition movingobjectposition)
     {
         if(!worldObj.singleplayerWorld)
         {
-            List list = Item.potion.func_40255_b(field_40055_d);
+            List list = Item.potion.getPotionEffectsForDamage(potionDamage);
             if(list != null && !list.isEmpty())
             {
                 AxisAlignedBB axisalignedbb = boundingBox.expand(4D, 2D, 4D);
@@ -82,15 +82,15 @@ public class EntityPotion extends EntityThrowable
                             {
                                 PotionEffect potioneffect = (PotionEffect)iterator1.next();
                                 int i = potioneffect.getPotionID();
-                                if(Potion.potionTypes[i].func_40595_b())
+                                if(Potion.potionTypes[i].isInstant())
                                 {
-                                    Potion.potionTypes[i].func_40588_a(field_40050_c, (EntityLiving)entity, potioneffect.getAmplifier(), d1);
+                                    Potion.potionTypes[i].affectEntity(thrower, (EntityLiving)entity, potioneffect.getAmplifier(), d1);
                                 } else
                                 {
                                     int j = (int)(d1 * (double)potioneffect.getDuration() + 0.5D);
                                     if(j > 20)
                                     {
-                                        ((EntityLiving)entity).func_35182_d(new PotionEffect(i, j, potioneffect.getAmplifier()));
+                                        ((EntityLiving)entity).addPotionEffect(new PotionEffect(i, j, potioneffect.getAmplifier()));
                                     }
                                 }
                             }
@@ -99,7 +99,7 @@ public class EntityPotion extends EntityThrowable
 
                 }
             }
-            worldObj.playAuxSFX(2002, (int)Math.round(posX), (int)Math.round(posY), (int)Math.round(posZ), field_40055_d);
+            worldObj.playAuxSFX(2002, (int)Math.round(posX), (int)Math.round(posY), (int)Math.round(posZ), potionDamage);
             setEntityDead();
         }
     }

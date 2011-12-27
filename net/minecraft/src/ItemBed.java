@@ -44,7 +44,7 @@ public class ItemBed extends Item
         {
             byte0 = 1;
         }
-        if(!entityplayer.func_35200_c(i, j, k) || !entityplayer.func_35200_c(i + byte0, j, k + byte1))
+        if(!entityplayer.canPlayerEdit(i, j, k) || !entityplayer.canPlayerEdit(i + byte0, j, k + byte1))
         {
             return false;
         }

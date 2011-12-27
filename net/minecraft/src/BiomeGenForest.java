@@ -18,22 +18,22 @@ public class BiomeGenForest extends BiomeGenBase
     {
         super(i);
         spawnableCreatureList.add(new SpawnListEntry(net.minecraft.src.EntityWolf.class, 5, 4, 4));
-        decorator.treesPerChunk = 10;
-        decorator.grassPerChunk = 2;
+        biomeDecorator.treesPerChunk = 10;
+        biomeDecorator.grassPerChunk = 2;
     }
 
     public WorldGenerator getRandomWorldGenForTrees(Random random)
     {
         if(random.nextInt(5) == 0)
         {
-            return forestGenerator;
+            return worldGenForest;
         }
         if(random.nextInt(10) == 0)
         {
-            return bigTreeGenerator;
+            return worldGenBigTree;
         } else
         {
-            return treeGenerator;
+            return worldGenTrees;
         }
     }
 }

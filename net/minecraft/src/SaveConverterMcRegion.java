@@ -147,7 +147,7 @@ public class SaveConverterMcRegion extends SaveFormatOld
         {
             File file = (File)iterator.next();
             File afile[] = file.listFiles();
-            func_22104_a(afile);
+            deleteFiles(afile);
             file.delete();
             i++;
             k = (int)Math.round((100D * (double)i) / (double)j);

@@ -52,7 +52,7 @@ public class WorldProviderEnd extends WorldProvider
         }
     }
 
-    public ChunkCoordinates func_40545_d()
+    public ChunkCoordinates getEntrancePortalLocation()
     {
         return new ChunkCoordinates(100, 50, 0);
     }

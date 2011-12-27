@@ -27,6 +27,6 @@ class StructureStrongholdStart extends StructureStart
         }
 
         updateBoundingBox();
-        func_35545_a(world, random, 10);
+        markAvailableHeight(world, random, 10);
     }
 }

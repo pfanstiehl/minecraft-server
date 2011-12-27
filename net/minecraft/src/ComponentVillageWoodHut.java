@@ -34,8 +34,8 @@ public class ComponentVillageWoodHut extends ComponentVillage
 
     public static ComponentVillageWoodHut func_35393_a(List list, Random random, int i, int j, int k, int l, int i1)
     {
-        StructureBoundingBox structureboundingbox = StructureBoundingBox.func_35663_a(i, j, k, 0, 0, 0, 4, 6, 5, l);
-        if(!func_35366_a(structureboundingbox) || StructureComponent.canFitInside(list, structureboundingbox) != null)
+        StructureBoundingBox structureboundingbox = StructureBoundingBox.getComponentToAddBoundingBox(i, j, k, 0, 0, 0, 4, 6, 5, l);
+        if(!canVillageGoDeeper(structureboundingbox) || StructureComponent.canFitInside(list, structureboundingbox) != null)
         {
             return null;
         } else
@@ -65,16 +65,16 @@ public class ComponentVillageWoodHut extends ComponentVillage
         {
             fillWithBlocks(world, structureboundingbox, 1, 5, 1, 2, 5, 3, Block.wood.blockID, Block.wood.blockID, false);
         }
-        func_35309_a(world, Block.wood.blockID, 0, 1, 4, 0, structureboundingbox);
-        func_35309_a(world, Block.wood.blockID, 0, 2, 4, 0, structureboundingbox);
-        func_35309_a(world, Block.wood.blockID, 0, 1, 4, 4, structureboundingbox);
-        func_35309_a(world, Block.wood.blockID, 0, 2, 4, 4, structureboundingbox);
-        func_35309_a(world, Block.wood.blockID, 0, 0, 4, 1, structureboundingbox);
-        func_35309_a(world, Block.wood.blockID, 0, 0, 4, 2, structureboundingbox);
-        func_35309_a(world, Block.wood.blockID, 0, 0, 4, 3, structureboundingbox);
-        func_35309_a(world, Block.wood.blockID, 0, 3, 4, 1, structureboundingbox);
-        func_35309_a(world, Block.wood.blockID, 0, 3, 4, 2, structureboundingbox);
-        func_35309_a(world, Block.wood.blockID, 0, 3, 4, 3, structureboundingbox);
+        placeBlockAtCurrentPosition(world, Block.wood.blockID, 0, 1, 4, 0, structureboundingbox);
+        placeBlockAtCurrentPosition(world, Block.wood.blockID, 0, 2, 4, 0, structureboundingbox);
+        placeBlockAtCurrentPosition(world, Block.wood.blockID, 0, 1, 4, 4, structureboundingbox);
+        placeBlockAtCurrentPosition(world, Block.wood.blockID, 0, 2, 4, 4, structureboundingbox);
+        placeBlockAtCurrentPosition(world, Block.wood.blockID, 0, 0, 4, 1, structureboundingbox);
+        placeBlockAtCurrentPosition(world, Block.wood.blockID, 0, 0, 4, 2, structureboundingbox);
+        placeBlockAtCurrentPosition(world, Block.wood.blockID, 0, 0, 4, 3, structureboundingbox);
+        placeBlockAtCurrentPosition(world, Block.wood.blockID, 0, 3, 4, 1, structureboundingbox);
+        placeBlockAtCurrentPosition(world, Block.wood.blockID, 0, 3, 4, 2, structureboundingbox);
+        placeBlockAtCurrentPosition(world, Block.wood.blockID, 0, 3, 4, 3, structureboundingbox);
         fillWithBlocks(world, structureboundingbox, 0, 1, 0, 0, 3, 0, Block.wood.blockID, Block.wood.blockID, false);
         fillWithBlocks(world, structureboundingbox, 3, 1, 0, 3, 3, 0, Block.wood.blockID, Block.wood.blockID, false);
         fillWithBlocks(world, structureboundingbox, 0, 1, 4, 0, 3, 4, Block.wood.blockID, Block.wood.blockID, false);
@@ -83,26 +83,26 @@ public class ComponentVillageWoodHut extends ComponentVillage
         fillWithBlocks(world, structureboundingbox, 3, 1, 1, 3, 3, 3, Block.planks.blockID, Block.planks.blockID, false);
         fillWithBlocks(world, structureboundingbox, 1, 1, 0, 2, 3, 0, Block.planks.blockID, Block.planks.blockID, false);
         fillWithBlocks(world, structureboundingbox, 1, 1, 4, 2, 3, 4, Block.planks.blockID, Block.planks.blockID, false);
-        func_35309_a(world, Block.thinGlass.blockID, 0, 0, 2, 2, structureboundingbox);
-        func_35309_a(world, Block.thinGlass.blockID, 0, 3, 2, 2, structureboundingbox);
+        placeBlockAtCurrentPosition(world, Block.thinGlass.blockID, 0, 0, 2, 2, structureboundingbox);
+        placeBlockAtCurrentPosition(world, Block.thinGlass.blockID, 0, 3, 2, 2, structureboundingbox);
         if(field_35395_c > 0)
         {
-            func_35309_a(world, Block.fence.blockID, 0, field_35395_c, 1, 3, structureboundingbox);
-            func_35309_a(world, Block.pressurePlatePlanks.blockID, 0, field_35395_c, 2, 3, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.fence.blockID, 0, field_35395_c, 1, 3, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.pressurePlatePlanks.blockID, 0, field_35395_c, 2, 3, structureboundingbox);
         }
-        func_35309_a(world, 0, 0, 1, 1, 0, structureboundingbox);
-        func_35309_a(world, 0, 0, 1, 2, 0, structureboundingbox);
-        func_35298_a(world, structureboundingbox, random, 1, 1, 0, func_35301_c(Block.doorWood.blockID, 1));
+        placeBlockAtCurrentPosition(world, 0, 0, 1, 1, 0, structureboundingbox);
+        placeBlockAtCurrentPosition(world, 0, 0, 1, 2, 0, structureboundingbox);
+        placeDoorAtCurrentPosition(world, structureboundingbox, random, 1, 1, 0, func_35301_c(Block.doorWood.blockID, 1));
         if(func_35297_a(world, 1, 0, -1, structureboundingbox) == 0 && func_35297_a(world, 1, -1, -1, structureboundingbox) != 0)
         {
-            func_35309_a(world, Block.stairCompactCobblestone.blockID, func_35301_c(Block.stairCompactCobblestone.blockID, 3), 1, 0, -1, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stairCompactCobblestone.blockID, func_35301_c(Block.stairCompactCobblestone.blockID, 3), 1, 0, -1, structureboundingbox);
         }
         for(int i = 0; i < 5; i++)
         {
             for(int j = 0; j < 4; j++)
             {
-                func_35314_b(world, j, 6, i, structureboundingbox);
-                func_35303_b(world, Block.cobblestone.blockID, 0, j, -1, i, structureboundingbox);
+                clearCurrentPositionBlocksUpwards(world, j, 6, i, structureboundingbox);
+                fillCurrentPositionBlocksDownwards(world, Block.cobblestone.blockID, 0, j, -1, i, structureboundingbox);
             }
 
         }

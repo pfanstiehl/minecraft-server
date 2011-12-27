@@ -16,17 +16,17 @@ public class ThreadedChunkLoader
     implements IChunkLoader, IThreadedFileIO
 {
 
-    private List field_40330_a;
-    private Set field_40328_b;
-    private Object field_40329_c;
-    private final File field_40327_d;
+    private List pendingChunkList;
+    private Set pendingChunkCoords;
+    private Object chunkSaveLock;
+    private final File chunkSaveLocation;
 
     public ThreadedChunkLoader(File file)
     {
-        field_40330_a = new ArrayList();
-        field_40328_b = new HashSet();
-        field_40329_c = new Object();
-        field_40327_d = file;
+        pendingChunkList = new ArrayList();
+        pendingChunkCoords = new HashSet();
+        chunkSaveLock = new Object();
+        chunkSaveLocation = file;
     }
 
     public Chunk loadChunk(World world, int i, int j)
@@ -34,20 +34,20 @@ public class ThreadedChunkLoader
     {
         NBTTagCompound nbttagcompound = null;
         ChunkCoordIntPair chunkcoordintpair = new ChunkCoordIntPair(i, j);
-        synchronized(field_40329_c)
+        synchronized(chunkSaveLock)
         {
-            if(field_40328_b.contains(chunkcoordintpair))
+            if(pendingChunkCoords.contains(chunkcoordintpair))
             {
                 int k = 0;
                 do
                 {
-                    if(k >= field_40330_a.size())
+                    if(k >= pendingChunkList.size())
                     {
                         break;
                     }
-                    if(((ThreadedChunkLoaderPending)field_40330_a.get(k)).field_40613_a.equals(chunkcoordintpair))
+                    if(((ThreadedChunkLoaderPending)pendingChunkList.get(k)).field_40613_a.equals(chunkcoordintpair))
                     {
-                        nbttagcompound = ((ThreadedChunkLoaderPending)field_40330_a.get(k)).field_40612_b;
+                        nbttagcompound = ((ThreadedChunkLoaderPending)pendingChunkList.get(k)).field_40612_b;
                         break;
                     }
                     k++;
@@ -56,7 +56,7 @@ public class ThreadedChunkLoader
         }
         if(nbttagcompound == null)
         {
-            java.io.DataInputStream datainputstream = RegionFileCache.getChunkInputStream(field_40327_d, i, j);
+            java.io.DataInputStream datainputstream = RegionFileCache.getChunkInputStream(chunkSaveLocation, i, j);
             if(datainputstream != null)
             {
                 nbttagcompound = CompressedStreamTools.read(datainputstream);
@@ -83,7 +83,7 @@ public class ThreadedChunkLoader
             nbttagcompound.setInteger("zPos", j);
             chunk = ChunkLoader.loadChunkIntoWorldFromCompound(world, nbttagcompound.getCompoundTag("Level"));
         }
-        chunk.func_25083_h();
+        chunk.removeUnknownBlocks();
         return chunk;
     }
 
@@ -96,7 +96,7 @@ public class ThreadedChunkLoader
             NBTTagCompound nbttagcompound1 = new NBTTagCompound();
             nbttagcompound.setTag("Level", nbttagcompound1);
             ChunkLoader.storeChunkInCompound(chunk, world, nbttagcompound1);
-            func_40326_a(chunk.func_40543_i(), nbttagcompound);
+            queueChunkMap(chunk.getChunkCoordIntPair(), nbttagcompound);
         }
         catch(Exception exception)
         {
@@ -104,38 +104,38 @@ public class ThreadedChunkLoader
         }
     }
 
-    private void func_40326_a(ChunkCoordIntPair chunkcoordintpair, NBTTagCompound nbttagcompound)
+    private void queueChunkMap(ChunkCoordIntPair chunkcoordintpair, NBTTagCompound nbttagcompound)
     {
-        synchronized(field_40329_c)
+        synchronized(chunkSaveLock)
         {
-            if(field_40328_b.contains(chunkcoordintpair))
+            if(pendingChunkCoords.contains(chunkcoordintpair))
             {
-                for(int i = 0; i < field_40330_a.size(); i++)
+                for(int i = 0; i < pendingChunkList.size(); i++)
                 {
-                    if(((ThreadedChunkLoaderPending)field_40330_a.get(i)).field_40613_a.equals(chunkcoordintpair))
+                    if(((ThreadedChunkLoaderPending)pendingChunkList.get(i)).field_40613_a.equals(chunkcoordintpair))
                     {
-                        field_40330_a.set(i, new ThreadedChunkLoaderPending(chunkcoordintpair, nbttagcompound));
+                        pendingChunkList.set(i, new ThreadedChunkLoaderPending(chunkcoordintpair, nbttagcompound));
                         return;
                     }
                 }
 
             }
-            field_40330_a.add(new ThreadedChunkLoaderPending(chunkcoordintpair, nbttagcompound));
-            field_40328_b.add(chunkcoordintpair);
-            ThreadedFileIOBase.field_40514_a.func_40507_a(this);
+            pendingChunkList.add(new ThreadedChunkLoaderPending(chunkcoordintpair, nbttagcompound));
+            pendingChunkCoords.add(chunkcoordintpair);
+            ThreadedFileIOBase.threadedIOInstance.queueIO(this);
             return;
         }
     }
 
-    public boolean func_40324_c()
+    public boolean writeNextIO()
     {
         ThreadedChunkLoaderPending threadedchunkloaderpending = null;
-        synchronized(field_40329_c)
+        synchronized(chunkSaveLock)
         {
-            if(field_40330_a.size() > 0)
+            if(pendingChunkList.size() > 0)
             {
-                threadedchunkloaderpending = (ThreadedChunkLoaderPending)field_40330_a.remove(0);
-                field_40328_b.remove(threadedchunkloaderpending.field_40613_a);
+                threadedchunkloaderpending = (ThreadedChunkLoaderPending)pendingChunkList.remove(0);
+                pendingChunkCoords.remove(threadedchunkloaderpending.field_40613_a);
             } else
             {
                 return false;
@@ -145,7 +145,7 @@ public class ThreadedChunkLoader
         {
             try
             {
-                func_40325_a(threadedchunkloaderpending);
+                writeChunk(threadedchunkloaderpending);
             }
             catch(Exception exception)
             {
@@ -155,10 +155,10 @@ public class ThreadedChunkLoader
         return true;
     }
 
-    public void func_40325_a(ThreadedChunkLoaderPending threadedchunkloaderpending)
+    public void writeChunk(ThreadedChunkLoaderPending threadedchunkloaderpending)
         throws IOException
     {
-        DataOutputStream dataoutputstream = RegionFileCache.getChunkOutputStream(field_40327_d, threadedchunkloaderpending.field_40613_a.chunkXPos, threadedchunkloaderpending.field_40613_a.chunkZPos);
+        DataOutputStream dataoutputstream = RegionFileCache.getChunkOutputStream(chunkSaveLocation, threadedchunkloaderpending.field_40613_a.chunkXPos, threadedchunkloaderpending.field_40613_a.chunkZPos);
         CompressedStreamTools.writeTo(threadedchunkloaderpending.field_40612_b, dataoutputstream);
         dataoutputstream.close();
     }

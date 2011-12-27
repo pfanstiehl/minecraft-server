@@ -82,7 +82,7 @@ public class BlockRail extends Block
         return blockIndexInTexture;
     }
 
-    public boolean isACube()
+    public boolean renderAsNormalBlock()
     {
         return false;
     }

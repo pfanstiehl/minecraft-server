@@ -20,7 +20,7 @@ public class EnchantmentDamage extends Enchantment
     private static final int levelEnchantability[] = {
         16, 8, 8
     };
-    private static final int threesholdEnchantability[] = {
+    private static final int thresholdEnchantability[] = {
         20, 20, 20
     };
     public final int damageType;
@@ -38,7 +38,7 @@ public class EnchantmentDamage extends Enchantment
 
     public int getMaxEnchantability(int i)
     {
-        return getMinEnchantability(i) + threesholdEnchantability[damageType];
+        return getMinEnchantability(i) + thresholdEnchantability[damageType];
     }
 
     public int getMaxLevel()
@@ -52,11 +52,11 @@ public class EnchantmentDamage extends Enchantment
         {
             return i * 3;
         }
-        if(damageType == 1 && entityliving.func_40093_t() == EnumCreatureAttribute.UNDEAD)
+        if(damageType == 1 && entityliving.getCreatureAttribute() == EnumCreatureAttribute.UNDEAD)
         {
             return i * 4;
         }
-        if(damageType == 2 && entityliving.func_40093_t() == EnumCreatureAttribute.ARTHROPOD)
+        if(damageType == 2 && entityliving.getCreatureAttribute() == EnumCreatureAttribute.ARTHROPOD)
         {
             return i * 4;
         } else

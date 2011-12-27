@@ -23,7 +23,7 @@ public class ItemEnderEye extends Item
     {
         int i1 = world.getBlockId(i, j, k);
         int j1 = world.getBlockMetadata(i, j, k);
-        if(entityplayer.func_35200_c(i, j, k) && i1 == Block.endPortalFrame.blockID && !BlockEndPortalFrame.func_40179_c(j1))
+        if(entityplayer.canPlayerEdit(i, j, k) && i1 == Block.endPortalFrame.blockID && !BlockEndPortalFrame.func_40179_c(j1))
         {
             if(world.singleplayerWorld)
             {
@@ -163,10 +163,10 @@ label0:
             {
                 EntityEnderEye entityendereye = new EntityEnderEye(world, entityplayer.posX, (entityplayer.posY + 1.6200000000000001D) - (double)entityplayer.yOffset, entityplayer.posZ);
                 entityendereye.func_40056_a(chunkposition.x, chunkposition.y, chunkposition.z);
-                world.entityJoinedWorld(entityendereye);
+                world.spawnEntityInWorld(entityendereye);
                 world.playSoundAtEntity(entityplayer, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
                 world.playAuxSFXAtEntity(null, 1002, (int)entityplayer.posX, (int)entityplayer.posY, (int)entityplayer.posZ, 0);
-                if(!entityplayer.field_35214_K.depleteBuckets)
+                if(!entityplayer.capabilities.depleteBuckets)
                 {
                     itemstack.stackSize--;
                 }

@@ -59,7 +59,7 @@ public class NBTTagByte extends NBTBase
         }
     }
 
-    public NBTBase func_40468_b()
+    public NBTBase cloneTag()
     {
         return new NBTTagByte(getKey(), byteValue);
     }

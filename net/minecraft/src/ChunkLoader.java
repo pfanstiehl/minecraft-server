@@ -90,7 +90,7 @@ public class ChunkLoader
                     nbttagcompound.setInteger("zPos", j);
                     chunk = loadChunkIntoWorldFromCompound(world, nbttagcompound.getCompoundTag("Level"));
                 }
-                chunk.func_25083_h();
+                chunk.removeUnknownBlocks();
                 return chunk;
             }
             catch(Exception exception)

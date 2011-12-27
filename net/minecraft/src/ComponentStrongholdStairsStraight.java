@@ -31,8 +31,8 @@ public class ComponentStrongholdStairsStraight extends ComponentStronghold
 
     public static ComponentStrongholdStairsStraight func_35344_a(List list, Random random, int i, int j, int k, int l, int i1)
     {
-        StructureBoundingBox structureboundingbox = StructureBoundingBox.func_35663_a(i, j, k, -1, -7, 0, 5, 11, 8, l);
-        if(!func_35319_a(structureboundingbox) || StructureComponent.canFitInside(list, structureboundingbox) != null)
+        StructureBoundingBox structureboundingbox = StructureBoundingBox.getComponentToAddBoundingBox(i, j, k, -1, -7, 0, 5, 11, 8, l);
+        if(!canStrongholdGoDeeper(structureboundingbox) || StructureComponent.canFitInside(list, structureboundingbox) != null)
         {
             return null;
         } else
@@ -47,20 +47,20 @@ public class ComponentStrongholdStairsStraight extends ComponentStronghold
         {
             return false;
         }
-        func_35307_a(world, structureboundingbox, 0, 0, 0, 4, 10, 7, true, random, StructureStrongholdPieces.getStrongholdStones());
+        fillWithRandomizedBlocks(world, structureboundingbox, 0, 0, 0, 4, 10, 7, true, random, StructureStrongholdPieces.getStrongholdStones());
         placeDoor(world, random, structureboundingbox, field_35345_a, 1, 7, 0);
         placeDoor(world, random, structureboundingbox, EnumDoor.OPENING, 1, 1, 7);
         int i = func_35301_c(Block.stairCompactCobblestone.blockID, 2);
         for(int j = 0; j < 6; j++)
         {
-            func_35309_a(world, Block.stairCompactCobblestone.blockID, i, 1, 6 - j, 1 + j, structureboundingbox);
-            func_35309_a(world, Block.stairCompactCobblestone.blockID, i, 2, 6 - j, 1 + j, structureboundingbox);
-            func_35309_a(world, Block.stairCompactCobblestone.blockID, i, 3, 6 - j, 1 + j, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stairCompactCobblestone.blockID, i, 1, 6 - j, 1 + j, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stairCompactCobblestone.blockID, i, 2, 6 - j, 1 + j, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stairCompactCobblestone.blockID, i, 3, 6 - j, 1 + j, structureboundingbox);
             if(j < 5)
             {
-                func_35309_a(world, Block.stoneBrick.blockID, 0, 1, 5 - j, 1 + j, structureboundingbox);
-                func_35309_a(world, Block.stoneBrick.blockID, 0, 2, 5 - j, 1 + j, structureboundingbox);
-                func_35309_a(world, Block.stoneBrick.blockID, 0, 3, 5 - j, 1 + j, structureboundingbox);
+                placeBlockAtCurrentPosition(world, Block.stoneBrick.blockID, 0, 1, 5 - j, 1 + j, structureboundingbox);
+                placeBlockAtCurrentPosition(world, Block.stoneBrick.blockID, 0, 2, 5 - j, 1 + j, structureboundingbox);
+                placeBlockAtCurrentPosition(world, Block.stoneBrick.blockID, 0, 3, 5 - j, 1 + j, structureboundingbox);
             }
         }
 

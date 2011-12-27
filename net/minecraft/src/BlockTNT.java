@@ -61,7 +61,7 @@ public class BlockTNT extends Block
     {
         EntityTNTPrimed entitytntprimed = new EntityTNTPrimed(world, (float)i + 0.5F, (float)j + 0.5F, (float)k + 0.5F);
         entitytntprimed.fuse = world.rand.nextInt(entitytntprimed.fuse / 4) + entitytntprimed.fuse / 8;
-        world.entityJoinedWorld(entitytntprimed);
+        world.spawnEntityInWorld(entitytntprimed);
     }
 
     public void onBlockDestroyedByPlayer(World world, int i, int j, int k, int l)
@@ -76,7 +76,7 @@ public class BlockTNT extends Block
         } else
         {
             EntityTNTPrimed entitytntprimed = new EntityTNTPrimed(world, (float)i + 0.5F, (float)j + 0.5F, (float)k + 0.5F);
-            world.entityJoinedWorld(entitytntprimed);
+            world.spawnEntityInWorld(entitytntprimed);
             world.playSoundAtEntity(entitytntprimed, "random.fuse", 1.0F, 1.0F);
         }
     }

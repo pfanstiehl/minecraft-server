@@ -40,15 +40,15 @@ public class ItemInWorldManager
         gameType = i;
         if(i == 0)
         {
-            thisPlayer.field_35214_K.allowFlying = false;
-            thisPlayer.field_35214_K.isFlying = false;
-            thisPlayer.field_35214_K.depleteBuckets = false;
-            thisPlayer.field_35214_K.disableDamage = false;
+            thisPlayer.capabilities.allowFlying = false;
+            thisPlayer.capabilities.isFlying = false;
+            thisPlayer.capabilities.depleteBuckets = false;
+            thisPlayer.capabilities.disableDamage = false;
         } else
         {
-            thisPlayer.field_35214_K.allowFlying = true;
-            thisPlayer.field_35214_K.depleteBuckets = true;
-            thisPlayer.field_35214_K.disableDamage = true;
+            thisPlayer.capabilities.allowFlying = true;
+            thisPlayer.capabilities.depleteBuckets = true;
+            thisPlayer.capabilities.disableDamage = true;
         }
     }
 
@@ -193,7 +193,7 @@ public class ItemInWorldManager
         int i = itemstack.stackSize;
         int j = itemstack.getItemDamage();
         ItemStack itemstack1 = itemstack.useItemRightClick(world, entityplayer);
-        if(itemstack1 != itemstack || itemstack1 != null && itemstack1.stackSize != i || itemstack1 != null && itemstack1.func_35614_l() > 0)
+        if(itemstack1 != itemstack || itemstack1 != null && itemstack1.stackSize != i || itemstack1 != null && itemstack1.getMaxItemUseDuration() > 0)
         {
             entityplayer.inventory.mainInventory[entityplayer.inventory.currentItem] = itemstack1;
             if(isCreative())

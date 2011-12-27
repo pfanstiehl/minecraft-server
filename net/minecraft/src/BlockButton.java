@@ -34,7 +34,7 @@ public class BlockButton extends Block
         return false;
     }
 
-    public boolean isACube()
+    public boolean renderAsNormalBlock()
     {
         return false;
     }
@@ -119,7 +119,7 @@ public class BlockButton extends Block
 
     public void onNeighborBlockChange(World world, int i, int j, int k, int l)
     {
-        if(reduntantCanPlaceBlockAt(world, i, j, k))
+        if(redundantCanPlaceBlockAt(world, i, j, k))
         {
             int i1 = world.getBlockMetadata(i, j, k) & 7;
             boolean flag = false;
@@ -147,7 +147,7 @@ public class BlockButton extends Block
         }
     }
 
-    private boolean reduntantCanPlaceBlockAt(World world, int i, int j, int k)
+    private boolean redundantCanPlaceBlockAt(World world, int i, int j, int k)
     {
         if(!canPlaceBlockAt(world, i, j, k))
         {
@@ -336,7 +336,7 @@ public class BlockButton extends Block
         world.markBlocksDirty(i, j, k, i, j, k);
     }
 
-    public void func_40163_f()
+    public void setBlockBoundsForItemRender()
     {
         float f = 0.1875F;
         float f1 = 0.125F;

@@ -31,8 +31,8 @@ public class ComponentStrongholdPrison extends ComponentStronghold
 
     public static ComponentStrongholdPrison func_35332_a(List list, Random random, int i, int j, int k, int l, int i1)
     {
-        StructureBoundingBox structureboundingbox = StructureBoundingBox.func_35663_a(i, j, k, -1, -1, 0, 9, 5, 11, l);
-        if(!func_35319_a(structureboundingbox) || StructureComponent.canFitInside(list, structureboundingbox) != null)
+        StructureBoundingBox structureboundingbox = StructureBoundingBox.getComponentToAddBoundingBox(i, j, k, -1, -1, 0, 9, 5, 11, l);
+        if(!canStrongholdGoDeeper(structureboundingbox) || StructureComponent.canFitInside(list, structureboundingbox) != null)
         {
             return null;
         } else
@@ -48,21 +48,21 @@ public class ComponentStrongholdPrison extends ComponentStronghold
             return false;
         } else
         {
-            func_35307_a(world, structureboundingbox, 0, 0, 0, 8, 4, 10, true, random, StructureStrongholdPieces.getStrongholdStones());
+            fillWithRandomizedBlocks(world, structureboundingbox, 0, 0, 0, 8, 4, 10, true, random, StructureStrongholdPieces.getStrongholdStones());
             placeDoor(world, random, structureboundingbox, field_35333_a, 1, 1, 0);
             fillWithBlocks(world, structureboundingbox, 1, 1, 10, 3, 3, 10, 0, 0, false);
-            func_35307_a(world, structureboundingbox, 4, 1, 1, 4, 3, 1, false, random, StructureStrongholdPieces.getStrongholdStones());
-            func_35307_a(world, structureboundingbox, 4, 1, 3, 4, 3, 3, false, random, StructureStrongholdPieces.getStrongholdStones());
-            func_35307_a(world, structureboundingbox, 4, 1, 7, 4, 3, 7, false, random, StructureStrongholdPieces.getStrongholdStones());
-            func_35307_a(world, structureboundingbox, 4, 1, 9, 4, 3, 9, false, random, StructureStrongholdPieces.getStrongholdStones());
+            fillWithRandomizedBlocks(world, structureboundingbox, 4, 1, 1, 4, 3, 1, false, random, StructureStrongholdPieces.getStrongholdStones());
+            fillWithRandomizedBlocks(world, structureboundingbox, 4, 1, 3, 4, 3, 3, false, random, StructureStrongholdPieces.getStrongholdStones());
+            fillWithRandomizedBlocks(world, structureboundingbox, 4, 1, 7, 4, 3, 7, false, random, StructureStrongholdPieces.getStrongholdStones());
+            fillWithRandomizedBlocks(world, structureboundingbox, 4, 1, 9, 4, 3, 9, false, random, StructureStrongholdPieces.getStrongholdStones());
             fillWithBlocks(world, structureboundingbox, 4, 1, 4, 4, 3, 6, Block.fenceIron.blockID, Block.fenceIron.blockID, false);
             fillWithBlocks(world, structureboundingbox, 5, 1, 5, 7, 3, 5, Block.fenceIron.blockID, Block.fenceIron.blockID, false);
-            func_35309_a(world, Block.fenceIron.blockID, 0, 4, 3, 2, structureboundingbox);
-            func_35309_a(world, Block.fenceIron.blockID, 0, 4, 3, 8, structureboundingbox);
-            func_35309_a(world, Block.doorSteel.blockID, func_35301_c(Block.doorSteel.blockID, 3), 4, 1, 2, structureboundingbox);
-            func_35309_a(world, Block.doorSteel.blockID, func_35301_c(Block.doorSteel.blockID, 3) + 8, 4, 2, 2, structureboundingbox);
-            func_35309_a(world, Block.doorSteel.blockID, func_35301_c(Block.doorSteel.blockID, 3), 4, 1, 8, structureboundingbox);
-            func_35309_a(world, Block.doorSteel.blockID, func_35301_c(Block.doorSteel.blockID, 3) + 8, 4, 2, 8, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.fenceIron.blockID, 0, 4, 3, 2, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.fenceIron.blockID, 0, 4, 3, 8, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.doorSteel.blockID, func_35301_c(Block.doorSteel.blockID, 3), 4, 1, 2, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.doorSteel.blockID, func_35301_c(Block.doorSteel.blockID, 3) + 8, 4, 2, 2, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.doorSteel.blockID, func_35301_c(Block.doorSteel.blockID, 3), 4, 1, 8, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.doorSteel.blockID, func_35301_c(Block.doorSteel.blockID, 3) + 8, 4, 2, 8, structureboundingbox);
             return true;
         }
     }

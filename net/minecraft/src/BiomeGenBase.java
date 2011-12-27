@@ -46,18 +46,18 @@ public abstract class BiomeGenBase
     public float maxHeight;
     public float temperature;
     public float rainfall;
-    public int field_40461_A;
-    public BiomeDecorator decorator;
+    public int waterColorMultiplier;
+    public BiomeDecorator biomeDecorator;
     protected List spawnableMonsterList;
     protected List spawnableCreatureList;
     protected List spawnableWaterCreatureList;
     private boolean enableSnow;
     private boolean enableRain;
     public final int biomeID;
-    protected WorldGenTrees treeGenerator;
-    protected WorldGenBigTree bigTreeGenerator;
-    protected WorldGenForest forestGenerator;
-    protected WorldGenSwamp swampTreeGenerator;
+    protected WorldGenTrees worldGenTrees;
+    protected WorldGenBigTree worldGenBigTree;
+    protected WorldGenForest worldGenForest;
+    protected WorldGenSwamp worldGenSwamp;
 
     protected BiomeGenBase(int i)
     {
@@ -68,18 +68,18 @@ public abstract class BiomeGenBase
         maxHeight = 0.3F;
         temperature = 0.5F;
         rainfall = 0.5F;
-        field_40461_A = 0xffffff;
+        waterColorMultiplier = 0xffffff;
         spawnableMonsterList = new ArrayList();
         spawnableCreatureList = new ArrayList();
         spawnableWaterCreatureList = new ArrayList();
         enableRain = true;
-        treeGenerator = new WorldGenTrees(false);
-        bigTreeGenerator = new WorldGenBigTree(false);
-        forestGenerator = new WorldGenForest(false);
-        swampTreeGenerator = new WorldGenSwamp();
+        worldGenTrees = new WorldGenTrees(false);
+        worldGenBigTree = new WorldGenBigTree(false);
+        worldGenForest = new WorldGenForest(false);
+        worldGenSwamp = new WorldGenSwamp();
         biomeID = i;
         biomeList[i] = this;
-        decorator = createBiomeDecorator();
+        biomeDecorator = createBiomeDecorator();
         spawnableCreatureList.add(new SpawnListEntry(net.minecraft.src.EntitySheep.class, 12, 4, 4));
         spawnableCreatureList.add(new SpawnListEntry(net.minecraft.src.EntityPig.class, 10, 4, 4));
         spawnableCreatureList.add(new SpawnListEntry(net.minecraft.src.EntityChicken.class, 10, 4, 4));
@@ -128,10 +128,10 @@ public abstract class BiomeGenBase
     {
         if(random.nextInt(10) == 0)
         {
-            return bigTreeGenerator;
+            return worldGenBigTree;
         } else
         {
-            return treeGenerator;
+            return worldGenTrees;
         }
     }
 
@@ -188,24 +188,24 @@ public abstract class BiomeGenBase
         }
     }
 
-    public float getBiome()
+    public float getSpawningChance()
     {
         return 0.1F;
     }
 
-    public final int func_35510_e()
+    public final int getIntRainfall()
     {
         return (int)(rainfall * 65536F);
     }
 
-    public final int func_35509_f()
+    public final int getIntTemperature()
     {
         return (int)(temperature * 65536F);
     }
 
     public void func_35513_a(World world, Random random, int i, int j)
     {
-        decorator.Decorates(world, random, i, j);
+        biomeDecorator.decorate(world, random, i, j);
     }
 
 }

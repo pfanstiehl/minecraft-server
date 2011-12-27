@@ -21,7 +21,7 @@ public class ItemHoe extends Item
 
     public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int i, int j, int k, int l)
     {
-        if(!entityplayer.func_35200_c(i, j, k))
+        if(!entityplayer.canPlayerEdit(i, j, k))
         {
             return false;
         }

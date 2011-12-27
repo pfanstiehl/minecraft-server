@@ -20,7 +20,7 @@ public class BlockVine extends Block
         setTickOnLoad(true);
     }
 
-    public void func_40163_f()
+    public void setBlockBoundsForItemRender()
     {
         setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
     }
@@ -35,7 +35,7 @@ public class BlockVine extends Block
         return false;
     }
 
-    public boolean isACube()
+    public boolean renderAsNormalBlock()
     {
         return false;
     }
@@ -90,7 +90,7 @@ public class BlockVine extends Block
             f4 = 1.0F;
             flag = true;
         }
-        if(!flag && func_35058_c(iblockaccess.getBlockId(i, j + 1, k)))
+        if(!flag && canBePlacedOn(iblockaccess.getBlockId(i, j + 1, k)))
         {
             f1 = Math.min(f1, 0.9375F);
             f4 = 1.0F;
@@ -115,33 +115,33 @@ public class BlockVine extends Block
             return false;
 
         case 1: // '\001'
-            return func_35058_c(world.getBlockId(i, j + 1, k));
+            return canBePlacedOn(world.getBlockId(i, j + 1, k));
 
         case 2: // '\002'
-            return func_35058_c(world.getBlockId(i, j, k + 1));
+            return canBePlacedOn(world.getBlockId(i, j, k + 1));
 
         case 3: // '\003'
-            return func_35058_c(world.getBlockId(i, j, k - 1));
+            return canBePlacedOn(world.getBlockId(i, j, k - 1));
 
         case 5: // '\005'
-            return func_35058_c(world.getBlockId(i - 1, j, k));
+            return canBePlacedOn(world.getBlockId(i - 1, j, k));
 
         case 4: // '\004'
-            return func_35058_c(world.getBlockId(i + 1, j, k));
+            return canBePlacedOn(world.getBlockId(i + 1, j, k));
         }
     }
 
-    private boolean func_35058_c(int i)
+    private boolean canBePlacedOn(int i)
     {
         if(i == 0)
         {
             return false;
         }
         Block block = Block.blocksList[i];
-        return block.isACube() && block.blockMaterial.getIsSolid();
+        return block.renderAsNormalBlock() && block.blockMaterial.getIsSolid();
     }
 
-    private boolean func_35059_g(World world, int i, int j, int k)
+    private boolean canVineStay(World world, int i, int j, int k)
     {
         int l = world.getBlockMetadata(i, j, k);
         int i1 = l;
@@ -150,14 +150,14 @@ public class BlockVine extends Block
             for(int j1 = 0; j1 <= 3; j1++)
             {
                 int k1 = 1 << j1;
-                if((l & k1) != 0 && !func_35058_c(world.getBlockId(i + Direction.field_35612_a[j1], j, k + Direction.field_35610_b[j1])) && (world.getBlockId(i, j + 1, k) != blockID || (world.getBlockMetadata(i, j + 1, k) & k1) == 0))
+                if((l & k1) != 0 && !canBePlacedOn(world.getBlockId(i + Direction.field_35612_a[j1], j, k + Direction.field_35610_b[j1])) && (world.getBlockId(i, j + 1, k) != blockID || (world.getBlockMetadata(i, j + 1, k) & k1) == 0))
                 {
                     i1 &= ~k1;
                 }
             }
 
         }
-        if(i1 == 0 && !func_35058_c(world.getBlockId(i, j + 1, k)))
+        if(i1 == 0 && !canBePlacedOn(world.getBlockId(i, j + 1, k)))
         {
             return false;
         }
@@ -170,7 +170,7 @@ public class BlockVine extends Block
 
     public void onNeighborBlockChange(World world, int i, int j, int k, int l)
     {
-        if(!world.singleplayerWorld && !func_35059_g(world, i, j, k))
+        if(!world.singleplayerWorld && !canVineStay(world, i, j, k))
         {
             dropBlockAsItem(world, i, j, k, world.getBlockMetadata(i, j, k), 0);
             world.setBlockWithNotify(i, j, k, 0);
@@ -227,7 +227,7 @@ label1:
                 {
                     for(int i3 = 0; i3 <= 3; i3++)
                     {
-                        if(!func_35058_c(world.getBlockId(i + Direction.field_35612_a[i3], j + 1, k + Direction.field_35610_b[i3])))
+                        if(!canBePlacedOn(world.getBlockId(i + Direction.field_35612_a[i3], j + 1, k + Direction.field_35610_b[i3])))
                         {
                             j2 &= ~(1 << i3);
                         }
@@ -250,28 +250,28 @@ label1:
                 {
                     int j3 = i2 + 1 & 3;
                     int i4 = i2 + 3 & 3;
-                    if((i1 & 1 << j3) != 0 && func_35058_c(world.getBlockId(i + Direction.field_35612_a[i2] + Direction.field_35612_a[j3], j, k + Direction.field_35610_b[i2] + Direction.field_35610_b[j3])))
+                    if((i1 & 1 << j3) != 0 && canBePlacedOn(world.getBlockId(i + Direction.field_35612_a[i2] + Direction.field_35612_a[j3], j, k + Direction.field_35610_b[i2] + Direction.field_35610_b[j3])))
                     {
                         world.setBlockAndMetadataWithNotify(i + Direction.field_35612_a[i2], j, k + Direction.field_35610_b[i2], blockID, 1 << j3);
                     } else
-                    if((i1 & 1 << i4) != 0 && func_35058_c(world.getBlockId(i + Direction.field_35612_a[i2] + Direction.field_35612_a[i4], j, k + Direction.field_35610_b[i2] + Direction.field_35610_b[i4])))
+                    if((i1 & 1 << i4) != 0 && canBePlacedOn(world.getBlockId(i + Direction.field_35612_a[i2] + Direction.field_35612_a[i4], j, k + Direction.field_35610_b[i2] + Direction.field_35610_b[i4])))
                     {
                         world.setBlockAndMetadataWithNotify(i + Direction.field_35612_a[i2], j, k + Direction.field_35610_b[i2], blockID, 1 << i4);
                     } else
-                    if((i1 & 1 << j3) != 0 && world.isAirBlock(i + Direction.field_35612_a[i2] + Direction.field_35612_a[j3], j, k + Direction.field_35610_b[i2] + Direction.field_35610_b[j3]) && func_35058_c(world.getBlockId(i + Direction.field_35612_a[j3], j, k + Direction.field_35610_b[j3])))
+                    if((i1 & 1 << j3) != 0 && world.isAirBlock(i + Direction.field_35612_a[i2] + Direction.field_35612_a[j3], j, k + Direction.field_35610_b[i2] + Direction.field_35610_b[j3]) && canBePlacedOn(world.getBlockId(i + Direction.field_35612_a[j3], j, k + Direction.field_35610_b[j3])))
                     {
                         world.setBlockAndMetadataWithNotify(i + Direction.field_35612_a[i2] + Direction.field_35612_a[j3], j, k + Direction.field_35610_b[i2] + Direction.field_35610_b[j3], blockID, 1 << (i2 + 2 & 3));
                     } else
-                    if((i1 & 1 << i4) != 0 && world.isAirBlock(i + Direction.field_35612_a[i2] + Direction.field_35612_a[i4], j, k + Direction.field_35610_b[i2] + Direction.field_35610_b[i4]) && func_35058_c(world.getBlockId(i + Direction.field_35612_a[i4], j, k + Direction.field_35610_b[i4])))
+                    if((i1 & 1 << i4) != 0 && world.isAirBlock(i + Direction.field_35612_a[i2] + Direction.field_35612_a[i4], j, k + Direction.field_35610_b[i2] + Direction.field_35610_b[i4]) && canBePlacedOn(world.getBlockId(i + Direction.field_35612_a[i4], j, k + Direction.field_35610_b[i4])))
                     {
                         world.setBlockAndMetadataWithNotify(i + Direction.field_35612_a[i2] + Direction.field_35612_a[i4], j, k + Direction.field_35610_b[i2] + Direction.field_35610_b[i4], blockID, 1 << (i2 + 2 & 3));
                     } else
-                    if(func_35058_c(world.getBlockId(i + Direction.field_35612_a[i2], j + 1, k + Direction.field_35610_b[i2])))
+                    if(canBePlacedOn(world.getBlockId(i + Direction.field_35612_a[i2], j + 1, k + Direction.field_35610_b[i2])))
                     {
                         world.setBlockAndMetadataWithNotify(i + Direction.field_35612_a[i2], j, k + Direction.field_35610_b[i2], blockID, 0);
                     }
                 } else
-                if(Block.blocksList[k2].blockMaterial.getIsOpaque() && Block.blocksList[k2].isACube())
+                if(Block.blocksList[k2].blockMaterial.getIsOpaque() && Block.blocksList[k2].renderAsNormalBlock())
                 {
                     world.setBlockMetadataWithNotify(i, j, k, i1 | 1 << i2);
                 }

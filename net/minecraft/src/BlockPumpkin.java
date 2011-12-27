@@ -90,7 +90,7 @@ public class BlockPumpkin extends Block
                 world.setBlockWithNotify(i, j - 2, k, 0);
                 EntitySnowman entitysnowman = new EntitySnowman(world);
                 entitysnowman.setLocationAndAngles((double)i + 0.5D, (double)j - 1.95D, (double)k + 0.5D, 0.0F, 0.0F);
-                world.entityJoinedWorld(entitysnowman);
+                world.spawnEntityInWorld(entitysnowman);
             }
             for(int l = 0; l < 120; l++)
             {

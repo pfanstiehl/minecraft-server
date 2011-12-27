@@ -13,11 +13,11 @@ import java.util.Random;
 public class WorldGenDeadBush extends WorldGenerator
 {
 
-    private int field_28055_a;
+    private int deadBushID;
 
     public WorldGenDeadBush(int i)
     {
-        field_28055_a = i;
+        deadBushID = i;
     }
 
     public boolean generate(World world, Random random, int i, int j, int k)
@@ -28,9 +28,9 @@ public class WorldGenDeadBush extends WorldGenerator
             int j1 = (i + random.nextInt(8)) - random.nextInt(8);
             int k1 = (j + random.nextInt(4)) - random.nextInt(4);
             int l1 = (k + random.nextInt(8)) - random.nextInt(8);
-            if(world.isAirBlock(j1, k1, l1) && ((BlockFlower)Block.blocksList[field_28055_a]).canBlockStay(world, j1, k1, l1))
+            if(world.isAirBlock(j1, k1, l1) && ((BlockFlower)Block.blocksList[deadBushID]).canBlockStay(world, j1, k1, l1))
             {
-                world.setBlock(j1, k1, l1, field_28055_a);
+                world.setBlock(j1, k1, l1, deadBushID);
             }
         }
 

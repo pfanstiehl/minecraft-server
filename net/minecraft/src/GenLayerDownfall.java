@@ -23,7 +23,7 @@ public class GenLayerDownfall extends GenLayer
         int ai1[] = IntCache.getIntCache(k * l);
         for(int i1 = 0; i1 < k * l; i1++)
         {
-            ai1[i1] = BiomeGenBase.biomeList[ai[i1]].func_35510_e();
+            ai1[i1] = BiomeGenBase.biomeList[ai[i1]].getIntRainfall();
         }
 
         return ai1;

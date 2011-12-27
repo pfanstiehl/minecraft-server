@@ -28,7 +28,7 @@ public class ItemMinecart extends Item
         {
             if(!world.singleplayerWorld)
             {
-                world.entityJoinedWorld(new EntityMinecart(world, (float)i + 0.5F, (float)j + 0.5F, (float)k + 0.5F, minecartType));
+                world.spawnEntityInWorld(new EntityMinecart(world, (float)i + 0.5F, (float)j + 0.5F, (float)k + 0.5F, minecartType));
             }
             itemstack.stackSize--;
             return true;

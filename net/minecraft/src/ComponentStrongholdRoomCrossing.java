@@ -37,8 +37,8 @@ public class ComponentStrongholdRoomCrossing extends ComponentStronghold
 
     public static ComponentStrongholdRoomCrossing func_35346_a(List list, Random random, int i, int j, int k, int l, int i1)
     {
-        StructureBoundingBox structureboundingbox = StructureBoundingBox.func_35663_a(i, j, k, -4, -1, 0, 11, 7, 11, l);
-        if(!func_35319_a(structureboundingbox) || StructureComponent.canFitInside(list, structureboundingbox) != null)
+        StructureBoundingBox structureboundingbox = StructureBoundingBox.getComponentToAddBoundingBox(i, j, k, -4, -1, 0, 11, 7, 11, l);
+        if(!canStrongholdGoDeeper(structureboundingbox) || StructureComponent.canFitInside(list, structureboundingbox) != null)
         {
             return null;
         } else
@@ -53,7 +53,7 @@ public class ComponentStrongholdRoomCrossing extends ComponentStronghold
         {
             return false;
         }
-        func_35307_a(world, structureboundingbox, 0, 0, 0, 10, 6, 10, true, random, StructureStrongholdPieces.getStrongholdStones());
+        fillWithRandomizedBlocks(world, structureboundingbox, 0, 0, 0, 10, 6, 10, true, random, StructureStrongholdPieces.getStrongholdStones());
         placeDoor(world, random, structureboundingbox, field_35349_a, 4, 1, 0);
         fillWithBlocks(world, structureboundingbox, 4, 1, 10, 6, 3, 10, 0, 0, false);
         fillWithBlocks(world, structureboundingbox, 0, 1, 4, 0, 3, 6, 0, 0, false);
@@ -64,86 +64,86 @@ public class ComponentStrongholdRoomCrossing extends ComponentStronghold
             break;
 
         case 0: // '\0'
-            func_35309_a(world, Block.stoneBrick.blockID, 0, 5, 1, 5, structureboundingbox);
-            func_35309_a(world, Block.stoneBrick.blockID, 0, 5, 2, 5, structureboundingbox);
-            func_35309_a(world, Block.stoneBrick.blockID, 0, 5, 3, 5, structureboundingbox);
-            func_35309_a(world, Block.torchWood.blockID, 0, 4, 3, 5, structureboundingbox);
-            func_35309_a(world, Block.torchWood.blockID, 0, 6, 3, 5, structureboundingbox);
-            func_35309_a(world, Block.torchWood.blockID, 0, 5, 3, 4, structureboundingbox);
-            func_35309_a(world, Block.torchWood.blockID, 0, 5, 3, 6, structureboundingbox);
-            func_35309_a(world, Block.stairSingle.blockID, 0, 4, 1, 4, structureboundingbox);
-            func_35309_a(world, Block.stairSingle.blockID, 0, 4, 1, 5, structureboundingbox);
-            func_35309_a(world, Block.stairSingle.blockID, 0, 4, 1, 6, structureboundingbox);
-            func_35309_a(world, Block.stairSingle.blockID, 0, 6, 1, 4, structureboundingbox);
-            func_35309_a(world, Block.stairSingle.blockID, 0, 6, 1, 5, structureboundingbox);
-            func_35309_a(world, Block.stairSingle.blockID, 0, 6, 1, 6, structureboundingbox);
-            func_35309_a(world, Block.stairSingle.blockID, 0, 5, 1, 4, structureboundingbox);
-            func_35309_a(world, Block.stairSingle.blockID, 0, 5, 1, 6, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stoneBrick.blockID, 0, 5, 1, 5, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stoneBrick.blockID, 0, 5, 2, 5, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stoneBrick.blockID, 0, 5, 3, 5, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.torchWood.blockID, 0, 4, 3, 5, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.torchWood.blockID, 0, 6, 3, 5, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.torchWood.blockID, 0, 5, 3, 4, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.torchWood.blockID, 0, 5, 3, 6, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stairSingle.blockID, 0, 4, 1, 4, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stairSingle.blockID, 0, 4, 1, 5, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stairSingle.blockID, 0, 4, 1, 6, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stairSingle.blockID, 0, 6, 1, 4, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stairSingle.blockID, 0, 6, 1, 5, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stairSingle.blockID, 0, 6, 1, 6, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stairSingle.blockID, 0, 5, 1, 4, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stairSingle.blockID, 0, 5, 1, 6, structureboundingbox);
             break;
 
         case 1: // '\001'
             for(int i = 0; i < 5; i++)
             {
-                func_35309_a(world, Block.stoneBrick.blockID, 0, 3, 1, 3 + i, structureboundingbox);
-                func_35309_a(world, Block.stoneBrick.blockID, 0, 7, 1, 3 + i, structureboundingbox);
-                func_35309_a(world, Block.stoneBrick.blockID, 0, 3 + i, 1, 3, structureboundingbox);
-                func_35309_a(world, Block.stoneBrick.blockID, 0, 3 + i, 1, 7, structureboundingbox);
+                placeBlockAtCurrentPosition(world, Block.stoneBrick.blockID, 0, 3, 1, 3 + i, structureboundingbox);
+                placeBlockAtCurrentPosition(world, Block.stoneBrick.blockID, 0, 7, 1, 3 + i, structureboundingbox);
+                placeBlockAtCurrentPosition(world, Block.stoneBrick.blockID, 0, 3 + i, 1, 3, structureboundingbox);
+                placeBlockAtCurrentPosition(world, Block.stoneBrick.blockID, 0, 3 + i, 1, 7, structureboundingbox);
             }
 
-            func_35309_a(world, Block.stoneBrick.blockID, 0, 5, 1, 5, structureboundingbox);
-            func_35309_a(world, Block.stoneBrick.blockID, 0, 5, 2, 5, structureboundingbox);
-            func_35309_a(world, Block.stoneBrick.blockID, 0, 5, 3, 5, structureboundingbox);
-            func_35309_a(world, Block.waterMoving.blockID, 0, 5, 4, 5, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stoneBrick.blockID, 0, 5, 1, 5, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stoneBrick.blockID, 0, 5, 2, 5, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.stoneBrick.blockID, 0, 5, 3, 5, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.waterMoving.blockID, 0, 5, 4, 5, structureboundingbox);
             break;
 
         case 2: // '\002'
             for(int j = 1; j <= 9; j++)
             {
-                func_35309_a(world, Block.cobblestone.blockID, 0, 1, 3, j, structureboundingbox);
-                func_35309_a(world, Block.cobblestone.blockID, 0, 9, 3, j, structureboundingbox);
+                placeBlockAtCurrentPosition(world, Block.cobblestone.blockID, 0, 1, 3, j, structureboundingbox);
+                placeBlockAtCurrentPosition(world, Block.cobblestone.blockID, 0, 9, 3, j, structureboundingbox);
             }
 
             for(int k = 1; k <= 9; k++)
             {
-                func_35309_a(world, Block.cobblestone.blockID, 0, k, 3, 1, structureboundingbox);
-                func_35309_a(world, Block.cobblestone.blockID, 0, k, 3, 9, structureboundingbox);
+                placeBlockAtCurrentPosition(world, Block.cobblestone.blockID, 0, k, 3, 1, structureboundingbox);
+                placeBlockAtCurrentPosition(world, Block.cobblestone.blockID, 0, k, 3, 9, structureboundingbox);
             }
 
-            func_35309_a(world, Block.cobblestone.blockID, 0, 5, 1, 4, structureboundingbox);
-            func_35309_a(world, Block.cobblestone.blockID, 0, 5, 1, 6, structureboundingbox);
-            func_35309_a(world, Block.cobblestone.blockID, 0, 5, 3, 4, structureboundingbox);
-            func_35309_a(world, Block.cobblestone.blockID, 0, 5, 3, 6, structureboundingbox);
-            func_35309_a(world, Block.cobblestone.blockID, 0, 4, 1, 5, structureboundingbox);
-            func_35309_a(world, Block.cobblestone.blockID, 0, 6, 1, 5, structureboundingbox);
-            func_35309_a(world, Block.cobblestone.blockID, 0, 4, 3, 5, structureboundingbox);
-            func_35309_a(world, Block.cobblestone.blockID, 0, 6, 3, 5, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.cobblestone.blockID, 0, 5, 1, 4, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.cobblestone.blockID, 0, 5, 1, 6, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.cobblestone.blockID, 0, 5, 3, 4, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.cobblestone.blockID, 0, 5, 3, 6, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.cobblestone.blockID, 0, 4, 1, 5, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.cobblestone.blockID, 0, 6, 1, 5, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.cobblestone.blockID, 0, 4, 3, 5, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.cobblestone.blockID, 0, 6, 3, 5, structureboundingbox);
             for(int l = 1; l <= 3; l++)
             {
-                func_35309_a(world, Block.cobblestone.blockID, 0, 4, l, 4, structureboundingbox);
-                func_35309_a(world, Block.cobblestone.blockID, 0, 6, l, 4, structureboundingbox);
-                func_35309_a(world, Block.cobblestone.blockID, 0, 4, l, 6, structureboundingbox);
-                func_35309_a(world, Block.cobblestone.blockID, 0, 6, l, 6, structureboundingbox);
+                placeBlockAtCurrentPosition(world, Block.cobblestone.blockID, 0, 4, l, 4, structureboundingbox);
+                placeBlockAtCurrentPosition(world, Block.cobblestone.blockID, 0, 6, l, 4, structureboundingbox);
+                placeBlockAtCurrentPosition(world, Block.cobblestone.blockID, 0, 4, l, 6, structureboundingbox);
+                placeBlockAtCurrentPosition(world, Block.cobblestone.blockID, 0, 6, l, 6, structureboundingbox);
             }
 
-            func_35309_a(world, Block.torchWood.blockID, 0, 5, 3, 5, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.torchWood.blockID, 0, 5, 3, 5, structureboundingbox);
             for(int i1 = 2; i1 <= 8; i1++)
             {
-                func_35309_a(world, Block.planks.blockID, 0, 2, 3, i1, structureboundingbox);
-                func_35309_a(world, Block.planks.blockID, 0, 3, 3, i1, structureboundingbox);
+                placeBlockAtCurrentPosition(world, Block.planks.blockID, 0, 2, 3, i1, structureboundingbox);
+                placeBlockAtCurrentPosition(world, Block.planks.blockID, 0, 3, 3, i1, structureboundingbox);
                 if(i1 <= 3 || i1 >= 7)
                 {
-                    func_35309_a(world, Block.planks.blockID, 0, 4, 3, i1, structureboundingbox);
-                    func_35309_a(world, Block.planks.blockID, 0, 5, 3, i1, structureboundingbox);
-                    func_35309_a(world, Block.planks.blockID, 0, 6, 3, i1, structureboundingbox);
+                    placeBlockAtCurrentPosition(world, Block.planks.blockID, 0, 4, 3, i1, structureboundingbox);
+                    placeBlockAtCurrentPosition(world, Block.planks.blockID, 0, 5, 3, i1, structureboundingbox);
+                    placeBlockAtCurrentPosition(world, Block.planks.blockID, 0, 6, 3, i1, structureboundingbox);
                 }
-                func_35309_a(world, Block.planks.blockID, 0, 7, 3, i1, structureboundingbox);
-                func_35309_a(world, Block.planks.blockID, 0, 8, 3, i1, structureboundingbox);
+                placeBlockAtCurrentPosition(world, Block.planks.blockID, 0, 7, 3, i1, structureboundingbox);
+                placeBlockAtCurrentPosition(world, Block.planks.blockID, 0, 8, 3, i1, structureboundingbox);
             }
 
-            func_35309_a(world, Block.ladder.blockID, func_35301_c(Block.ladder.blockID, 4), 9, 1, 3, structureboundingbox);
-            func_35309_a(world, Block.ladder.blockID, func_35301_c(Block.ladder.blockID, 4), 9, 2, 3, structureboundingbox);
-            func_35309_a(world, Block.ladder.blockID, func_35301_c(Block.ladder.blockID, 4), 9, 3, 3, structureboundingbox);
-            func_35299_a(world, structureboundingbox, random, 3, 4, 8, field_35348_c, 1 + random.nextInt(4));
+            placeBlockAtCurrentPosition(world, Block.ladder.blockID, func_35301_c(Block.ladder.blockID, 4), 9, 1, 3, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.ladder.blockID, func_35301_c(Block.ladder.blockID, 4), 9, 2, 3, structureboundingbox);
+            placeBlockAtCurrentPosition(world, Block.ladder.blockID, func_35301_c(Block.ladder.blockID, 4), 9, 3, 3, structureboundingbox);
+            createTreasureChestAtCurrentPosition(world, structureboundingbox, random, 3, 4, 8, field_35348_c, 1 + random.nextInt(4));
             break;
         }
         return true;

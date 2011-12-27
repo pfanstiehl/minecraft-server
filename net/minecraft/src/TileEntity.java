@@ -25,7 +25,7 @@ public class TileEntity
     public int zCoord;
     protected boolean tileEntityInvalid;
     public int blockMetadata;
-    public Block field_35166_o;
+    public Block blockType;
 
     public TileEntity()
     {
@@ -135,13 +135,13 @@ public class TileEntity
         tileEntityInvalid = false;
     }
 
-    public void func_35163_b(int i, int j)
+    public void onTileEntityPowered(int i, int j)
     {
     }
 
     public void func_35164_g()
     {
-        field_35166_o = null;
+        blockType = null;
         blockMetadata = -1;
     }
 

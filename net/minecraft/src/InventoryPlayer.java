@@ -178,7 +178,7 @@ public class InventoryPlayer
                 i = itemstack.stackSize;
                 itemstack.stackSize = storePartialItemStack(itemstack);
             } while(itemstack.stackSize > 0 && itemstack.stackSize < i);
-            if(itemstack.stackSize == i && player.field_35214_K.depleteBuckets)
+            if(itemstack.stackSize == i && player.capabilities.depleteBuckets)
             {
                 itemstack.stackSize = 0;
                 return true;
@@ -195,7 +195,7 @@ public class InventoryPlayer
             itemstack.stackSize = 0;
             return true;
         }
-        if(player.field_35214_K.depleteBuckets)
+        if(player.capabilities.depleteBuckets)
         {
             itemstack.stackSize = 0;
             return true;
@@ -474,7 +474,7 @@ public class InventoryPlayer
     {
     }
 
-    public void func_41013_a(InventoryPlayer inventoryplayer)
+    public void copyInventory(InventoryPlayer inventoryplayer)
     {
         for(int i = 0; i < mainInventory.length; i++)
         {

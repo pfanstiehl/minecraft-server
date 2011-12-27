@@ -17,8 +17,8 @@ public class EntityEnderEye extends Entity
     private double field_40060_b;
     private double field_40061_c;
     private double field_40058_d;
-    private int field_40059_e;
-    private boolean field_40057_f;
+    private int despawnTimer;
+    private boolean shatterOrDrop;
 
     public EntityEnderEye(World world)
     {
@@ -35,7 +35,7 @@ public class EntityEnderEye extends Entity
     {
         super(world);
         field_40062_a = 0;
-        field_40059_e = 0;
+        despawnTimer = 0;
         setSize(0.25F, 0.25F);
         setPosition(d, d1, d2);
         yOffset = 0.0F;
@@ -57,8 +57,8 @@ public class EntityEnderEye extends Entity
             field_40061_c = i;
             field_40058_d = d1;
         }
-        field_40059_e = 0;
-        field_40057_f = rand.nextInt(5) > 0;
+        despawnTimer = 0;
+        shatterOrDrop = rand.nextInt(5) > 0;
     }
 
     public void onUpdate()
@@ -115,13 +115,13 @@ public class EntityEnderEye extends Entity
         if(!worldObj.singleplayerWorld)
         {
             setPosition(posX, posY, posZ);
-            field_40059_e++;
-            if(field_40059_e > 80 && !worldObj.singleplayerWorld)
+            despawnTimer++;
+            if(despawnTimer > 80 && !worldObj.singleplayerWorld)
             {
                 setEntityDead();
-                if(field_40057_f)
+                if(shatterOrDrop)
                 {
-                    worldObj.entityJoinedWorld(new EntityItem(worldObj, posX, posY, posZ, new ItemStack(Item.eyeOfEnder)));
+                    worldObj.spawnEntityInWorld(new EntityItem(worldObj, posX, posY, posZ, new ItemStack(Item.eyeOfEnder)));
                 } else
                 {
                     worldObj.playAuxSFX(2003, (int)Math.round(posX), (int)Math.round(posY), (int)Math.round(posZ), 0);

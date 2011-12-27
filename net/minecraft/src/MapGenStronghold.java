@@ -15,31 +15,31 @@ import java.util.*;
 public class MapGenStronghold extends MapGenStructure
 {
 
-    private BiomeGenBase field_35537_a[];
-    private boolean field_35535_f;
-    private ChunkCoordIntPair field_35536_g[];
+    private BiomeGenBase allowedBiomeGenBases[];
+    private boolean ranBiomeCheck;
+    private ChunkCoordIntPair structureCoords[];
 
     public MapGenStronghold()
     {
-        field_35537_a = (new BiomeGenBase[] {
+        allowedBiomeGenBases = (new BiomeGenBase[] {
             BiomeGenBase.desert, BiomeGenBase.forest, BiomeGenBase.extremeHills, BiomeGenBase.swampland, BiomeGenBase.taiga, BiomeGenBase.icePlains, BiomeGenBase.iceMountains
         });
-        field_35536_g = new ChunkCoordIntPair[3];
+        structureCoords = new ChunkCoordIntPair[3];
     }
 
-    protected boolean func_35531_a(int i, int j)
+    protected boolean canSpawnStructureAtCoords(int i, int j)
     {
-        if(!field_35535_f)
+        if(!ranBiomeCheck)
         {
             rand.setSeed(worldObj.getRandomSeed());
             double d = rand.nextDouble() * 3.1415926535897931D * 2D;
-            for(int l = 0; l < field_35536_g.length; l++)
+            for(int l = 0; l < structureCoords.length; l++)
             {
                 double d1 = (1.25D + rand.nextDouble()) * 32D;
                 int j1 = (int)Math.round(Math.cos(d) * d1);
                 int k1 = (int)Math.round(Math.sin(d) * d1);
                 ArrayList arraylist = new ArrayList();
-                BiomeGenBase abiomegenbase[] = field_35537_a;
+                BiomeGenBase abiomegenbase[] = allowedBiomeGenBases;
                 int l1 = abiomegenbase.length;
                 for(int i2 = 0; i2 < l1; i2++)
                 {
@@ -56,13 +56,13 @@ public class MapGenStronghold extends MapGenStructure
                 {
                     System.out.println((new StringBuilder()).append("Placed stronghold in INVALID biome at (").append(j1).append(", ").append(k1).append(")").toString());
                 }
-                field_35536_g[l] = new ChunkCoordIntPair(j1, k1);
-                d += 6.2831853071795862D / (double)field_35536_g.length;
+                structureCoords[l] = new ChunkCoordIntPair(j1, k1);
+                d += 6.2831853071795862D / (double)structureCoords.length;
             }
 
-            field_35535_f = true;
+            ranBiomeCheck = true;
         }
-        ChunkCoordIntPair achunkcoordintpair[] = field_35536_g;
+        ChunkCoordIntPair achunkcoordintpair[] = structureCoords;
         int k = achunkcoordintpair.length;
         for(int i1 = 0; i1 < k; i1++)
         {
@@ -79,7 +79,7 @@ public class MapGenStronghold extends MapGenStructure
     protected List func_40203_a()
     {
         ArrayList arraylist = new ArrayList();
-        ChunkCoordIntPair achunkcoordintpair[] = field_35536_g;
+        ChunkCoordIntPair achunkcoordintpair[] = structureCoords;
         int i = achunkcoordintpair.length;
         for(int j = 0; j < i; j++)
         {
@@ -93,7 +93,7 @@ public class MapGenStronghold extends MapGenStructure
         return arraylist;
     }
 
-    protected StructureStart func_35533_b(int i, int j)
+    protected StructureStart getStructureStart(int i, int j)
     {
         StructureStrongholdStart structurestrongholdstart;
         for(structurestrongholdstart = new StructureStrongholdStart(worldObj, rand, i, j); structurestrongholdstart.func_40208_c().isEmpty() || ((ComponentStrongholdStairs2)structurestrongholdstart.func_40208_c().get(0)).field_40317_b == null; structurestrongholdstart = new StructureStrongholdStart(worldObj, rand, i, j)) { }

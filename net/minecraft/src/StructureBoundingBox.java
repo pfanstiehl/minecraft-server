@@ -19,12 +19,12 @@ public class StructureBoundingBox
     {
     }
 
-    public static StructureBoundingBox func_35672_a()
+    public static StructureBoundingBox getNewBoundingBox()
     {
         return new StructureBoundingBox(0x7fffffff, 0x7fffffff, 0x7fffffff, 0x80000000, 0x80000000, 0x80000000);
     }
 
-    public static StructureBoundingBox func_35663_a(int i, int j, int k, int l, int i1, int j1, int k1, int l1, 
+    public static StructureBoundingBox getComponentToAddBoundingBox(int i, int j, int k, int l, int i1, int j1, int k1, int l1, 
             int i2, int j2)
     {
         switch(j2)

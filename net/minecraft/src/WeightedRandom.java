@@ -22,7 +22,7 @@ public class WeightedRandom
         for(Iterator iterator = collection.iterator(); iterator.hasNext();)
         {
             WeightedRandomChoice weightedrandomchoice = (WeightedRandomChoice)iterator.next();
-            i += weightedrandomchoice.field_35483_d;
+            i += weightedrandomchoice.itemWeight;
         }
 
         return i;
@@ -38,7 +38,7 @@ public class WeightedRandom
         for(Iterator iterator = collection.iterator(); iterator.hasNext();)
         {
             WeightedRandomChoice weightedrandomchoice = (WeightedRandomChoice)iterator.next();
-            j -= weightedrandomchoice.field_35483_d;
+            j -= weightedrandomchoice.itemWeight;
             if(j < 0)
             {
                 return weightedrandomchoice;
@@ -61,7 +61,7 @@ public class WeightedRandom
         for(int k = 0; k < j; k++)
         {
             WeightedRandomChoice weightedrandomchoice = aweightedrandomchoice1[k];
-            i += weightedrandomchoice.field_35483_d;
+            i += weightedrandomchoice.itemWeight;
         }
 
         return i;
@@ -79,7 +79,7 @@ public class WeightedRandom
         for(int l = 0; l < k; l++)
         {
             WeightedRandomChoice weightedrandomchoice = aweightedrandomchoice1[l];
-            j -= weightedrandomchoice.field_35483_d;
+            j -= weightedrandomchoice.itemWeight;
             if(j < 0)
             {
                 return weightedrandomchoice;

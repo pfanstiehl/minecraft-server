@@ -78,7 +78,7 @@ public class EntityPig extends EntityAnimal
 
     protected int getDropItemId()
     {
-        if(func_40035_z())
+        if(isBurning())
         {
             return Item.porkCooked.shiftedIndex;
         } else
@@ -112,7 +112,7 @@ public class EntityPig extends EntityAnimal
         {
             EntityPigZombie entitypigzombie = new EntityPigZombie(worldObj);
             entitypigzombie.setLocationAndAngles(posX, posY, posZ, rotationYaw, rotationPitch);
-            worldObj.entityJoinedWorld(entitypigzombie);
+            worldObj.spawnEntityInWorld(entitypigzombie);
             setEntityDead();
             return;
         }
@@ -127,7 +127,7 @@ public class EntityPig extends EntityAnimal
         }
     }
 
-    protected EntityAnimal func_40133_a(EntityAnimal entityanimal)
+    protected EntityAnimal spawnBabyAnimal(EntityAnimal entityanimal)
     {
         return new EntityPig(worldObj);
     }

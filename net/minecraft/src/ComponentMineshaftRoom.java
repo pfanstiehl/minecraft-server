@@ -106,7 +106,7 @@ public class ComponentMineshaftRoom extends StructureComponent
             structureboundingbox1 = (StructureBoundingBox)iterator.next();
         }
 
-        func_35304_a(world, structureboundingbox, boundingBox.x1, boundingBox.y1 + 4, boundingBox.z1, boundingBox.x2, boundingBox.y2, boundingBox.z2, 0, false);
+        randomlyRareFillWithBlocks(world, structureboundingbox, boundingBox.x1, boundingBox.y1 + 4, boundingBox.z1, boundingBox.x2, boundingBox.y2, boundingBox.z2, 0, false);
         return true;
     }
 }

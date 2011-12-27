@@ -48,7 +48,7 @@ public class ItemSign extends Item
         {
             i++;
         }
-        if(!entityplayer.func_35200_c(i, j, k))
+        if(!entityplayer.canPlayerEdit(i, j, k))
         {
             return false;
         }

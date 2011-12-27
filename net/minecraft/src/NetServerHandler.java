@@ -238,7 +238,7 @@ public class NetServerHandler extends NetHandler
                 return;
             }
             AxisAlignedBB axisalignedbb = playerEntity.boundingBox.copy().expand(f4, f4, f4).addCoord(0.0D, -0.55000000000000004D, 0.0D);
-            if(!mcServer.allowFlight && !playerEntity.itemInWorldManager.isCreative() && !worldserver.func_27069_b(axisalignedbb))
+            if(!mcServer.allowFlight && !playerEntity.itemInWorldManager.isCreative() && !worldserver.isAABBEmpty(axisalignedbb))
             {
                 if(d15 >= -0.03125D)
                 {
@@ -281,7 +281,7 @@ public class NetServerHandler extends NetHandler
         }
         if(packet14blockdig.status == 5)
         {
-            playerEntity.func_35196_E();
+            playerEntity.stopUsingItem();
             return;
         }
         boolean flag = worldserver.disableSpawnProtection = worldserver.worldProvider.worldType != 0 || mcServer.configManager.isOp(playerEntity.username);
@@ -309,8 +309,8 @@ public class NetServerHandler extends NetHandler
             }
         }
         ChunkCoordinates chunkcoordinates = worldserver.getSpawnPoint();
-        int l = MathHelper.getUnsigned(i - chunkcoordinates.posX);
-        int i1 = MathHelper.getUnsigned(k - chunkcoordinates.posZ);
+        int l = MathHelper.abs(i - chunkcoordinates.posX);
+        int i1 = MathHelper.abs(k - chunkcoordinates.posZ);
         if(l > i1)
         {
             i1 = l;
@@ -366,8 +366,8 @@ public class NetServerHandler extends NetHandler
             int k = packet15place.zPosition;
             int l = packet15place.direction;
             ChunkCoordinates chunkcoordinates = worldserver.getSpawnPoint();
-            int i1 = MathHelper.getUnsigned(i - chunkcoordinates.posX);
-            int j1 = MathHelper.getUnsigned(k - chunkcoordinates.posZ);
+            int i1 = MathHelper.abs(i - chunkcoordinates.posX);
+            int j1 = MathHelper.abs(k - chunkcoordinates.posZ);
             if(i1 > j1)
             {
                 j1 = i1;
@@ -409,7 +409,7 @@ public class NetServerHandler extends NetHandler
             playerEntity.inventory.mainInventory[playerEntity.inventory.currentItem] = null;
             itemstack = null;
         }
-        if(itemstack == null || itemstack.func_35614_l() == 0)
+        if(itemstack == null || itemstack.getMaxItemUseDuration() == 0)
         {
             playerEntity.isChangingQuantityOnly = true;
             playerEntity.inventory.mainInventory[playerEntity.inventory.currentItem] = ItemStack.copyItemStack(playerEntity.inventory.mainInventory[playerEntity.inventory.currentItem]);
@@ -646,7 +646,7 @@ public class NetServerHandler extends NetHandler
     {
         if(playerEntity.currentCraftingInventory.windowId == packet108enchantitem.windowId && playerEntity.currentCraftingInventory.getCanCraft(playerEntity))
         {
-            playerEntity.currentCraftingInventory.func_40331_a(playerEntity, packet108enchantitem.enchantment);
+            playerEntity.currentCraftingInventory.enchantItem(playerEntity, packet108enchantitem.enchantment);
             playerEntity.currentCraftingInventory.updateCraftingResults();
         }
     }

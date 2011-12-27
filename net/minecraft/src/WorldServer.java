@@ -77,8 +77,8 @@ public class WorldServer extends World
 
     public boolean canMineBlock(EntityPlayer entityplayer, int i, int j, int k)
     {
-        int l = MathHelper.getUnsigned(i - worldInfo.getSpawnX());
-        int i1 = MathHelper.getUnsigned(k - worldInfo.getSpawnZ());
+        int l = MathHelper.abs(i - worldInfo.getSpawnX());
+        int i1 = MathHelper.abs(k - worldInfo.getSpawnZ());
         if(l > i1)
         {
             i1 = l;
@@ -99,7 +99,7 @@ public class WorldServer extends World
     {
         super.obtainEntitySkin(entity);
         field_34902_Q.addKey(entity.entityId, entity);
-        Entity aentity[] = entity.func_40037_aF();
+        Entity aentity[] = entity.getParts();
         if(aentity != null)
         {
             for(int i = 0; i < aentity.length; i++)
@@ -114,7 +114,7 @@ public class WorldServer extends World
     {
         super.releaseEntitySkin(entity);
         field_34902_Q.removeObject(entity.entityId);
-        Entity aentity[] = entity.func_40037_aF();
+        Entity aentity[] = entity.getParts();
         if(aentity != null)
         {
             for(int i = 0; i < aentity.length; i++)

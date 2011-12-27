@@ -8,5 +8,5 @@ package net.minecraft.src;
 public interface IThreadedFileIO
 {
 
-    public abstract boolean func_40324_c();
+    public abstract boolean writeNextIO();
 }

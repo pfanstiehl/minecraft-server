@@ -17,7 +17,7 @@ public final class ItemStack
     public int stackSize;
     public int animationsToGo;
     public int itemID;
-    public NBTTagCompound field_40611_d;
+    public NBTTagCompound itemNBT;
     private int itemDamage;
 
     public ItemStack(Block block)
@@ -73,9 +73,9 @@ public final class ItemStack
     public ItemStack splitStack(int i)
     {
         ItemStack itemstack = new ItemStack(itemID, i, itemDamage);
-        if(field_40611_d != null)
+        if(itemNBT != null)
         {
-            itemstack.field_40611_d = (NBTTagCompound)field_40611_d.func_40468_b();
+            itemstack.itemNBT = (NBTTagCompound)itemNBT.cloneTag();
         }
         stackSize -= i;
         return itemstack;
@@ -106,7 +106,7 @@ public final class ItemStack
         return getItem().onItemRightClick(this, world, entityplayer);
     }
 
-    public ItemStack func_35617_b(World world, EntityPlayer entityplayer)
+    public ItemStack onFoodEaten(World world, EntityPlayer entityplayer)
     {
         return getItem().onFoodEaten(this, world, entityplayer);
     }
@@ -116,9 +116,9 @@ public final class ItemStack
         nbttagcompound.setShort("id", (short)itemID);
         nbttagcompound.setByte("Count", (byte)stackSize);
         nbttagcompound.setShort("Damage", (short)itemDamage);
-        if(field_40611_d != null)
+        if(itemNBT != null)
         {
-            nbttagcompound.setTag("tag", field_40611_d);
+            nbttagcompound.setTag("tag", itemNBT);
         }
         return nbttagcompound;
     }
@@ -130,7 +130,7 @@ public final class ItemStack
         itemDamage = nbttagcompound.getShort("Damage");
         if(nbttagcompound.hasKey("tag"))
         {
-            field_40611_d = nbttagcompound.getCompoundTag("tag");
+            itemNBT = nbttagcompound.getCompoundTag("tag");
         }
     }
 
@@ -187,7 +187,7 @@ public final class ItemStack
         }
         if(i > 0 && (entityliving instanceof EntityPlayer))
         {
-            int j = EnchantmentHelper.func_40643_c(((EntityPlayer)entityliving).inventory);
+            int j = EnchantmentHelper.getUnbreakingModifier(((EntityPlayer)entityliving).inventory);
             if(j > 0 && entityliving.worldObj.rand.nextInt(j + 1) > 0)
             {
                 return;
@@ -250,10 +250,10 @@ public final class ItemStack
     public ItemStack copy()
     {
         ItemStack itemstack = new ItemStack(itemID, stackSize, itemDamage);
-        if(field_40611_d != null)
+        if(itemNBT != null)
         {
-            itemstack.field_40611_d = (NBTTagCompound)field_40611_d.func_40468_b();
-            if(!itemstack.field_40611_d.equals(field_40611_d))
+            itemstack.itemNBT = (NBTTagCompound)itemNBT.cloneTag();
+            if(!itemstack.itemNBT.equals(itemNBT))
             {
                 return itemstack;
             }
@@ -290,11 +290,11 @@ public final class ItemStack
         {
             return false;
         }
-        if(field_40611_d == null && itemstack.field_40611_d != null)
+        if(itemNBT == null && itemstack.itemNBT != null)
         {
             return false;
         }
-        return field_40611_d == null || field_40611_d.equals(itemstack.field_40611_d);
+        return itemNBT == null || itemNBT.equals(itemstack.itemNBT);
     }
 
     public boolean isItemEqual(ItemStack itemstack)
@@ -337,50 +337,50 @@ public final class ItemStack
         return itemID == itemstack.itemID && stackSize == itemstack.stackSize && itemDamage == itemstack.itemDamage;
     }
 
-    public int func_35614_l()
+    public int getMaxItemUseDuration()
     {
         return getItem().getMaxItemUseDuration(this);
     }
 
-    public EnumAction func_35615_m()
+    public EnumAction getItemUseAction()
     {
-        return getItem().func_35406_b(this);
+        return getItem().getAction(this);
     }
 
-    public void func_35613_a(World world, EntityPlayer entityplayer, int i)
+    public void onPlayerStoppedUsing(World world, EntityPlayer entityplayer, int i)
     {
         getItem().onPlayerStoppedUsing(this, world, entityplayer, i);
     }
 
-    public boolean func_40608_n()
+    public boolean hasTagCompound()
     {
-        return field_40611_d != null;
+        return itemNBT != null;
     }
 
-    public NBTTagCompound func_40607_o()
+    public NBTTagCompound getTagCompound()
     {
-        return field_40611_d;
+        return itemNBT;
     }
 
-    public NBTTagList func_40609_p()
+    public NBTTagList getEnchantmentTagList()
     {
-        if(field_40611_d == null)
+        if(itemNBT == null)
         {
             return null;
         } else
         {
-            return (NBTTagList)field_40611_d.func_40469_b("ench");
+            return (NBTTagList)itemNBT.getTag("ench");
         }
     }
 
-    public void func_40604_d(NBTTagCompound nbttagcompound)
+    public void setNBTData(NBTTagCompound nbttagcompound)
     {
         if(Item.itemsList[itemID].getItemStackLimit() != 1)
         {
             throw new IllegalArgumentException("Cannot add tag data to a stackable item");
         } else
         {
-            field_40611_d = nbttagcompound;
+            itemNBT = nbttagcompound;
             return;
         }
     }
@@ -394,17 +394,17 @@ public final class ItemStack
         return !func_40610_r();
     }
 
-    public void func_40605_a(Enchantment enchantment, int i)
+    public void addEnchantment(Enchantment enchantment, int i)
     {
-        if(field_40611_d == null)
+        if(itemNBT == null)
         {
-            func_40604_d(new NBTTagCompound());
+            setNBTData(new NBTTagCompound());
         }
-        if(!field_40611_d.hasKey("ench"))
+        if(!itemNBT.hasKey("ench"))
         {
-            field_40611_d.setTag("ench", new NBTTagList("ench"));
+            itemNBT.setTag("ench", new NBTTagList("ench"));
         }
-        NBTTagList nbttaglist = (NBTTagList)field_40611_d.func_40469_b("ench");
+        NBTTagList nbttaglist = (NBTTagList)itemNBT.getTag("ench");
         NBTTagCompound nbttagcompound = new NBTTagCompound();
         nbttagcompound.setShort("id", (short)enchantment.effectId);
         nbttagcompound.setShort("lvl", (byte)i);
@@ -413,6 +413,6 @@ public final class ItemStack
 
     public boolean func_40610_r()
     {
-        return field_40611_d != null && field_40611_d.hasKey("ench");
+        return itemNBT != null && itemNBT.hasKey("ench");
     }
 }

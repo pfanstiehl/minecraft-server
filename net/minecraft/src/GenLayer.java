@@ -15,7 +15,7 @@ package net.minecraft.src;
 public abstract class GenLayer
 {
 
-    private long field_35021_b;
+    private long worldGenSeed;
     protected GenLayer parent;
     private long chunkSeed;
     private long baseSeed;
@@ -91,22 +91,22 @@ public abstract class GenLayer
 
     public void func_35015_b(long l)
     {
-        field_35021_b = l;
+        worldGenSeed = l;
         if(parent != null)
         {
             parent.func_35015_b(l);
         }
-        field_35021_b *= field_35021_b * 0x5851f42d4c957f2dL + 0x14057b7ef767814fL;
-        field_35021_b += baseSeed;
-        field_35021_b *= field_35021_b * 0x5851f42d4c957f2dL + 0x14057b7ef767814fL;
-        field_35021_b += baseSeed;
-        field_35021_b *= field_35021_b * 0x5851f42d4c957f2dL + 0x14057b7ef767814fL;
-        field_35021_b += baseSeed;
+        worldGenSeed *= worldGenSeed * 0x5851f42d4c957f2dL + 0x14057b7ef767814fL;
+        worldGenSeed += baseSeed;
+        worldGenSeed *= worldGenSeed * 0x5851f42d4c957f2dL + 0x14057b7ef767814fL;
+        worldGenSeed += baseSeed;
+        worldGenSeed *= worldGenSeed * 0x5851f42d4c957f2dL + 0x14057b7ef767814fL;
+        worldGenSeed += baseSeed;
     }
 
     public void func_35017_a(long l, long l1)
     {
-        chunkSeed = field_35021_b;
+        chunkSeed = worldGenSeed;
         chunkSeed *= chunkSeed * 0x5851f42d4c957f2dL + 0x14057b7ef767814fL;
         chunkSeed += l;
         chunkSeed *= chunkSeed * 0x5851f42d4c957f2dL + 0x14057b7ef767814fL;
@@ -125,7 +125,7 @@ public abstract class GenLayer
             j += i;
         }
         chunkSeed *= chunkSeed * 0x5851f42d4c957f2dL + 0x14057b7ef767814fL;
-        chunkSeed += field_35021_b;
+        chunkSeed += worldGenSeed;
         return j;
     }
 

@@ -11,7 +11,7 @@ package net.minecraft.src;
 public class ChunkBlockMap
 {
 
-    private static byte field_26002_a[];
+    private static byte convTable[];
 
     public ChunkBlockMap()
     {
@@ -21,14 +21,14 @@ public class ChunkBlockMap
     {
         for(int i = 0; i < abyte0.length; i++)
         {
-            abyte0[i] = field_26002_a[abyte0[i] & 0xff];
+            abyte0[i] = convTable[abyte0[i] & 0xff];
         }
 
     }
 
     static 
     {
-        field_26002_a = new byte[256];
+        convTable = new byte[256];
         try
         {
             for(int i = 0; i < 256; i++)
@@ -38,7 +38,7 @@ public class ChunkBlockMap
                 {
                     byte0 = 0;
                 }
-                field_26002_a[i] = byte0;
+                convTable[i] = byte0;
             }
 
         }

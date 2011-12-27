@@ -17,7 +17,7 @@ public class EntityMagmaCube extends EntitySlime
         super(world);
         texture = "/mob/lava.png";
         isImmuneToFire = true;
-        field_35194_aj = 0.2F;
+        landMovementFactor = 0.2F;
     }
 
     public boolean getCanSpawnHere()
@@ -25,7 +25,7 @@ public class EntityMagmaCube extends EntitySlime
         return worldObj.difficultySetting > 0 && worldObj.checkIfAABBIsClear(boundingBox) && worldObj.getCollidingBoundingBoxes(this, boundingBox).size() == 0 && !worldObj.getIsAnyLiquid(boundingBox);
     }
 
-    protected int func_40092_O()
+    protected int getTotalArmorValue()
     {
         return getSlimeSize() * 3;
     }
@@ -50,7 +50,7 @@ public class EntityMagmaCube extends EntitySlime
         return 0;
     }
 
-    public boolean func_40035_z()
+    public boolean isBurning()
     {
         return false;
     }

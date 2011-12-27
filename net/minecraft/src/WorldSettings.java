@@ -10,14 +10,14 @@ public final class WorldSettings
 
     private final long seed;
     private final int gameType;
-    private final boolean mapFeatures;
+    private final boolean mapFeaturesEnabled;
     private final boolean hardcoreEnabled;
 
     public WorldSettings(long l, int i, boolean flag, boolean flag1)
     {
         seed = l;
         gameType = i;
-        mapFeatures = flag;
+        mapFeaturesEnabled = flag;
         hardcoreEnabled = flag1;
     }
 
@@ -36,9 +36,9 @@ public final class WorldSettings
         return hardcoreEnabled;
     }
 
-    public boolean getMapFeaturesEnabled()
+    public boolean isMapFeaturesEnabled()
     {
-        return mapFeatures;
+        return mapFeaturesEnabled;
     }
 
     public static int validGameType(int i)

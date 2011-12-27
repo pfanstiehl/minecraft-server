@@ -16,12 +16,12 @@ public class MapGenMineshaft extends MapGenStructure
     {
     }
 
-    protected boolean func_35531_a(int i, int j)
+    protected boolean canSpawnStructureAtCoords(int i, int j)
     {
         return rand.nextInt(100) == 0 && rand.nextInt(80) < Math.max(Math.abs(i), Math.abs(j));
     }
 
-    protected StructureStart func_35533_b(int i, int j)
+    protected StructureStart getStructureStart(int i, int j)
     {
         return new StructureMineshaftStart(worldObj, rand, i, j);
     }

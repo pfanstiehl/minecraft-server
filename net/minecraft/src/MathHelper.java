@@ -58,7 +58,7 @@ public class MathHelper
         return f < 0.0F ? -f : f;
     }
 
-    public static int getUnsigned(int i)
+    public static int abs(int i)
     {
         return i < 0 ? -i : i;
     }
@@ -91,7 +91,7 @@ public class MathHelper
         return d <= d1 ? d1 : d;
     }
 
-    public static int func_35476_a(Random random, int i, int j)
+    public static int getRandomIntegerInRange(Random random, int i, int j)
     {
         if(i >= j)
         {

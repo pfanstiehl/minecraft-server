@@ -43,7 +43,7 @@ public class BlockPortal extends BlockBreakable
         return false;
     }
 
-    public boolean isACube()
+    public boolean renderAsNormalBlock()
     {
         return false;
     }

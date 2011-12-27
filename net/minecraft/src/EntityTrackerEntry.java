@@ -162,10 +162,10 @@ public class EntityTrackerEntry
             }
         }
         trackedEntity.isAirBorne = false;
-        if(trackedEntity.beenAttacked)
+        if(trackedEntity.velocityChanged)
         {
             sendPacketToTrackedPlayersAndTrackedEntity(new Packet28EntityVelocity(trackedEntity));
-            trackedEntity.beenAttacked = false;
+            trackedEntity.velocityChanged = false;
         }
     }
 
@@ -326,7 +326,7 @@ public class EntityTrackerEntry
         }
         if(trackedEntity instanceof EntityPotion)
         {
-            return new Packet23VehicleSpawn(trackedEntity, 73, ((EntityPotion)trackedEntity).func_40054_n_());
+            return new Packet23VehicleSpawn(trackedEntity, 73, ((EntityPotion)trackedEntity).getPotionDamage());
         }
         if(trackedEntity instanceof EntityEnderPearl)
         {
@@ -347,9 +347,9 @@ public class EntityTrackerEntry
             {
                 packet23vehiclespawn = new Packet23VehicleSpawn(trackedEntity, 64, 0);
             }
-            packet23vehiclespawn.field_28044_e = (int)(entitysmallfireball.accelerationX * 8000D);
-            packet23vehiclespawn.field_28043_f = (int)(entitysmallfireball.accelerationY * 8000D);
-            packet23vehiclespawn.field_28042_g = (int)(entitysmallfireball.accelerationZ * 8000D);
+            packet23vehiclespawn.speedX = (int)(entitysmallfireball.accelerationX * 8000D);
+            packet23vehiclespawn.speedY = (int)(entitysmallfireball.accelerationY * 8000D);
+            packet23vehiclespawn.speedZ = (int)(entitysmallfireball.accelerationZ * 8000D);
             return packet23vehiclespawn;
         }
         if(trackedEntity instanceof EntityFireball)
@@ -363,9 +363,9 @@ public class EntityTrackerEntry
             {
                 packet23vehiclespawn1 = new Packet23VehicleSpawn(trackedEntity, 63, 0);
             }
-            packet23vehiclespawn1.field_28044_e = (int)(entityfireball.accelerationX * 8000D);
-            packet23vehiclespawn1.field_28043_f = (int)(entityfireball.accelerationY * 8000D);
-            packet23vehiclespawn1.field_28042_g = (int)(entityfireball.accelerationZ * 8000D);
+            packet23vehiclespawn1.speedX = (int)(entityfireball.accelerationX * 8000D);
+            packet23vehiclespawn1.speedY = (int)(entityfireball.accelerationY * 8000D);
+            packet23vehiclespawn1.speedZ = (int)(entityfireball.accelerationZ * 8000D);
             return packet23vehiclespawn1;
         }
         if(trackedEntity instanceof EntityEgg)
@@ -391,7 +391,7 @@ public class EntityTrackerEntry
             {
                 return new Packet23VehicleSpawn(trackedEntity, 71);
             }
-            if(entityfallingsand.blockID == Block.field_41002_bK.blockID)
+            if(entityfallingsand.blockID == Block.dragonEgg.blockID)
             {
                 return new Packet23VehicleSpawn(trackedEntity, 74);
             }

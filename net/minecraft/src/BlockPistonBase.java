@@ -161,7 +161,7 @@ public class BlockPistonBase extends Block
         return world.isBlockIndirectlyProvidingPowerTo(i + 1, j + 1, k, 5);
     }
 
-    public void playBlock(World world, int i, int j, int k, int l, int i1)
+    public void powerBlock(World world, int i, int j, int k, int l, int i1)
     {
         ignoreUpdates = true;
         int j1 = i1;
@@ -273,7 +273,7 @@ public class BlockPistonBase extends Block
         }
     }
 
-    public void func_40163_f()
+    public void setBlockBoundsForItemRender()
     {
         setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
     }
@@ -284,7 +284,7 @@ public class BlockPistonBase extends Block
         super.getCollidingBoundingBoxes(world, i, j, k, axisalignedbb, arraylist);
     }
 
-    public boolean isACube()
+    public boolean renderAsNormalBlock()
     {
         return false;
     }

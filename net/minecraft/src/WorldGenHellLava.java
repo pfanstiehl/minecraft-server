@@ -12,11 +12,11 @@ import java.util.Random;
 public class WorldGenHellLava extends WorldGenerator
 {
 
-    private int field_4250_a;
+    private int hellLavaID;
 
     public WorldGenHellLava(int i)
     {
-        field_4250_a = i;
+        hellLavaID = i;
     }
 
     public boolean generate(World world, Random random, int i, int j, int k)
@@ -73,9 +73,9 @@ public class WorldGenHellLava extends WorldGenerator
         }
         if(l == 4 && i1 == 1)
         {
-            world.setBlockWithNotify(i, j, k, field_4250_a);
+            world.setBlockWithNotify(i, j, k, hellLavaID);
             world.scheduledUpdatesAreImmediate = true;
-            Block.blocksList[field_4250_a].updateTick(world, i, j, k, random);
+            Block.blocksList[hellLavaID].updateTick(world, i, j, k, random);
             world.scheduledUpdatesAreImmediate = false;
         }
         return true;

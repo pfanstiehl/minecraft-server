@@ -56,18 +56,18 @@ public class ComponentVillageWell extends ComponentVillage
         }
         if(!field_35385_a);
         fillWithBlocks(world, structureboundingbox, 1, 0, 1, 4, 12, 4, Block.cobblestone.blockID, Block.waterMoving.blockID, false);
-        func_35309_a(world, 0, 0, 2, 12, 2, structureboundingbox);
-        func_35309_a(world, 0, 0, 3, 12, 2, structureboundingbox);
-        func_35309_a(world, 0, 0, 2, 12, 3, structureboundingbox);
-        func_35309_a(world, 0, 0, 3, 12, 3, structureboundingbox);
-        func_35309_a(world, Block.fence.blockID, 0, 1, 13, 1, structureboundingbox);
-        func_35309_a(world, Block.fence.blockID, 0, 1, 14, 1, structureboundingbox);
-        func_35309_a(world, Block.fence.blockID, 0, 4, 13, 1, structureboundingbox);
-        func_35309_a(world, Block.fence.blockID, 0, 4, 14, 1, structureboundingbox);
-        func_35309_a(world, Block.fence.blockID, 0, 1, 13, 4, structureboundingbox);
-        func_35309_a(world, Block.fence.blockID, 0, 1, 14, 4, structureboundingbox);
-        func_35309_a(world, Block.fence.blockID, 0, 4, 13, 4, structureboundingbox);
-        func_35309_a(world, Block.fence.blockID, 0, 4, 14, 4, structureboundingbox);
+        placeBlockAtCurrentPosition(world, 0, 0, 2, 12, 2, structureboundingbox);
+        placeBlockAtCurrentPosition(world, 0, 0, 3, 12, 2, structureboundingbox);
+        placeBlockAtCurrentPosition(world, 0, 0, 2, 12, 3, structureboundingbox);
+        placeBlockAtCurrentPosition(world, 0, 0, 3, 12, 3, structureboundingbox);
+        placeBlockAtCurrentPosition(world, Block.fence.blockID, 0, 1, 13, 1, structureboundingbox);
+        placeBlockAtCurrentPosition(world, Block.fence.blockID, 0, 1, 14, 1, structureboundingbox);
+        placeBlockAtCurrentPosition(world, Block.fence.blockID, 0, 4, 13, 1, structureboundingbox);
+        placeBlockAtCurrentPosition(world, Block.fence.blockID, 0, 4, 14, 1, structureboundingbox);
+        placeBlockAtCurrentPosition(world, Block.fence.blockID, 0, 1, 13, 4, structureboundingbox);
+        placeBlockAtCurrentPosition(world, Block.fence.blockID, 0, 1, 14, 4, structureboundingbox);
+        placeBlockAtCurrentPosition(world, Block.fence.blockID, 0, 4, 13, 4, structureboundingbox);
+        placeBlockAtCurrentPosition(world, Block.fence.blockID, 0, 4, 14, 4, structureboundingbox);
         fillWithBlocks(world, structureboundingbox, 1, 15, 1, 4, 15, 4, Block.cobblestone.blockID, Block.cobblestone.blockID, false);
         for(int i = 0; i <= 5; i++)
         {
@@ -75,8 +75,8 @@ public class ComponentVillageWell extends ComponentVillage
             {
                 if(j == 0 || j == 5 || i == 0 || i == 5)
                 {
-                    func_35309_a(world, Block.gravel.blockID, 0, j, 11, i, structureboundingbox);
-                    func_35314_b(world, j, 12, i, structureboundingbox);
+                    placeBlockAtCurrentPosition(world, Block.gravel.blockID, 0, j, 11, i, structureboundingbox);
+                    clearCurrentPositionBlocksUpwards(world, j, 12, i, structureboundingbox);
                 }
             }
 

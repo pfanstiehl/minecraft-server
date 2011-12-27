@@ -28,7 +28,7 @@ public class ComponentNetherBridgeCorridor3 extends ComponentNetherBridgePiece
 
     public static ComponentNetherBridgeCorridor3 func_40308_a(List list, Random random, int i, int j, int k, int l, int i1)
     {
-        StructureBoundingBox structureboundingbox = StructureBoundingBox.func_35663_a(i, j, k, -1, -7, 0, 5, 14, 10, l);
+        StructureBoundingBox structureboundingbox = StructureBoundingBox.getComponentToAddBoundingBox(i, j, k, -1, -7, 0, 5, 14, 10, l);
         if(!func_40286_a(structureboundingbox) || StructureComponent.canFitInside(list, structureboundingbox) != null)
         {
             return null;
@@ -50,9 +50,9 @@ public class ComponentNetherBridgeCorridor3 extends ComponentNetherBridgePiece
             fillWithBlocks(world, structureboundingbox, 1, k + 1, i1, 3, l - 1, i1, 0, 0, false);
             if(j <= 6)
             {
-                func_35309_a(world, Block.stairsNetherBrick.blockID, i, 1, k + 1, i1, structureboundingbox);
-                func_35309_a(world, Block.stairsNetherBrick.blockID, i, 2, k + 1, i1, structureboundingbox);
-                func_35309_a(world, Block.stairsNetherBrick.blockID, i, 3, k + 1, i1, structureboundingbox);
+                placeBlockAtCurrentPosition(world, Block.stairsNetherBrick.blockID, i, 1, k + 1, i1, structureboundingbox);
+                placeBlockAtCurrentPosition(world, Block.stairsNetherBrick.blockID, i, 2, k + 1, i1, structureboundingbox);
+                placeBlockAtCurrentPosition(world, Block.stairsNetherBrick.blockID, i, 3, k + 1, i1, structureboundingbox);
             }
             fillWithBlocks(world, structureboundingbox, 0, l, i1, 4, l, i1, Block.netherBrick.blockID, Block.netherBrick.blockID, false);
             fillWithBlocks(world, structureboundingbox, 0, k + 1, i1, 0, l - 1, i1, Block.netherBrick.blockID, Block.netherBrick.blockID, false);
@@ -64,7 +64,7 @@ public class ComponentNetherBridgeCorridor3 extends ComponentNetherBridgePiece
             }
             for(int j1 = 0; j1 <= 4; j1++)
             {
-                func_35303_b(world, Block.netherBrick.blockID, 0, j1, -1, i1, structureboundingbox);
+                fillCurrentPositionBlocksDownwards(world, Block.netherBrick.blockID, 0, j1, -1, i1, structureboundingbox);
             }
 
         }

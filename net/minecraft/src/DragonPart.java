@@ -11,15 +11,15 @@ package net.minecraft.src;
 public class DragonPart extends Entity
 {
 
-    public final EntityDragonBase field_40039_a;
-    public final String field_40038_b;
+    public final EntityDragonBase entityDragonObj;
+    public final String name;
 
     public DragonPart(EntityDragonBase entitydragonbase, String s, float f, float f1)
     {
         super(entitydragonbase.worldObj);
         setSize(f, f1);
-        field_40039_a = entitydragonbase;
-        field_40038_b = s;
+        entityDragonObj = entitydragonbase;
+        name = s;
     }
 
     protected void entityInit()
@@ -41,11 +41,11 @@ public class DragonPart extends Entity
 
     public boolean attackEntityFrom(DamageSource damagesource, int i)
     {
-        return field_40039_a.func_40136_a(this, damagesource, i);
+        return entityDragonObj.attackEntityFromPart(this, damagesource, i);
     }
 
-    public boolean func_41012_c_(Entity entity)
+    public boolean isEntityEqual(Entity entity)
     {
-        return this == entity || field_40039_a == entity;
+        return this == entity || entityDragonObj == entity;
     }
 }

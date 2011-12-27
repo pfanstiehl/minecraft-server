@@ -39,7 +39,7 @@ public class BlockBrewingStand extends BlockContainer
         return new TileEntityBrewingStand();
     }
 
-    public boolean isACube()
+    public boolean renderAsNormalBlock()
     {
         return false;
     }
@@ -48,11 +48,11 @@ public class BlockBrewingStand extends BlockContainer
     {
         setBlockBounds(0.4375F, 0.0F, 0.4375F, 0.5625F, 0.875F, 0.5625F);
         super.getCollidingBoundingBoxes(world, i, j, k, axisalignedbb, arraylist);
-        func_40163_f();
+        setBlockBoundsForItemRender();
         super.getCollidingBoundingBoxes(world, i, j, k, axisalignedbb, arraylist);
     }
 
-    public void func_40163_f()
+    public void setBlockBoundsForItemRender()
     {
         setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.125F, 1.0F);
     }
@@ -66,7 +66,7 @@ public class BlockBrewingStand extends BlockContainer
         TileEntityBrewingStand tileentitybrewingstand = (TileEntityBrewingStand)world.getBlockTileEntity(i, j, k);
         if(tileentitybrewingstand != null)
         {
-            entityplayer.func_40110_a(tileentitybrewingstand);
+            entityplayer.displayGUIBrewingStand(tileentitybrewingstand);
         }
         return true;
     }
@@ -105,7 +105,7 @@ label0:
                     entityitem.motionX = (float)field_40180_a.nextGaussian() * f3;
                     entityitem.motionY = (float)field_40180_a.nextGaussian() * f3 + 0.2F;
                     entityitem.motionZ = (float)field_40180_a.nextGaussian() * f3;
-                    world.entityJoinedWorld(entityitem);
+                    world.spawnEntityInWorld(entityitem);
                 } while(true);
             }
 

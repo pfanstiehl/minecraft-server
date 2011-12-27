@@ -108,7 +108,7 @@ public class FoodStats
         return foodLevel < 20;
     }
 
-    public void func_35583_a(float f)
+    public void addExhaustion(float f)
     {
         foodExhaustionLevel = Math.min(foodExhaustionLevel + f, 40F);
     }

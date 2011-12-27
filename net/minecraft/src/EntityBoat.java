@@ -15,7 +15,7 @@ import java.util.Random;
 public class EntityBoat extends Entity
 {
 
-    private int field_9176_d;
+    private int boatPosRotationIncrements;
     private double boatX;
     private double boatY;
     private double boatZ;
@@ -80,11 +80,11 @@ public class EntityBoat extends Entity
         {
             return true;
         }
-        func_41026_d(-func_41029_m());
-        func_41027_c(10);
-        func_41024_b(func_41025_i() + i * 10);
+        setForwardDirection(-getForwardDirection());
+        setTimeSinceHit(10);
+        setDamageTaken(getDamageTaken() + i * 10);
         setBeenAttacked();
-        if(func_41025_i() > 40)
+        if(getDamageTaken() > 40)
         {
             if(riddenByEntity != null)
             {
@@ -113,13 +113,13 @@ public class EntityBoat extends Entity
     public void onUpdate()
     {
         super.onUpdate();
-        if(func_41028_k() > 0)
+        if(getTimeSinceHit() > 0)
         {
-            func_41027_c(func_41028_k() - 1);
+            setTimeSinceHit(getTimeSinceHit() - 1);
         }
-        if(func_41025_i() > 0)
+        if(getDamageTaken() > 0)
         {
-            func_41024_b(func_41025_i() - 1);
+            setDamageTaken(getDamageTaken() - 1);
         }
         prevPosX = posX;
         prevPosY = posY;
@@ -162,17 +162,17 @@ public class EntityBoat extends Entity
         }
         if(worldObj.singleplayerWorld)
         {
-            if(field_9176_d > 0)
+            if(boatPosRotationIncrements > 0)
             {
-                double d4 = posX + (boatX - posX) / (double)field_9176_d;
-                double d10 = posY + (boatY - posY) / (double)field_9176_d;
-                double d13 = posZ + (boatZ - posZ) / (double)field_9176_d;
+                double d4 = posX + (boatX - posX) / (double)boatPosRotationIncrements;
+                double d10 = posY + (boatY - posY) / (double)boatPosRotationIncrements;
+                double d13 = posZ + (boatZ - posZ) / (double)boatPosRotationIncrements;
                 double d17;
                 for(d17 = boatYaw - (double)rotationYaw; d17 < -180D; d17 += 360D) { }
                 for(; d17 >= 180D; d17 -= 360D) { }
-                rotationYaw += d17 / (double)field_9176_d;
-                rotationPitch += (boatPitch - (double)rotationPitch) / (double)field_9176_d;
-                field_9176_d--;
+                rotationYaw += d17 / (double)boatPosRotationIncrements;
+                rotationPitch += (boatPitch - (double)rotationPitch) / (double)boatPosRotationIncrements;
+                boatPosRotationIncrements--;
                 setPosition(d4, d10, d13);
                 setRotation(rotationYaw, rotationPitch);
             } else
@@ -342,32 +342,32 @@ public class EntityBoat extends Entity
         return true;
     }
 
-    public void func_41024_b(int i)
+    public void setDamageTaken(int i)
     {
         dataWatcher.updateObject(19, Integer.valueOf(i));
     }
 
-    public int func_41025_i()
+    public int getDamageTaken()
     {
         return dataWatcher.getWatchableObjectInt(19);
     }
 
-    public void func_41027_c(int i)
+    public void setTimeSinceHit(int i)
     {
         dataWatcher.updateObject(17, Integer.valueOf(i));
     }
 
-    public int func_41028_k()
+    public int getTimeSinceHit()
     {
         return dataWatcher.getWatchableObjectInt(17);
     }
 
-    public void func_41026_d(int i)
+    public void setForwardDirection(int i)
     {
         dataWatcher.updateObject(18, Integer.valueOf(i));
     }
 
-    public int func_41029_m()
+    public int getForwardDirection()
     {
         return dataWatcher.getWatchableObjectInt(18);
     }

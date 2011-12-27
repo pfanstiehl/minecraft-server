@@ -28,11 +28,11 @@ public class EntityEnderPearl extends EntityThrowable
         super(world, d, d1, d2);
     }
 
-    protected void func_40041_a(MovingObjectPosition movingobjectposition)
+    protected void onImpact(MovingObjectPosition movingobjectposition)
     {
         if(movingobjectposition.entityHit != null)
         {
-            if(!movingobjectposition.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, field_40050_c), 0));
+            if(!movingobjectposition.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, thrower), 0));
         }
         for(int i = 0; i < 32; i++)
         {
@@ -41,11 +41,11 @@ public class EntityEnderPearl extends EntityThrowable
 
         if(!worldObj.singleplayerWorld)
         {
-            if(field_40050_c != null)
+            if(thrower != null)
             {
-                field_40050_c.func_40098_a_(posX, posY, posZ);
-                field_40050_c.fallDistance = 0.0F;
-                field_40050_c.attackEntityFrom(DamageSource.fall, 5);
+                thrower.setPositionAndUpdate(posX, posY, posZ);
+                thrower.fallDistance = 0.0F;
+                thrower.attackEntityFrom(DamageSource.fall, 5);
             }
             setEntityDead();
         }

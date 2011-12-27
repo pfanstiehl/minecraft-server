@@ -14,14 +14,14 @@ public class TileEntityBrewingStand extends TileEntity
     implements IInventory
 {
 
-    private ItemStack field_40083_a[];
-    private int field_40081_b;
-    private int field_40082_c;
-    private int field_40080_d;
+    private ItemStack brewingItemStacks[];
+    private int brewTime;
+    private int filledSlots;
+    private int ingredientID;
 
     public TileEntityBrewingStand()
     {
-        field_40083_a = new ItemStack[4];
+        brewingItemStacks = new ItemStack[4];
     }
 
     public String getInvName()
@@ -31,76 +31,76 @@ public class TileEntityBrewingStand extends TileEntity
 
     public int getSizeInventory()
     {
-        return field_40083_a.length;
+        return brewingItemStacks.length;
     }
 
     public void updateEntity()
     {
-        if(field_40081_b > 0)
+        if(brewTime > 0)
         {
-            field_40081_b--;
-            if(field_40081_b == 0)
+            brewTime--;
+            if(brewTime == 0)
             {
-                func_40076_p();
+                brewPotions();
                 onInventoryChanged();
             } else
-            if(!func_40075_o())
+            if(!canBrew())
             {
-                field_40081_b = 0;
+                brewTime = 0;
                 onInventoryChanged();
             } else
-            if(field_40080_d != field_40083_a[3].itemID)
+            if(ingredientID != brewingItemStacks[3].itemID)
             {
-                field_40081_b = 0;
+                brewTime = 0;
                 onInventoryChanged();
             }
         } else
-        if(func_40075_o())
+        if(canBrew())
         {
-            field_40081_b = 600;
-            field_40080_d = field_40083_a[3].itemID;
+            brewTime = 600;
+            ingredientID = brewingItemStacks[3].itemID;
         }
-        int i = func_40079_n();
-        if(i != field_40082_c)
+        int i = getFilledSlots();
+        if(i != filledSlots)
         {
-            field_40082_c = i;
+            filledSlots = i;
             worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, i);
         }
         super.updateEntity();
     }
 
-    public int func_40077_h()
+    public int getBrewTime()
     {
-        return field_40081_b;
+        return brewTime;
     }
 
-    private boolean func_40075_o()
+    private boolean canBrew()
     {
-        if(field_40083_a[3] == null || field_40083_a[3].stackSize <= 0)
+        if(brewingItemStacks[3] == null || brewingItemStacks[3].stackSize <= 0)
         {
             return false;
         }
-        ItemStack itemstack = field_40083_a[3];
-        if(!Item.itemsList[itemstack.itemID].func_40220_m())
+        ItemStack itemstack = brewingItemStacks[3];
+        if(!Item.itemsList[itemstack.itemID].isPotionIngredient())
         {
             return false;
         }
         boolean flag = false;
         for(int i = 0; i < 3; i++)
         {
-            if(field_40083_a[i] == null || field_40083_a[i].itemID != Item.potion.shiftedIndex)
+            if(brewingItemStacks[i] == null || brewingItemStacks[i].itemID != Item.potion.shiftedIndex)
             {
                 continue;
             }
-            int j = field_40083_a[i].getItemDamage();
-            int k = func_40078_b(j, itemstack);
-            if(!ItemPotion.func_40254_c(j) && ItemPotion.func_40254_c(k))
+            int j = brewingItemStacks[i].getItemDamage();
+            int k = applyPotionIngredient(j, itemstack);
+            if(!ItemPotion.isSplash(j) && ItemPotion.isSplash(k))
             {
                 flag = true;
                 break;
             }
-            java.util.List list = Item.potion.func_40255_b(j);
-            java.util.List list1 = Item.potion.func_40255_b(k);
+            java.util.List list = Item.potion.getPotionEffectsForDamage(j);
+            java.util.List list1 = Item.potion.getPotionEffectsForDamage(k);
             if(j > 0 && list == list1 || list != null && (list.equals(list1) || list1 == null) || j == k)
             {
                 continue;
@@ -112,59 +112,59 @@ public class TileEntityBrewingStand extends TileEntity
         return flag;
     }
 
-    private void func_40076_p()
+    private void brewPotions()
     {
-        if(!func_40075_o())
+        if(!canBrew())
         {
             return;
         }
-        ItemStack itemstack = field_40083_a[3];
+        ItemStack itemstack = brewingItemStacks[3];
         for(int i = 0; i < 3; i++)
         {
-            if(field_40083_a[i] == null || field_40083_a[i].itemID != Item.potion.shiftedIndex)
+            if(brewingItemStacks[i] == null || brewingItemStacks[i].itemID != Item.potion.shiftedIndex)
             {
                 continue;
             }
-            int j = field_40083_a[i].getItemDamage();
-            int k = func_40078_b(j, itemstack);
-            java.util.List list = Item.potion.func_40255_b(j);
-            java.util.List list1 = Item.potion.func_40255_b(k);
+            int j = brewingItemStacks[i].getItemDamage();
+            int k = applyPotionIngredient(j, itemstack);
+            java.util.List list = Item.potion.getPotionEffectsForDamage(j);
+            java.util.List list1 = Item.potion.getPotionEffectsForDamage(k);
             if(j > 0 && list == list1 || list != null && (list.equals(list1) || list1 == null))
             {
-                if(!ItemPotion.func_40254_c(j) && ItemPotion.func_40254_c(k))
+                if(!ItemPotion.isSplash(j) && ItemPotion.isSplash(k))
                 {
-                    field_40083_a[i].setItemDamage(k);
+                    brewingItemStacks[i].setItemDamage(k);
                 }
                 continue;
             }
             if(j != k)
             {
-                field_40083_a[i].setItemDamage(k);
+                brewingItemStacks[i].setItemDamage(k);
             }
         }
 
         if(Item.itemsList[itemstack.itemID].hasContainerItem())
         {
-            field_40083_a[3] = new ItemStack(Item.itemsList[itemstack.itemID].getContainerItem());
+            brewingItemStacks[3] = new ItemStack(Item.itemsList[itemstack.itemID].getContainerItem());
         } else
         {
-            field_40083_a[3].stackSize--;
-            if(field_40083_a[3].stackSize <= 0)
+            brewingItemStacks[3].stackSize--;
+            if(brewingItemStacks[3].stackSize <= 0)
             {
-                field_40083_a[3] = null;
+                brewingItemStacks[3] = null;
             }
         }
     }
 
-    private int func_40078_b(int i, ItemStack itemstack)
+    private int applyPotionIngredient(int i, ItemStack itemstack)
     {
         if(itemstack == null)
         {
             return i;
         }
-        if(Item.itemsList[itemstack.itemID].func_40220_m())
+        if(Item.itemsList[itemstack.itemID].isPotionIngredient())
         {
-            return PotionHelper.func_40555_a(i, Item.itemsList[itemstack.itemID].func_40221_l());
+            return PotionHelper.applyIngredient(i, Item.itemsList[itemstack.itemID].getPotionInfo());
         } else
         {
             return i;
@@ -175,32 +175,32 @@ public class TileEntityBrewingStand extends TileEntity
     {
         super.readFromNBT(nbttagcompound);
         NBTTagList nbttaglist = nbttagcompound.getTagList("Items");
-        field_40083_a = new ItemStack[getSizeInventory()];
+        brewingItemStacks = new ItemStack[getSizeInventory()];
         for(int i = 0; i < nbttaglist.tagCount(); i++)
         {
             NBTTagCompound nbttagcompound1 = (NBTTagCompound)nbttaglist.tagAt(i);
             byte byte0 = nbttagcompound1.getByte("Slot");
-            if(byte0 >= 0 && byte0 < field_40083_a.length)
+            if(byte0 >= 0 && byte0 < brewingItemStacks.length)
             {
-                field_40083_a[byte0] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
+                brewingItemStacks[byte0] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
             }
         }
 
-        field_40081_b = nbttagcompound.getShort("BrewTime");
+        brewTime = nbttagcompound.getShort("BrewTime");
     }
 
     public void writeToNBT(NBTTagCompound nbttagcompound)
     {
         super.writeToNBT(nbttagcompound);
-        nbttagcompound.setShort("BrewTime", (short)field_40081_b);
+        nbttagcompound.setShort("BrewTime", (short)brewTime);
         NBTTagList nbttaglist = new NBTTagList();
-        for(int i = 0; i < field_40083_a.length; i++)
+        for(int i = 0; i < brewingItemStacks.length; i++)
         {
-            if(field_40083_a[i] != null)
+            if(brewingItemStacks[i] != null)
             {
                 NBTTagCompound nbttagcompound1 = new NBTTagCompound();
                 nbttagcompound1.setByte("Slot", (byte)i);
-                field_40083_a[i].writeToNBT(nbttagcompound1);
+                brewingItemStacks[i].writeToNBT(nbttagcompound1);
                 nbttaglist.setTag(nbttagcompound1);
             }
         }
@@ -210,9 +210,9 @@ public class TileEntityBrewingStand extends TileEntity
 
     public ItemStack getStackInSlot(int i)
     {
-        if(i >= 0 && i < field_40083_a.length)
+        if(i >= 0 && i < brewingItemStacks.length)
         {
-            return field_40083_a[i];
+            return brewingItemStacks[i];
         } else
         {
             return null;
@@ -221,10 +221,10 @@ public class TileEntityBrewingStand extends TileEntity
 
     public ItemStack decrStackSize(int i, int j)
     {
-        if(i >= 0 && i < field_40083_a.length)
+        if(i >= 0 && i < brewingItemStacks.length)
         {
-            ItemStack itemstack = field_40083_a[i];
-            field_40083_a[i] = null;
+            ItemStack itemstack = brewingItemStacks[i];
+            brewingItemStacks[i] = null;
             return itemstack;
         } else
         {
@@ -234,9 +234,9 @@ public class TileEntityBrewingStand extends TileEntity
 
     public void setInventorySlotContents(int i, ItemStack itemstack)
     {
-        if(i >= 0 && i < field_40083_a.length)
+        if(i >= 0 && i < brewingItemStacks.length)
         {
-            field_40083_a[i] = itemstack;
+            brewingItemStacks[i] = itemstack;
         }
     }
 
@@ -262,12 +262,12 @@ public class TileEntityBrewingStand extends TileEntity
     {
     }
 
-    public int func_40079_n()
+    public int getFilledSlots()
     {
         int i = 0;
         for(int j = 0; j < 3; j++)
         {
-            if(field_40083_a[j] != null)
+            if(brewingItemStacks[j] != null)
             {
                 i |= 1 << j;
             }

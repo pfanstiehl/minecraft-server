@@ -142,7 +142,7 @@ public class BlockStem extends BlockFlower
         return blockIndexInTexture;
     }
 
-    public void func_40163_f()
+    public void setBlockBoundsForItemRender()
     {
         float f = 0.125F;
         setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, 0.25F, 0.5F + f);
@@ -186,7 +186,7 @@ public class BlockStem extends BlockFlower
                 float f4 = world.rand.nextFloat() * f1 + (1.0F - f1) * 0.5F;
                 EntityItem entityitem = new EntityItem(world, (float)i + f2, (float)j + f3, (float)k + f4, new ItemStack(item));
                 entityitem.delayBeforeCanPickup = 10;
-                world.entityJoinedWorld(entityitem);
+                world.spawnEntityInWorld(entityitem);
             }
         }
 

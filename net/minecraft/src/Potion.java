@@ -13,25 +13,25 @@ public class Potion
 
     public static final Potion potionTypes[] = new Potion[32];
     public static final Potion field_35453_b = null;
-    public static final Potion moveSpeed = (new Potion(1, false, 0x7cafc6)).setPotionName("potion.moveSpeed").func_40589_a(0, 0);
-    public static final Potion moveSlowdown = (new Potion(2, true, 0x5a6c81)).setPotionName("potion.moveSlowdown").func_40589_a(1, 0);
-    public static final Potion digSpeed = (new Potion(3, false, 0xd9c043)).setPotionName("potion.digSpeed").func_40589_a(2, 0).func_40591_a(1.5D);
-    public static final Potion digSlowdown = (new Potion(4, true, 0x4a4217)).setPotionName("potion.digSlowDown").func_40589_a(3, 0);
-    public static final Potion damageBoost = (new Potion(5, false, 0x932423)).setPotionName("potion.damageBoost").func_40589_a(4, 0);
+    public static final Potion moveSpeed = (new Potion(1, false, 0x7cafc6)).setPotionName("potion.moveSpeed").setIconIndex(0, 0);
+    public static final Potion moveSlowdown = (new Potion(2, true, 0x5a6c81)).setPotionName("potion.moveSlowdown").setIconIndex(1, 0);
+    public static final Potion digSpeed = (new Potion(3, false, 0xd9c043)).setPotionName("potion.digSpeed").setIconIndex(2, 0).func_40591_a(1.5D);
+    public static final Potion digSlowdown = (new Potion(4, true, 0x4a4217)).setPotionName("potion.digSlowDown").setIconIndex(3, 0);
+    public static final Potion damageBoost = (new Potion(5, false, 0x932423)).setPotionName("potion.damageBoost").setIconIndex(4, 0);
     public static final Potion heal = (new PotionHealth(6, false, 0xf82423)).setPotionName("potion.heal");
     public static final Potion harm = (new PotionHealth(7, true, 0x430a09)).setPotionName("potion.harm");
-    public static final Potion jump = (new Potion(8, false, 0x786297)).setPotionName("potion.jump").func_40589_a(2, 1);
-    public static final Potion confusion = (new Potion(9, true, 0x551d4a)).setPotionName("potion.confusion").func_40589_a(3, 1).func_40591_a(0.25D);
-    public static final Potion regenerationPotion = (new Potion(10, false, 0xcd5cab)).setPotionName("potion.regeneration").func_40589_a(7, 0).func_40591_a(0.25D);
-    public static final Potion resistance = (new Potion(11, false, 0x99453a)).setPotionName("potion.resistance").func_40589_a(6, 1);
-    public static final Potion fireResistancePotion = (new Potion(12, false, 0xe49a3a)).setPotionName("potion.fireResistance").func_40589_a(7, 1);
-    public static final Potion waterBreathingPotion = (new Potion(13, false, 0x2e5299)).setPotionName("potion.waterBreathing").func_40589_a(0, 2);
-    public static final Potion invisibilityPotion = (new Potion(14, false, 0x7f8392)).setPotionName("potion.invisibility").func_40589_a(0, 1).func_40590_e();
-    public static final Potion blindnessPotion = (new Potion(15, true, 0x1f1f23)).setPotionName("potion.blindness").func_40589_a(5, 1).func_40591_a(0.25D);
-    public static final Potion nightVisionPotion = (new Potion(16, false, 0x1f1fa1)).setPotionName("potion.nightVision").func_40589_a(4, 1).func_40590_e();
-    public static final Potion hungerPotion = (new Potion(17, true, 0x587653)).setPotionName("potion.hunger").func_40589_a(1, 1);
-    public static final Potion weaknessPotion = (new Potion(18, true, 0x484d48)).setPotionName("potion.weakness").func_40589_a(5, 0);
-    public static final Potion poisonPotion = (new Potion(19, true, 0x4e9331)).setPotionName("potion.poison").func_40589_a(6, 0).func_40591_a(0.25D);
+    public static final Potion jump = (new Potion(8, false, 0x786297)).setPotionName("potion.jump").setIconIndex(2, 1);
+    public static final Potion confusion = (new Potion(9, true, 0x551d4a)).setPotionName("potion.confusion").setIconIndex(3, 1).func_40591_a(0.25D);
+    public static final Potion regeneration = (new Potion(10, false, 0xcd5cab)).setPotionName("potion.regeneration").setIconIndex(7, 0).func_40591_a(0.25D);
+    public static final Potion resistance = (new Potion(11, false, 0x99453a)).setPotionName("potion.resistance").setIconIndex(6, 1);
+    public static final Potion fireResistance = (new Potion(12, false, 0xe49a3a)).setPotionName("potion.fireResistance").setIconIndex(7, 1);
+    public static final Potion waterBreathing = (new Potion(13, false, 0x2e5299)).setPotionName("potion.waterBreathing").setIconIndex(0, 2);
+    public static final Potion invisibility = (new Potion(14, false, 0x7f8392)).setPotionName("potion.invisibility").setIconIndex(0, 1).func_40590_e();
+    public static final Potion blindness = (new Potion(15, true, 0x1f1f23)).setPotionName("potion.blindness").setIconIndex(5, 1).func_40591_a(0.25D);
+    public static final Potion nightVision = (new Potion(16, false, 0x1f1fa1)).setPotionName("potion.nightVision").setIconIndex(4, 1).func_40590_e();
+    public static final Potion hunger = (new Potion(17, true, 0x587653)).setPotionName("potion.hunger").setIconIndex(1, 1);
+    public static final Potion weakness = (new Potion(18, true, 0x484d48)).setPotionName("potion.weakness").setIconIndex(5, 0);
+    public static final Potion poison = (new Potion(19, true, 0x4e9331)).setPotionName("potion.poison").setIconIndex(6, 0).func_40591_a(0.25D);
     public static final Potion field_35465_v = null;
     public static final Potion field_35464_w = null;
     public static final Potion field_35474_x = null;
@@ -44,21 +44,21 @@ public class Potion
     public static final Potion field_35441_E = null;
     public static final Potion field_35442_F = null;
     public static final Potion field_35443_G = null;
-    public final int potionId;
-    private String potionName;
-    private int field_40601_J;
-    private final boolean field_40602_K;
+    public final int id;
+    private String name;
+    private int statusIconIndex;
+    private final boolean isBadEffect;
     private double field_40598_L;
     private boolean field_40599_M;
-    private final int field_40600_N;
+    private final int liquidColor;
 
     protected Potion(int i, boolean flag, int j)
     {
-        potionName = "";
-        field_40601_J = -1;
-        potionId = i;
+        name = "";
+        statusIconIndex = -1;
+        id = i;
         potionTypes[i] = this;
-        field_40602_K = flag;
+        isBadEffect = flag;
         if(flag)
         {
             field_40598_L = 0.5D;
@@ -66,58 +66,58 @@ public class Potion
         {
             field_40598_L = 1.0D;
         }
-        field_40600_N = j;
+        liquidColor = j;
     }
 
-    protected Potion func_40589_a(int i, int j)
+    protected Potion setIconIndex(int i, int j)
     {
-        field_40601_J = i + j * 8;
+        statusIconIndex = i + j * 8;
         return this;
     }
 
-    public int func_40594_a()
+    public int getId()
     {
-        return potionId;
+        return id;
     }
 
-    public void func_35438_a(EntityLiving entityliving, int i)
+    public void performEffect(EntityLiving entityliving, int i)
     {
-        if(potionId == regenerationPotion.potionId)
+        if(id == regeneration.id)
         {
             if(entityliving.getEntityHealth() < entityliving.getMaxHealth())
             {
                 entityliving.heal(1);
             }
         } else
-        if(potionId == poisonPotion.potionId)
+        if(id == poison.id)
         {
             if(entityliving.getEntityHealth() > 1)
             {
                 entityliving.attackEntityFrom(DamageSource.magic, 1);
             }
         } else
-        if(potionId == hungerPotion.potionId && (entityliving instanceof EntityPlayer))
+        if(id == hunger.id && (entityliving instanceof EntityPlayer))
         {
             ((EntityPlayer)entityliving).addExhaustion(0.025F * (float)(i + 1));
         } else
-        if(potionId == heal.potionId && !entityliving.func_40100_at() || potionId == harm.potionId && entityliving.func_40100_at())
+        if(id == heal.id && !entityliving.isEntityUndead() || id == harm.id && entityliving.isEntityUndead())
         {
             entityliving.heal(6 << i);
         } else
-        if(potionId == harm.potionId && !entityliving.func_40100_at() || potionId == heal.potionId && entityliving.func_40100_at())
+        if(id == harm.id && !entityliving.isEntityUndead() || id == heal.id && entityliving.isEntityUndead())
         {
             entityliving.attackEntityFrom(DamageSource.magic, 6 << i);
         }
     }
 
-    public void func_40588_a(EntityLiving entityliving, EntityLiving entityliving1, int i, double d)
+    public void affectEntity(EntityLiving entityliving, EntityLiving entityliving1, int i, double d)
     {
-        if(potionId == heal.potionId && !entityliving1.func_40100_at() || potionId == harm.potionId && entityliving1.func_40100_at())
+        if(id == heal.id && !entityliving1.isEntityUndead() || id == harm.id && entityliving1.isEntityUndead())
         {
             int j = (int)(d * (double)(6 << i) + 0.5D);
             entityliving1.heal(j);
         } else
-        if(potionId == harm.potionId && !entityliving1.func_40100_at() || potionId == heal.potionId && entityliving1.func_40100_at())
+        if(id == harm.id && !entityliving1.isEntityUndead() || id == heal.id && entityliving1.isEntityUndead())
         {
             int k = (int)(d * (double)(6 << i) + 0.5D);
             if(entityliving == null)
@@ -125,19 +125,19 @@ public class Potion
                 entityliving1.attackEntityFrom(DamageSource.magic, k);
             } else
             {
-                entityliving1.attackEntityFrom(DamageSource.func_40271_b(entityliving1, entityliving), k);
+                entityliving1.attackEntityFrom(DamageSource.causeIndirectMagicDamage(entityliving1, entityliving), k);
             }
         }
     }
 
-    public boolean func_40595_b()
+    public boolean isInstant()
     {
         return false;
     }
 
     public boolean isReady(int i, int j)
     {
-        if(potionId == regenerationPotion.potionId || potionId == poisonPotion.potionId)
+        if(id == regeneration.id || id == poison.id)
         {
             int k = 25 >> j;
             if(k > 0)
@@ -148,18 +148,18 @@ public class Potion
                 return true;
             }
         }
-        return potionId == hungerPotion.potionId;
+        return id == hunger.id;
     }
 
     public Potion setPotionName(String s)
     {
-        potionName = s;
+        name = s;
         return this;
     }
 
-    public String func_40596_c()
+    public String getName()
     {
-        return potionName;
+        return name;
     }
 
     protected Potion func_40591_a(double d)
@@ -184,9 +184,9 @@ public class Potion
         return field_40599_M;
     }
 
-    public int func_40597_g()
+    public int getLiquidColor()
     {
-        return field_40600_N;
+        return liquidColor;
     }
 
 }

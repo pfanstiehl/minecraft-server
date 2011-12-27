@@ -29,7 +29,7 @@ public class BlockChest extends BlockContainer
         return false;
     }
 
-    public boolean isACube()
+    public boolean renderAsNormalBlock()
     {
         return false;
     }
@@ -320,11 +320,11 @@ public class BlockChest extends BlockContainer
                     entityitem.motionX = (float)random.nextGaussian() * f3;
                     entityitem.motionY = (float)random.nextGaussian() * f3 + 0.2F;
                     entityitem.motionZ = (float)random.nextGaussian() * f3;
-                    if(itemstack.func_40608_n())
+                    if(itemstack.hasTagCompound())
                     {
-                        entityitem.item.func_40604_d((NBTTagCompound)itemstack.func_40607_o().func_40468_b());
+                        entityitem.item.setNBTData((NBTTagCompound)itemstack.getTagCompound().cloneTag());
                     }
-                    world.entityJoinedWorld(entityitem);
+                    world.spawnEntityInWorld(entityitem);
                 }
             }
 

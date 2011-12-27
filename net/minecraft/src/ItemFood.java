@@ -17,11 +17,11 @@ public class ItemFood extends Item
     private final int healAmount;
     private final float saturationFactor;
     private final boolean isWolfsFavoriteMeat;
-    private boolean field_35428_bw;
-    private int field_35430_bx;
-    private int field_35429_by;
-    private int field_35425_bz;
-    private float field_35426_bA;
+    private boolean alwaysEdible;
+    private int potionId;
+    private int potionDuration;
+    private int potionAmplifier;
+    private float potionEffectProbability;
 
     public ItemFood(int i, int j, float f, boolean flag)
     {
@@ -39,11 +39,11 @@ public class ItemFood extends Item
     public ItemStack onFoodEaten(ItemStack itemstack, World world, EntityPlayer entityplayer)
     {
         itemstack.stackSize--;
-        entityplayer.func_35207_V().eatFood(this);
+        entityplayer.getFoodStats().eatFood(this);
         world.playSoundAtEntity(entityplayer, "random.burp", 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
-        if(!world.singleplayerWorld && field_35430_bx > 0 && world.rand.nextFloat() < field_35426_bA)
+        if(!world.singleplayerWorld && potionId > 0 && world.rand.nextFloat() < potionEffectProbability)
         {
-            entityplayer.func_35182_d(new PotionEffect(field_35430_bx, field_35429_by * 20, field_35425_bz));
+            entityplayer.addPotionEffect(new PotionEffect(potionId, potionDuration * 20, potionAmplifier));
         }
         return itemstack;
     }
@@ -53,16 +53,16 @@ public class ItemFood extends Item
         return 32;
     }
 
-    public EnumAction func_35406_b(ItemStack itemstack)
+    public EnumAction getAction(ItemStack itemstack)
     {
         return EnumAction.eat;
     }
 
     public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer)
     {
-        if(entityplayer.func_35197_c(field_35428_bw))
+        if(entityplayer.canEat(alwaysEdible))
         {
-            entityplayer.func_35201_a(itemstack, getMaxItemUseDuration(itemstack));
+            entityplayer.setItemInUse(itemstack, getMaxItemUseDuration(itemstack));
         }
         return itemstack;
     }
@@ -84,16 +84,16 @@ public class ItemFood extends Item
 
     public ItemFood setPotionEffect(int i, int j, int k, float f)
     {
-        field_35430_bx = i;
-        field_35429_by = j;
-        field_35425_bz = k;
-        field_35426_bA = f;
+        potionId = i;
+        potionDuration = j;
+        potionAmplifier = k;
+        potionEffectProbability = f;
         return this;
     }
 
-    public ItemFood func_35423_n()
+    public ItemFood setAlwaysEdible()
     {
-        field_35428_bw = true;
+        alwaysEdible = true;
         return this;
     }
 

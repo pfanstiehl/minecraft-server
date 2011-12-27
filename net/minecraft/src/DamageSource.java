@@ -12,9 +12,9 @@ package net.minecraft.src;
 public class DamageSource
 {
 
-    public static DamageSource inFire = (new DamageSource("inFire")).func_40276_j();
-    public static DamageSource onFire = (new DamageSource("onFire")).setDamageBypassesArmor().func_40276_j();
-    public static DamageSource lava = (new DamageSource("lava")).func_40276_j();
+    public static DamageSource inFire = (new DamageSource("inFire")).setFireDamage();
+    public static DamageSource onFire = (new DamageSource("onFire")).setDamageBypassesArmor().setFireDamage();
+    public static DamageSource lava = (new DamageSource("lava")).setFireDamage();
     public static DamageSource inWall = (new DamageSource("inWall")).setDamageBypassesArmor();
     public static DamageSource drown = (new DamageSource("drown")).setDamageBypassesArmor();
     public static DamageSource starve = (new DamageSource("starve")).setDamageBypassesArmor();
@@ -24,11 +24,11 @@ public class DamageSource
     public static DamageSource generic = (new DamageSource("generic")).setDamageBypassesArmor();
     public static DamageSource explosion = new DamageSource("explosion");
     public static DamageSource magic = (new DamageSource("magic")).setDamageBypassesArmor();
-    private boolean isBlockable;
+    private boolean isUnblockable;
     private boolean isDamageAllowedInCreativeMode;
     private float hungerDamage;
-    private boolean field_40278_q;
-    private boolean field_40277_r;
+    private boolean fireDamage;
+    private boolean projectile;
     public String damageType;
 
     public static DamageSource causeMobDamage(EntityLiving entityliving)
@@ -43,38 +43,38 @@ public class DamageSource
 
     public static DamageSource causeArrowDamage(EntityArrow entityarrow, Entity entity)
     {
-        return (new EntityDamageSourceIndirect("arrow", entityarrow, entity)).func_40273_c();
+        return (new EntityDamageSourceIndirect("arrow", entityarrow, entity)).setProjectile();
     }
 
     public static DamageSource causeFireballDamage(EntityFireball entityfireball, Entity entity)
     {
-        return (new EntityDamageSourceIndirect("fireball", entityfireball, entity)).func_40276_j().func_40273_c();
+        return (new EntityDamageSourceIndirect("fireball", entityfireball, entity)).setFireDamage().setProjectile();
     }
 
     public static DamageSource causeThrownDamage(Entity entity, Entity entity1)
     {
-        return (new EntityDamageSourceIndirect("thrown", entity, entity1)).func_40273_c();
+        return (new EntityDamageSourceIndirect("thrown", entity, entity1)).setProjectile();
     }
 
-    public static DamageSource func_40271_b(Entity entity, Entity entity1)
+    public static DamageSource causeIndirectMagicDamage(Entity entity, Entity entity1)
     {
         return (new EntityDamageSourceIndirect("indirectMagic", entity, entity1)).setDamageBypassesArmor();
     }
 
-    public boolean func_40275_b()
+    public boolean isProjectile()
     {
-        return field_40277_r;
+        return projectile;
     }
 
-    public DamageSource func_40273_c()
+    public DamageSource setProjectile()
     {
-        field_40277_r = true;
+        projectile = true;
         return this;
     }
 
-    public boolean unblockable()
+    public boolean isUnblockable()
     {
-        return isBlockable;
+        return isUnblockable;
     }
 
     public float getHungerDamage()
@@ -89,7 +89,7 @@ public class DamageSource
 
     protected DamageSource(String s)
     {
-        isBlockable = false;
+        isUnblockable = false;
         isDamageAllowedInCreativeMode = false;
         hungerDamage = 0.3F;
         damageType = s;
@@ -107,7 +107,7 @@ public class DamageSource
 
     protected DamageSource setDamageBypassesArmor()
     {
-        isBlockable = true;
+        isUnblockable = true;
         hungerDamage = 0.0F;
         return this;
     }
@@ -118,9 +118,9 @@ public class DamageSource
         return this;
     }
 
-    protected DamageSource func_40276_j()
+    protected DamageSource setFireDamage()
     {
-        field_40278_q = true;
+        fireDamage = true;
         return this;
     }
 
@@ -131,12 +131,12 @@ public class DamageSource
         });
     }
 
-    public boolean func_40272_k()
+    public boolean fireDamage()
     {
-        return field_40278_q;
+        return fireDamage;
     }
 
-    public String func_40274_l()
+    public String getDamageType()
     {
         return damageType;
     }

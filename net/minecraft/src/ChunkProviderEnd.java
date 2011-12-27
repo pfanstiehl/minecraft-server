@@ -17,13 +17,13 @@ public class ChunkProviderEnd
     implements IChunkProvider
 {
 
-    private Random field_40201_i;
+    private Random endRNG;
     private NoiseGeneratorOctaves field_40198_j;
     private NoiseGeneratorOctaves field_40199_k;
     private NoiseGeneratorOctaves field_40196_l;
     public NoiseGeneratorOctaves field_40193_a;
     public NoiseGeneratorOctaves field_40191_b;
-    private World field_40197_m;
+    private World endWorld;
     private double field_40194_n[];
     private BiomeGenBase field_40195_o[];
     double field_40192_c[];
@@ -36,27 +36,27 @@ public class ChunkProviderEnd
     public ChunkProviderEnd(World world, long l)
     {
         field_40200_h = new int[32][32];
-        field_40197_m = world;
-        field_40201_i = new Random(l);
-        field_40198_j = new NoiseGeneratorOctaves(field_40201_i, 16);
-        field_40199_k = new NoiseGeneratorOctaves(field_40201_i, 16);
-        field_40196_l = new NoiseGeneratorOctaves(field_40201_i, 8);
-        field_40193_a = new NoiseGeneratorOctaves(field_40201_i, 10);
-        field_40191_b = new NoiseGeneratorOctaves(field_40201_i, 16);
+        endWorld = world;
+        endRNG = new Random(l);
+        field_40198_j = new NoiseGeneratorOctaves(endRNG, 16);
+        field_40199_k = new NoiseGeneratorOctaves(endRNG, 16);
+        field_40196_l = new NoiseGeneratorOctaves(endRNG, 8);
+        field_40193_a = new NoiseGeneratorOctaves(endRNG, 10);
+        field_40191_b = new NoiseGeneratorOctaves(endRNG, 16);
     }
 
     public void func_40184_a(int i, int j, byte abyte0[], BiomeGenBase abiomegenbase[])
     {
         byte byte0 = 2;
         int k = byte0 + 1;
-        int l = field_40197_m.worldYMax / 4 + 1;
+        int l = endWorld.worldYMax / 4 + 1;
         int i1 = byte0 + 1;
         field_40194_n = func_40186_a(field_40194_n, i * byte0, 0, j * byte0, k, l, i1);
         for(int j1 = 0; j1 < byte0; j1++)
         {
             for(int k1 = 0; k1 < byte0; k1++)
             {
-                for(int l1 = 0; l1 < field_40197_m.worldYMax / 4; l1++)
+                for(int l1 = 0; l1 < endWorld.worldYMax / 4; l1++)
                 {
                     double d = 0.25D;
                     double d1 = field_40194_n[((j1 + 0) * i1 + (k1 + 0)) * l + (l1 + 0)];
@@ -76,8 +76,8 @@ public class ChunkProviderEnd
                         double d13 = (d4 - d2) * d9;
                         for(int j2 = 0; j2 < 8; j2++)
                         {
-                            int k2 = j2 + j1 * 8 << field_40197_m.field_35250_b | 0 + k1 * 8 << field_40197_m.worldYBits | l1 * 4 + i2;
-                            int l2 = 1 << field_40197_m.worldYBits;
+                            int k2 = j2 + j1 * 8 << endWorld.xShift | 0 + k1 * 8 << endWorld.worldYBits | l1 * 4 + i2;
+                            int l2 = 1 << endWorld.worldYBits;
                             double d14 = 0.125D;
                             double d15 = d10;
                             double d16 = (d11 - d10) * d14;
@@ -121,9 +121,9 @@ public class ChunkProviderEnd
                 int j1 = -1;
                 byte byte0 = (byte)Block.whiteStone.blockID;
                 byte byte1 = (byte)Block.whiteStone.blockID;
-                for(int k1 = field_40197_m.worldYMask; k1 >= 0; k1--)
+                for(int k1 = endWorld.worldYMask; k1 >= 0; k1--)
                 {
-                    int l1 = (l * 16 + k) * field_40197_m.worldYMax + k1;
+                    int l1 = (l * 16 + k) * endWorld.worldYMax + k1;
                     byte byte2 = abyte0[l1];
                     if(byte2 == 0)
                     {
@@ -171,10 +171,10 @@ public class ChunkProviderEnd
 
     public Chunk provideChunk(int i, int j)
     {
-        field_40201_i.setSeed((long)i * 0x4f9939f508L + (long)j * 0x1ef1565bd5L);
-        byte abyte0[] = new byte[16 * field_40197_m.worldYMax * 16];
-        Chunk chunk = new Chunk(field_40197_m, abyte0, i, j);
-        field_40195_o = field_40197_m.getWorldChunkManager().loadBlockGeneratorData(field_40195_o, i * 16, j * 16, 16, 16);
+        endRNG.setSeed((long)i * 0x4f9939f508L + (long)j * 0x1ef1565bd5L);
+        byte abyte0[] = new byte[16 * endWorld.worldYMax * 16];
+        Chunk chunk = new Chunk(endWorld, abyte0, i, j);
+        field_40195_o = endWorld.getWorldChunkManager().loadBlockGeneratorData(field_40195_o, i * 16, j * 16, 16, 16);
         func_40184_a(i, j, abyte0, field_40195_o);
         func_40185_b(i, j, abyte0, field_40195_o);
         chunk.generateSkylightMap();
@@ -302,8 +302,8 @@ public class ChunkProviderEnd
         BlockSand.fallInstantly = true;
         int k = i * 16;
         int l = j * 16;
-        BiomeGenBase biomegenbase = field_40197_m.getWorldChunkManager().getBiomeGenAt(k + 16, l + 16);
-        biomegenbase.func_35513_a(field_40197_m, field_40197_m.rand, k, l);
+        BiomeGenBase biomegenbase = endWorld.getWorldChunkManager().getBiomeGenAt(k + 16, l + 16);
+        biomegenbase.func_35513_a(endWorld, endWorld.rand, k, l);
         BlockSand.fallInstantly = false;
     }
 
@@ -324,7 +324,7 @@ public class ChunkProviderEnd
 
     public List func_40181_a(EnumCreatureType enumcreaturetype, int i, int j, int k)
     {
-        WorldChunkManager worldchunkmanager = field_40197_m.getWorldChunkManager();
+        WorldChunkManager worldchunkmanager = endWorld.getWorldChunkManager();
         if(worldchunkmanager == null)
         {
             return null;

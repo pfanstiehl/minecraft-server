@@ -45,7 +45,7 @@ public abstract class EntityMob extends EntityCreature
 
     protected Entity findPlayerToAttack()
     {
-        EntityPlayer entityplayer = worldObj.func_40211_b(this, 16D);
+        EntityPlayer entityplayer = worldObj.getClosestVulnerablePlayerToEntity(this, 16D);
         if(entityplayer != null && canEntityBeSeen(entityplayer))
         {
             return entityplayer;
@@ -78,13 +78,13 @@ public abstract class EntityMob extends EntityCreature
     protected boolean attackEntityAsMob(Entity entity)
     {
         int i = attackStrength;
-        if(func_35184_a(Potion.damageBoost))
+        if(isPotionActive(Potion.damageBoost))
         {
-            i += 3 << func_35187_b(Potion.damageBoost).getAmplifier();
+            i += 3 << getActivePotionEffect(Potion.damageBoost).getAmplifier();
         }
-        if(func_35184_a(Potion.weaknessPotion))
+        if(isPotionActive(Potion.weakness))
         {
-            i -= 2 << func_35187_b(Potion.weaknessPotion).getAmplifier();
+            i -= 2 << getActivePotionEffect(Potion.weakness).getAmplifier();
         }
         return entity.attackEntityFrom(DamageSource.causeMobDamage(this), i);
     }
@@ -124,7 +124,7 @@ public abstract class EntityMob extends EntityCreature
         {
             return false;
         }
-                
+        
         int lightValue = worldObj.getBlockLightValue(x, y, z);
         
         // When thundering, recalculate lightValue accordingly.

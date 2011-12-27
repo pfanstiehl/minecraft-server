@@ -22,6 +22,6 @@ public class BiomeGenEnd extends BiomeGenBase
         spawnableMonsterList.add(new SpawnListEntry(net.minecraft.src.EntityEnderman.class, 10, 4, 4));
         topBlock = (byte)Block.dirt.blockID;
         fillerBlock = (byte)Block.dirt.blockID;
-        decorator = new BiomeEndDecorator(this);
+        biomeDecorator = new BiomeEndDecorator(this);
     }
 }

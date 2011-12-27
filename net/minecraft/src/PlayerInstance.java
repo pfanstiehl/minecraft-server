@@ -50,7 +50,7 @@ class PlayerInstance
             throw new IllegalStateException((new StringBuilder()).append("Failed to add player. ").append(entityplayermp).append(" already is in chunk ").append(chunkX).append(", ").append(chunkZ).toString());
         } else
         {
-            entityplayermp.field_420_ah.add(currentChunk);
+            entityplayermp.listeningChunks.add(currentChunk);
             entityplayermp.playerNetServerHandler.sendPacket(new Packet50PreChunk(currentChunk.chunkXPos, currentChunk.chunkZPos, true));
             players.add(entityplayermp);
             entityplayermp.loadedChunks.add(currentChunk);
@@ -76,7 +76,7 @@ class PlayerInstance
             playerManager.getMinecraftServer().chunkProviderServer.func_374_c(chunkX, chunkZ);
         }
         entityplayermp.loadedChunks.remove(currentChunk);
-        if(entityplayermp.field_420_ah.contains(currentChunk))
+        if(entityplayermp.listeningChunks.contains(currentChunk))
         {
             entityplayermp.playerNetServerHandler.sendPacket(new Packet50PreChunk(chunkX, chunkZ, false));
         }
@@ -135,7 +135,7 @@ class PlayerInstance
         for(int i = 0; i < players.size(); i++)
         {
             EntityPlayerMP entityplayermp = (EntityPlayerMP)players.get(i);
-            if(entityplayermp.field_420_ah.contains(currentChunk))
+            if(entityplayermp.listeningChunks.contains(currentChunk))
             {
                 entityplayermp.playerNetServerHandler.sendPacket(packet);
             }

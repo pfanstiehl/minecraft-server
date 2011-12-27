@@ -69,7 +69,7 @@ public class EntitySkeleton extends EntityMob
             float f = getEntityBrightness(1.0F);
             if(f > 0.5F && worldObj.canBlockSeeTheSky(MathHelper.floor_double(posX), MathHelper.floor_double(posY), MathHelper.floor_double(posZ)) && rand.nextFloat() * 30F < (f - 0.4F) * 2.0F)
             {
-                func_40034_j(8);
+                setFire(8);
             }
         }
         super.onLivingUpdate();
@@ -87,7 +87,7 @@ public class EntitySkeleton extends EntityMob
                 double d2 = (entity.posY + (double)entity.getEyeHeight()) - 0.69999998807907104D - entityarrow.posY;
                 float f1 = MathHelper.sqrt_double(d * d + d1 * d1) * 0.2F;
                 worldObj.playSoundAtEntity(this, "random.bow", 1.0F, 1.0F / (rand.nextFloat() * 0.4F + 0.8F));
-                worldObj.entityJoinedWorld(entityarrow);
+                worldObj.spawnEntityInWorld(entityarrow);
                 entityarrow.setArrowHeading(d, d2 + (double)f1, d1, 1.6F, 12F);
                 attackTime = 60;
             }
@@ -127,7 +127,7 @@ public class EntitySkeleton extends EntityMob
 
     }
 
-    public EnumCreatureAttribute func_40093_t()
+    public EnumCreatureAttribute getCreatureAttribute()
     {
         return EnumCreatureAttribute.UNDEAD;
     }

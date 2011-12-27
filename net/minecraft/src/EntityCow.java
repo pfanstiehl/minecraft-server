@@ -71,7 +71,7 @@ public class EntityCow extends EntityAnimal
         j = rand.nextInt(3) + 1 + rand.nextInt(1 + i);
         for(int l = 0; l < j; l++)
         {
-            if(func_40035_z())
+            if(isBurning())
             {
                 dropItem(Item.beefCooked.shiftedIndex, 1);
             } else
@@ -95,7 +95,7 @@ public class EntityCow extends EntityAnimal
         }
     }
 
-    protected EntityAnimal func_40133_a(EntityAnimal entityanimal)
+    protected EntityAnimal spawnBabyAnimal(EntityAnimal entityanimal)
     {
         return new EntityCow(worldObj);
     }

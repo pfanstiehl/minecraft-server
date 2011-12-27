@@ -111,7 +111,7 @@ public class EntityChicken extends EntityAnimal
             dropItem(Item.feather.shiftedIndex, 1);
         }
 
-        if(func_40035_z())
+        if(isBurning())
         {
             dropItem(Item.chickenCooked.shiftedIndex, 1);
         } else
@@ -120,7 +120,7 @@ public class EntityChicken extends EntityAnimal
         }
     }
 
-    protected EntityAnimal func_40133_a(EntityAnimal entityanimal)
+    protected EntityAnimal spawnBabyAnimal(EntityAnimal entityanimal)
     {
         return new EntityChicken(worldObj);
     }

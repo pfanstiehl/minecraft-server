@@ -13,13 +13,13 @@ public class WorldChunkManagerHell extends WorldChunkManager
 {
 
     private BiomeGenBase biomeGenerator;
-    private float field_4261_f;
+    private float hellTemperature;
     private float field_4260_g;
 
     public WorldChunkManagerHell(BiomeGenBase biomegenbase, float f, float f1)
     {
         biomeGenerator = biomegenbase;
-        field_4261_f = f;
+        hellTemperature = f;
         field_4260_g = f1;
     }
 
@@ -39,7 +39,7 @@ public class WorldChunkManagerHell extends WorldChunkManager
         {
             af = new float[k * l];
         }
-        Arrays.fill(af, 0, k * l, field_4261_f);
+        Arrays.fill(af, 0, k * l, hellTemperature);
         return af;
     }
 
@@ -48,7 +48,7 @@ public class WorldChunkManagerHell extends WorldChunkManager
         return getTemperatures(new float[k * l], i, j, k, l);
     }
 
-    public float[] func_4065_a(float af[], int i, int j, int k, int l)
+    public float[] getRainfall(float af[], int i, int j, int k, int l)
     {
         if(af == null || af.length < k * l)
         {
@@ -84,7 +84,7 @@ public class WorldChunkManagerHell extends WorldChunkManager
         }
     }
 
-    public boolean func_35141_a(int i, int j, int k, List list)
+    public boolean areBiomesViable(int i, int j, int k, List list)
     {
         return list.contains(biomeGenerator);
     }

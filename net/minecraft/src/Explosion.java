@@ -15,7 +15,7 @@ public class Explosion
 {
 
     public boolean isFlaming;
-    private Random ExplosionRNG;
+    private Random explosionRNG;
     private World worldObj;
     public double explosionX;
     public double explosionY;
@@ -27,7 +27,7 @@ public class Explosion
     public Explosion(World world, Entity entity, double d, double d1, double d2, float f)
     {
         isFlaming = false;
-        ExplosionRNG = new Random();
+        explosionRNG = new Random();
         destroyedBlockPositions = new HashSet();
         worldObj = world;
         exploder = entity;
@@ -181,7 +181,7 @@ label0:
                 int l1 = chunkposition1.z;
                 int j2 = worldObj.getBlockId(l, j1, l1);
                 int k2 = worldObj.getBlockId(l, j1 - 1, l1);
-                if(j2 == 0 && Block.opaqueCubeLookup[k2] && ExplosionRNG.nextInt(3) == 0)
+                if(j2 == 0 && Block.opaqueCubeLookup[k2] && explosionRNG.nextInt(3) == 0)
                 {
                     worldObj.setBlockWithNotify(l, j1, l1, Block.fire.blockID);
                 }

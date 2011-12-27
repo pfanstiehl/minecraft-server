@@ -41,26 +41,25 @@ public class BlockMycelium extends Block
 		if(world.getBlockLightValue(x, y + 1, z) < 4 && Block.lightOpacity[world.getBlockId(x, y + 1, z)] > 2)
 		{
 			world.setBlockWithNotify(x, y, z, Block.dirt.blockID);
-		} else
-
-			// If light level high enough, attempt to spread 4 times. Can spread to blocks in an axis aligned
-			// box with dimensions 3x4x3 centred horizontally at this block and vertically the upper edge is
-			// one block higher than this block.
-			if(world.getBlockLightValue(x, y + 1, z) >= 9)
+		} 
+		// If light level high enough, attempt to spread 4 times. Can spread to blocks in an axis aligned
+		// box with dimensions 3x4x3 centred horizontally at this block and vertically the upper edge is
+		// one block higher than this block.
+		else if(world.getBlockLightValue(x, y + 1, z) >= 9)
+		{
+			for(int i = 0; i < 4; i++)
 			{
-				for(int i = 0; i < 4; i++)
+				int xCandidate = (x + random.nextInt(3)) - 1;
+				int yCandidate = (y + random.nextInt(5)) - 3;
+				int zCandidate = (z + random.nextInt(3)) - 1;
+				int blockCandidateID = world.getBlockId(xCandidate, yCandidate + 1, zCandidate);
+				if(world.getBlockId(xCandidate, yCandidate, zCandidate) == Block.dirt.blockID && world.getBlockLightValue(xCandidate, yCandidate + 1, zCandidate) >= 4 && Block.lightOpacity[blockCandidateID] <= 2)
 				{
-					int xCandidate = (x + random.nextInt(3)) - 1;
-					int yCandidate = (y + random.nextInt(5)) - 3;
-					int zCandidate = (z + random.nextInt(3)) - 1;
-					int blockCandidateID = world.getBlockId(xCandidate, yCandidate + 1, zCandidate);
-					if(world.getBlockId(xCandidate, yCandidate, zCandidate) == Block.dirt.blockID && world.getBlockLightValue(xCandidate, yCandidate + 1, zCandidate) >= 4 && Block.lightOpacity[blockCandidateID] <= 2)
-					{
-						world.setBlockWithNotify(xCandidate, yCandidate, zCandidate, blockID);
-					}
+					world.setBlockWithNotify(xCandidate, yCandidate, zCandidate, blockID);
 				}
-
 			}
+
+		}
 	}
 
 	public int idDropped(int i, Random random, int j)

@@ -28,7 +28,7 @@ public class WorldInfo
     private boolean thundering;
     private int thunderTime;
     private int gameType;
-    private boolean enableMapFeatures;
+    private boolean mapFeaturesEnabled;
     private boolean hardcore;
 
     public WorldInfo(NBTTagCompound nbttagcompound)
@@ -38,10 +38,10 @@ public class WorldInfo
         gameType = nbttagcompound.getInteger("GameType");
         if(nbttagcompound.hasKey("MapFeatures"))
         {
-            enableMapFeatures = nbttagcompound.getBoolean("MapFeatures");
+            mapFeaturesEnabled = nbttagcompound.getBoolean("MapFeatures");
         } else
         {
-            enableMapFeatures = true;
+            mapFeaturesEnabled = true;
         }
         spawnX = nbttagcompound.getInteger("SpawnX");
         spawnY = nbttagcompound.getInteger("SpawnY");
@@ -68,7 +68,7 @@ public class WorldInfo
         hardcore = false;
         randomSeed = worldsettings.getSeed();
         gameType = worldsettings.getGameType();
-        enableMapFeatures = worldsettings.getMapFeaturesEnabled();
+        mapFeaturesEnabled = worldsettings.isMapFeaturesEnabled();
         levelName = s;
         hardcore = worldsettings.getHardcoreEnabled();
     }
@@ -78,7 +78,7 @@ public class WorldInfo
         hardcore = false;
         randomSeed = worldinfo.randomSeed;
         gameType = worldinfo.gameType;
-        enableMapFeatures = worldinfo.enableMapFeatures;
+        mapFeaturesEnabled = worldinfo.mapFeaturesEnabled;
         spawnX = worldinfo.spawnX;
         spawnY = worldinfo.spawnY;
         spawnZ = worldinfo.spawnZ;
@@ -125,7 +125,7 @@ public class WorldInfo
     {
         nbttagcompound.setLong("RandomSeed", randomSeed);
         nbttagcompound.setInteger("GameType", gameType);
-        nbttagcompound.setBoolean("MapFeatures", enableMapFeatures);
+        nbttagcompound.setBoolean("MapFeatures", mapFeaturesEnabled);
         nbttagcompound.setInteger("SpawnX", spawnX);
         nbttagcompound.setInteger("SpawnY", spawnY);
         nbttagcompound.setInteger("SpawnZ", spawnZ);
@@ -257,9 +257,9 @@ public class WorldInfo
         return gameType;
     }
 
-    public boolean getMapFeaturesEnabled()
+    public boolean isMapFeaturesEnabled()
     {
-        return enableMapFeatures;
+        return mapFeaturesEnabled;
     }
 
     public void setGameType(int i)

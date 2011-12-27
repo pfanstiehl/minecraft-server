@@ -47,7 +47,7 @@ public class ComponentNetherBridgeCrossing3 extends ComponentNetherBridgePiece
 
     public static ComponentNetherBridgeCrossing3 func_40292_a(List list, Random random, int i, int j, int k, int l, int i1)
     {
-        StructureBoundingBox structureboundingbox = StructureBoundingBox.func_35663_a(i, j, k, -8, -3, 0, 19, 10, 19, l);
+        StructureBoundingBox structureboundingbox = StructureBoundingBox.getComponentToAddBoundingBox(i, j, k, -8, -3, 0, 19, 10, 19, l);
         if(!func_40286_a(structureboundingbox) || StructureComponent.canFitInside(list, structureboundingbox) != null)
         {
             return null;
@@ -79,8 +79,8 @@ public class ComponentNetherBridgeCrossing3 extends ComponentNetherBridgePiece
         {
             for(int k = 0; k <= 2; k++)
             {
-                func_35303_b(world, Block.netherBrick.blockID, 0, i, -1, k, structureboundingbox);
-                func_35303_b(world, Block.netherBrick.blockID, 0, i, -1, 18 - k, structureboundingbox);
+                fillCurrentPositionBlocksDownwards(world, Block.netherBrick.blockID, 0, i, -1, k, structureboundingbox);
+                fillCurrentPositionBlocksDownwards(world, Block.netherBrick.blockID, 0, i, -1, 18 - k, structureboundingbox);
             }
 
         }
@@ -93,8 +93,8 @@ public class ComponentNetherBridgeCrossing3 extends ComponentNetherBridgePiece
         {
             for(int l = 7; l <= 11; l++)
             {
-                func_35303_b(world, Block.netherBrick.blockID, 0, j, -1, l, structureboundingbox);
-                func_35303_b(world, Block.netherBrick.blockID, 0, 18 - j, -1, l, structureboundingbox);
+                fillCurrentPositionBlocksDownwards(world, Block.netherBrick.blockID, 0, j, -1, l, structureboundingbox);
+                fillCurrentPositionBlocksDownwards(world, Block.netherBrick.blockID, 0, 18 - j, -1, l, structureboundingbox);
             }
 
         }

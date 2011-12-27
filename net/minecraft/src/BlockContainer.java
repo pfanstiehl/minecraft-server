@@ -37,13 +37,13 @@ public abstract class BlockContainer extends Block
 
     public abstract TileEntity getBlockEntity();
 
-    public void playBlock(World world, int i, int j, int k, int l, int i1)
+    public void powerBlock(World world, int i, int j, int k, int l, int i1)
     {
-        super.playBlock(world, i, j, k, l, i1);
+        super.powerBlock(world, i, j, k, l, i1);
         TileEntity tileentity = world.getBlockTileEntity(i, j, k);
         if(tileentity != null)
         {
-            tileentity.func_35163_b(l, i1);
+            tileentity.onTileEntityPowered(l, i1);
         }
     }
 }

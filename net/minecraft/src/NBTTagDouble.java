@@ -47,7 +47,7 @@ public class NBTTagDouble extends NBTBase
         return (new StringBuilder()).append("").append(doubleValue).toString();
     }
 
-    public NBTBase func_40468_b()
+    public NBTBase cloneTag()
     {
         return new NBTTagDouble(getKey(), doubleValue);
     }

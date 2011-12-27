@@ -36,7 +36,7 @@ public class ItemDoor extends Item
         {
             block = Block.doorSteel;
         }
-        if(!entityplayer.func_35200_c(i, j, k) || !entityplayer.func_35200_c(i, j + 1, k))
+        if(!entityplayer.canPlayerEdit(i, j, k) || !entityplayer.canPlayerEdit(i, j + 1, k))
         {
             return false;
         }
@@ -46,13 +46,13 @@ public class ItemDoor extends Item
         } else
         {
             int i1 = MathHelper.floor_double((double)(((entityplayer.rotationYaw + 180F) * 4F) / 360F) - 0.5D) & 3;
-            func_35418_a(world, i, j, k, i1, block);
+            placeDoorBlock(world, i, j, k, i1, block);
             itemstack.stackSize--;
             return true;
         }
     }
 
-    public static void func_35418_a(World world, int i, int j, int k, int l, Block block)
+    public static void placeDoorBlock(World world, int i, int j, int k, int l, Block block)
     {
         byte byte0 = 0;
         byte byte1 = 0;

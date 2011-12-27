@@ -39,7 +39,7 @@ public class ItemDye extends Item
 
     public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int i, int j, int k, int l)
     {
-        if(!entityplayer.func_35200_c(i, j, k))
+        if(!entityplayer.canPlayerEdit(i, j, k))
         {
             return false;
         }
@@ -57,7 +57,7 @@ public class ItemDye extends Item
             }
             if(i1 == Block.mushroomBrown.blockID || i1 == Block.mushroomRed.blockID)
             {
-                if(!world.singleplayerWorld && ((BlockMushroom)Block.blocksList[i1]).fertilizeMushrom(world, i, j, k, world.rand))
+                if(!world.singleplayerWorld && ((BlockMushroom)Block.blocksList[i1]).fertilizeMushroom(world, i, j, k, world.rand))
                 {
                     itemstack.stackSize--;
                 }
